@@ -12,4 +12,11 @@ interface IDatabaseCredentials {
 	 */
 	String getPassword();
 
+	/**
+	 * Create your own local implementation
+	 */
+	public static IDatabaseCredentials get() {
+		return new DatabaseCredentials();
+	}
+
 }

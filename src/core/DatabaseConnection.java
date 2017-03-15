@@ -14,7 +14,7 @@ class DatabaseConnection {
 
 	private static final String LOCAL_URL = "jdbc:oracle:thin:@localhost:1522:ug";
 
-	private static final IDatabaseCredentials CRDS = new DatabaseCredentials();
+	private static final IDatabaseCredentials CRDS = IDatabaseCredentials.get();
 
 	/**
 	 * Creates a connection to the CS Oracle database
