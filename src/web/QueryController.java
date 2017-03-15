@@ -1,27 +1,30 @@
 package web;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import model.Customer;
+import model.Room;
+import service.QueryService;
+
+/**
+ * Handles REST requests
+ */
 @RestController
 class QueryController {
 
-	static class Test {
-		String prop1 = "1";
-		String prop2 = "2";
+	private final QueryService service = new QueryService();
 
-		public String getProp1() {
-			return prop1;
-		}
-
-		public String getProp2() {
-			return prop2;
-		}
+	@RequestMapping("/division")
+	public List<Customer> getCustomersReservingAllRoomsInBranch(String branchId) {
+		return service.getCustomersReservingAllRoomsInBranch(branchId);
 	}
 
-	@RequestMapping("/test")
-	public Test testQuery() {
-		return new Test();
+	@RequestMapping("/aggregate/most")
+	public Room getMostExpensiveRoom() {
+		return service.getMostExpensiveRoom();
 	}
 
 }

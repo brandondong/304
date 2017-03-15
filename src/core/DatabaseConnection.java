@@ -2,13 +2,17 @@ package core;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-import oracle.jdbc.driver.OracleDriver;
+/**
+ * Singleton class for holding the connection to the Ugrad database
+ */
+public class DatabaseConnection implements AutoCloseable {
 
-class DatabaseConnection {
+	/**
+	 * Set to <code>true</code> for development at home through Xmanager
+	 */
+	private static final boolean USE_LOCAL = true;
 
 	private static final String URL = "jdbc:oracle:thin:@dbhost.ugrad.cs.ubc.ca:1522:ug";
 
@@ -16,29 +20,30 @@ class DatabaseConnection {
 
 	private static final IDatabaseCredentials CRDS = IDatabaseCredentials.get();
 
-	/**
-	 * Creates a connection to the CS Oracle database
-	 */
-	public Connection createConnection() throws SQLException {
-		return DriverManager.getConnection(URL, CRDS.getUsername(), CRDS.getPassword());
-	}
+	private static final DatabaseConnection INSTANCE = new DatabaseConnection();
 
-	/**
-	 * Use for development at home through Xmanager
-	 */
-	public Connection createLocalConnection() throws SQLException {
-		return DriverManager.getConnection(LOCAL_URL, CRDS.getUsername(), CRDS.getPassword());
-	}
+	private Connection connection;
 
-	public static void main(String[] args) throws SQLException {
-		DriverManager.registerDriver(new OracleDriver());
-		DatabaseConnection dc = new DatabaseConnection();
-
-		try (Connection con = dc.createLocalConnection()) {
-			Statement stmt = con.createStatement();
-			ResultSet results = stmt.executeQuery("SELECT * from Branch");
-			System.out.println(results);
+	private DatabaseConnection() {
+		String url = USE_LOCAL ? LOCAL_URL : URL;
+		try {
+			connection = DriverManager.getConnection(url, CRDS.getUsername(), CRDS.getPassword());
+		} catch (SQLException e) {
+			throw new IllegalStateException("Failed to connect to Ugrad database: " + e.getMessage());
 		}
+	}
+
+	public static DatabaseConnection instance() {
+		return INSTANCE;
+	}
+
+	public Connection getConnection() {
+		return connection;
+	}
+
+	@Override
+	public void close() throws SQLException {
+		connection.close();
 	}
 
 }
