@@ -7,7 +7,7 @@ import java.sql.SQLException;
 /**
  * Singleton class for holding the connection to the Ugrad database
  */
-public class DatabaseConnection implements AutoCloseable {
+public class DatabaseConnection {
 
 	/**
 	 * Set to <code>true</code> for development at home through Xmanager
@@ -39,11 +39,6 @@ public class DatabaseConnection implements AutoCloseable {
 
 	public Connection getConnection() {
 		return connection;
-	}
-
-	@Override
-	public void close() throws SQLException {
-		connection.close();
 	}
 
 }

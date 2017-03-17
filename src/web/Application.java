@@ -18,9 +18,8 @@ class Application {
 	public static void main(String[] args) throws SQLException {
 		DriverManager.registerDriver(new OracleDriver());
 
-		try (DatabaseConnection dc = DatabaseConnection.instance()) {
-			SpringApplication.run(Application.class, args);
-		}
+		DatabaseConnection.instance();
+		SpringApplication.run(Application.class, args);
 	}
 
 }
