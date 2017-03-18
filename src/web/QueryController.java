@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import model.Customer;
-import model.Room;
+import model.RoomWithPrice;
 import service.QueryService;
 
 /**
@@ -36,14 +36,18 @@ class QueryController {
 		return service.getCustomersReservingAllRoomsInBranch(street, houseNo, postalCode);
 	}
 
-	@RequestMapping("/aggregate/most")
-	public Room getMostExpensiveRoom() {
-		return service.getMinOrMaxPricedRoom(true);
+	@RequestMapping("/aggregate/max")
+	public List<RoomWithPrice> getMostExpensiveRoom(@RequestParam(value = "Street") String street,
+			@RequestParam(value = "HouseNumber") String houseNo, @RequestParam(value = "PostalCode") String postalCode)
+			throws SQLException {
+		return service.getMinOrMaxPricedRoom(true, street, houseNo, postalCode);
 	}
 
-	@RequestMapping("/aggregate/least")
-	public Room getLeastExpensiveRoom() {
-		return service.getMinOrMaxPricedRoom(false);
+	@RequestMapping("/aggregate/min")
+	public List<RoomWithPrice> getLeastExpensiveRoom(@RequestParam(value = "Street") String street,
+			@RequestParam(value = "HouseNumber") String houseNo, @RequestParam(value = "PostalCode") String postalCode)
+			throws SQLException {
+		return service.getMinOrMaxPricedRoom(false, street, houseNo, postalCode);
 	}
 
 }
