@@ -6,15 +6,9 @@ public class Customer {
 
 	private final String name;
 
-	private final String paymentMethod;
-
-	private final String phoneNumber;
-
-	public Customer(int id, String name, String paymentMethod, String phoneNumber) {
+	public Customer(int id, String name) {
 		this.id = id;
 		this.name = name;
-		this.paymentMethod = paymentMethod;
-		this.phoneNumber = phoneNumber;
 	}
 
 	public int getId() {
@@ -23,14 +17,6 @@ public class Customer {
 
 	public String getName() {
 		return name;
-	}
-
-	public String getPaymentMethod() {
-		return paymentMethod;
-	}
-
-	public String getPhoneNumber() {
-		return phoneNumber;
 	}
 
 }

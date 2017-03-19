@@ -13,9 +13,27 @@ class QueryBuilder {
 		String maxOrMin = isMax ? "MAX" : "MIN";
 		return String.format(
 				"WITH FilteredRoom (RoomNumber, Price) AS "
-						+ "(SELECT RoomNumber, Price FROM Room INNER JOIN RoomType on Room.TypeName = RoomType.TypeName WHERE Street = '%s' AND HouseNumber = '%s' AND PostalCode = '%s')"
+						+ "(SELECT RoomNumber, Price FROM Room INNER JOIN RoomType on Room.TypeName = RoomType.TypeName "
+						+ "WHERE Street = '%s' AND HouseNumber = '%s' AND PostalCode = '%s') "
 						+ "SELECT * FROM FilteredRoom WHERE Price = (SELECT %s(Price) FROM FilteredRoom)",
 				street, houseNo, postalCode, maxOrMin);
+	}
+
+	public String customersReservingAllRoomsInBranch(String street, String houseNo, String postalCode) {
+		return String.format(
+				"WITH Bad(RoomNumber, Street, HouseNumber, PostalCode, CustomerID) AS "
+						+ "(SELECT RoomNumber, Street, HouseNumber, PostalCode, CustomerID FROM Room, Customer "
+						+ "WHERE Street = '%s' AND HouseNumber = '%s' AND PostalCode = '%s' "
+						+ "MINUS SELECT RoomNumber, Street, HouseNumber, PostalCode, CustomerID FROM Reservation) "
+						+ "SELECT CustomerID, Name FROM Customer WHERE CustomerID NOT IN (SELECT CustomerID FROM Bad)",
+				street, houseNo, postalCode);
+	}
+
+	public String checkBranchExists(String street, String houseNo, String postalCode) {
+		return String.format(
+				"SELECT COUNT(*) AS COUNT FROM Branch "
+						+ "WHERE Street = '%s' AND HouseNumber = '%s' AND PostalCode = '%s'",
+				street, houseNo, postalCode);
 	}
 
 	private String formatAttributes(String[] attributes) {

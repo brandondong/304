@@ -31,8 +31,8 @@ class QueryController {
 
 	@RequestMapping("/division")
 	public List<Customer> getCustomersReservingAllRoomsInBranch(@RequestParam(value = "Street") String street,
-			@RequestParam(value = "HouseNumber") String houseNo,
-			@RequestParam(value = "PostalCode") String postalCode) {
+			@RequestParam(value = "HouseNumber") String houseNo, @RequestParam(value = "PostalCode") String postalCode)
+			throws SQLException {
 		return service.getCustomersReservingAllRoomsInBranch(street, houseNo, postalCode);
 	}
 
