@@ -107,23 +107,23 @@ Insert into RoomType values ('Single', 100,1,0,0);
 Insert into RoomType values ('Penthouse', 330,1,1,1);
 
 --room
-Insert into Branch values (101,'Ackman Ave', '4150A', 'V6N 2Z5','Single');
-Insert into Branch values (102,'Ackman Ave', '4150A', 'V6N 2Z5','Double');
-Insert into Branch values (201,'Ackman Ave', '4150A', 'V6N 2Z5','Business');
-Insert into Branch values (202,'Ackman Ave', '4150A', 'V6N 2Z5','Luxury');
-Insert into Branch values (301,'Ackman Ave', '4150A', 'V6N 2Z5','Penthouse');
-Insert into Branch values (111,'Rupert St', '8777', 'V7R 9B8','Single');
-Insert into Branch values (222,'Rupert St', '8777', 'V7R 9B8','Double');
-Insert into Branch values (333,'Rupert St', '8777', 'V7R 9B8','Luxury');
-Insert into Branch values (101,'Tower St', '192', 'G6H 7B5','Single');
-Insert into Branch values (201,'Tower St', '192', 'G6H 7B5','Luxury');
-Insert into Branch values (301,'Tower St', '192', 'G6H 7B5','Penthouse');
-Insert into Branch values (101,'Armann Dr', '222', 'Y8J 0F9','Single');
-Insert into Branch values (201,'Armann Dr', '222', 'Y8J 0F9','Double');
-Insert into Branch values (301,'Armann Dr', '222', 'Y8J 0F9','Single');
-Insert into Branch values (101,'Agarr St', '1231C', 'P9N 8A5','Luxury');
-Insert into Branch values (201,'Agarr St', '1231C', 'P9N 8A5','Single');
-Insert into Branch values (202,'Agarr St', '1231C', 'P9N 8A5','Business');
+Insert into Room values (101,'Ackman Ave', '4150A', 'V6N 2Z5','Single');
+Insert into Room values (102,'Ackman Ave', '4150A', 'V6N 2Z5','Double');
+Insert into Room values (201,'Ackman Ave', '4150A', 'V6N 2Z5','Business');
+Insert into Room values (202,'Ackman Ave', '4150A', 'V6N 2Z5','Luxury');
+Insert into Room values (301,'Ackman Ave', '4150A', 'V6N 2Z5','Penthouse');
+Insert into Room values (111,'Rupert St', '8777', 'V7R 9B8','Single');
+Insert into Room values (222,'Rupert St', '8777', 'V7R 9B8','Double');
+Insert into Room values (333,'Rupert St', '8777', 'V7R 9B8','Luxury');
+Insert into Room values (101,'Tower St', '192', 'G6H 7B5','Single');
+Insert into Room values (201,'Tower St', '192', 'G6H 7B5','Luxury');
+Insert into Room values (301,'Tower St', '192', 'G6H 7B5','Penthouse');
+Insert into Room values (101,'Armann Dr', '222', 'Y8J 0F9','Single');
+Insert into Room values (201,'Armann Dr', '222', 'Y8J 0F9','Double');
+Insert into Room values (301,'Armann Dr', '222', 'Y8J 0F9','Single');
+Insert into Room values (101,'Agarr St', '1231C', 'P9N 8A5','Luxury');
+Insert into Room values (201,'Agarr St', '1231C', 'P9N 8A5','Single');
+Insert into Room values (202,'Agarr St', '1231C', 'P9N 8A5','Business');
 
 --Customer
 Insert into Customer values (5100, 'John Smith', 'Credit', '3337895656');
@@ -168,6 +168,9 @@ Insert into RentCost values (2009,1600);
 Insert into RentCost values (2010,200);
 
 
+--null
+
+Insert into Customer values (5105, 'Adam Lee', 'Debit', '3337895656');
 
 
 
