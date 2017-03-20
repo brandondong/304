@@ -4,7 +4,7 @@ drop table Customer cascade constraints;
 drop table RoomType cascade constraints;
 drop table Room cascade constraints;
 drop table Manager cascade constraints;
-drop table Rent cascade constraints;
+drop table RentCost cascade constraints;
 drop table Reservation cascade constraints;
 
 create table BranchLocation(
@@ -61,8 +61,8 @@ create table Customer(
 
 create table Reservation(
 	ConfirmationID integer primary key,
-	StartDate date,
-	EndDate date,--or timestamp?
+	StartDate date not null,
+	EndDate date not null,--or timestamp?
 	RoomNumber integer not null,
 	Street varchar(40) not null,
 	HouseNumber varchar(20) not null,
@@ -73,18 +73,18 @@ create table Reservation(
 );
 
 
-create table Rent(
+create table RentCost(
 	ConfirmationID integer primary key,
-	TotalCost integer,
+	TotalCost float,
 	foreign key (ConfirmationID) references Reservation(ConfirmationID)
 );
 
-Insert into Customer values (178, 'Bob', 'Credit', '55433');
+/* Insert into Customer values (178, 'Bob', 'Credit', '55433');
 Insert into RoomType values ('A', 10);
 Insert into Branch values ('1St', '12B', 'V4');
 Insert into Room values (1, '1St', '12B', 'V4', 'A');
 Insert into Reservation values (12, 1, '1St', '12B', 'V4', 178);
-
+ */
 --BranchLocation
 Insert into BranchLocation values ('Vancouver', 'BC', 'V6N 2Z5');
 Insert into BranchLocation values ('Vancouver', 'BC', 'V7R 9B8');
@@ -126,12 +126,46 @@ Insert into Branch values (201,'Agarr St', '1231C', 'P9N 8A5','Single');
 Insert into Branch values (202,'Agarr St', '1231C', 'P9N 8A5','Business');
 
 --Customer
+Insert into Customer values (5100, 'John Smith', 'Credit', '3337895656');
+Insert into Customer values (5101, 'Joanne Dunham', 'Debit', '5163825588');
+Insert into Customer values (5102, 'Ben Hill', 'Cash', '2444831245');
+Insert into Customer values (5103, 'Angela Spahn', 'Debit', '6198884512');
+Insert into Customer values (5104, 'Frank Martinez', 'Credit', '3631007812');
+Insert into Customer values (5105, 'Adam Lee', 'Debit', '3337895656');
+Insert into Customer values (5106, 'Frank Smith', 'Cash', '3337895656');
+
+--Manager
+Insert into Manager values ('Ackman Ave', '4150A', 'V6N 2Z5',1001,'Yehonatan Hamo',5000);
+Insert into Manager values ('Rupert St', '8777', 'V7R 9B8',1002,'Vishal Gilad',15000);
+Insert into Manager values ('Tower St', '192', 'G6H 7B5',1003,'Stevie Mahendra',2000);
+Insert into Manager values ('Armann Dr', '222', 'Y8J 0F9',1004,'Kelly Howell',3000);
+Insert into Manager values ('Agarr St', '1231C', 'P9N 8A5',1005,'Maurus Burkhart',4000);
+
+--reservation
+Insert into Reservation values (2001,'10-OCT-2015','10-NOV-2015',101,'Ackman Ave', '4150A', 'V6N 2Z5',5100);
+Insert into Reservation values (2002,'11-NOV-2015','15-NOV-2015',102,'Ackman Ave', '4150A', 'V6N 2Z5',5100);
+Insert into Reservation values (2003,'16-NOV-2015','19-NOV-2015',202,'Ackman Ave', '4150A', 'V6N 2Z5',5100);
+Insert into Reservation values (2004,'20-NOV-2015','29-NOV-2015',301,'Ackman Ave', '4150A', 'V6N 2Z5',5100);
+Insert into Reservation values (2005,'20-MAR-2015','29-APR-2015',111,'Rupert St', '8777', 'V7R 9B8',5101);
+Insert into Reservation values (2006,'22-JUL-2015','24-JUL-2015',201,'Tower St', '192', 'G6H 7B5',5102);
+Insert into Reservation values (2007,'20-JAN-2015','29-JAN-2015',301,'Tower St', '192', 'G6H 7B5',5103);
+Insert into Reservation values (2008,'20-JAN-2015','02-FEB-2015',101,'Armann Dr', '222', 'Y8J 0F9',5104);
+Insert into Reservation values (2009,'20-FEB-2015','09-MAR-2015',201,'Agarr St', '1231C', 'P9N 8A5',5105);
+Insert into Reservation values (2010,'20-OCT-2015','22-OCT-2015',111,'Rupert St', '8777', 'V7R 9B8',5106);
 
 
+--RENTCOST
 
-
-
-
+Insert into RentCost values (2001,3099.69);
+Insert into RentCost values (2002,525.96);
+Insert into RentCost values (2003,674.97);
+Insert into RentCost values (2004,2965.41);
+Insert into RentCost values (2005,3999.6);
+Insert into RentCost values (2006,449.98);
+Insert into RentCost values (2007,2965.41);
+Insert into RentCost values (2008,1299.87);
+Insert into RentCost values (2009,2103.84);
+Insert into RentCost values (2010,199.98);
 
 
 
