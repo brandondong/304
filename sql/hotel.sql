@@ -35,7 +35,7 @@ create table Manager(
 
 create table RoomType(
 	TypeName varchar(20) primary key,
-	Price float,
+	Price integer,
 	InternetAccess bit,
 	Kitchen bit,
 	SatelliteTV bit
@@ -75,7 +75,7 @@ create table Reservation(
 
 create table RentCost(
 	ConfirmationID integer primary key,
-	TotalCost float,
+	TotalCost integer,
 	foreign key (ConfirmationID) references Reservation(ConfirmationID)
 );
 
