@@ -30,12 +30,15 @@ create table Manager(
 	Name varchar(40),
 	Salary integer,
 	primary key (ManagerId)
-	foreign key (Street, HouseNumber, PostalCode) references Branch(Street, HouseNumber, PostalCode)
+	foreign key (Street, HouseNumber, PostalCode) references Branch
 );
 
 create table RoomType(
 	TypeName varchar(20) primary key,
-	Price integer
+	Price float,
+	InternetAccess bit,
+	Kitchen bit,
+	SatelliteTV bit
 );
 
 create table Room(
@@ -88,5 +91,50 @@ Insert into BranchLocation values ('Vancouver', 'BC', 'V7R 9B8');
 Insert into BranchLocation values ('Thetford Mines', 'QC', 'G6H 7B5');
 Insert into BranchLocation values ('Yellowknife', 'NT', 'Y8J 0F9');
 Insert into BranchLocation values ('Wallaceburg', 'ON', 'P9N 8A5');
+
+--Branch
+Insert into Branch values ('Ackman Ave', '4150A', 'V6N 2Z5');
+Insert into Branch values ('Rupert St', '8777', 'V7R 9B8');
+Insert into Branch values ('Tower St', '192', 'G6H 7B5');
+Insert into Branch values ('Armann Dr', '222', 'Y8J 0F9');
+Insert into Branch values ('Agarr St', '1231C', 'P9N 8A5');
+
+--RoomType
+Insert into RoomType values ('Luxury', 224.99,1,1,1);
+Insert into RoomType values ('Business', 179.99,1,1,0);
+Insert into RoomType values ('Double', 131.49,1,0,0);
+Insert into RoomType values ('Single', 99.99,1,0,0);
+Insert into RoomType values ('Penthouse', 329.49,1,1,1);
+
+--room
+Insert into Branch values (101,'Ackman Ave', '4150A', 'V6N 2Z5','Single');
+Insert into Branch values (102,'Ackman Ave', '4150A', 'V6N 2Z5','Double');
+Insert into Branch values (201,'Ackman Ave', '4150A', 'V6N 2Z5','Business');
+Insert into Branch values (202,'Ackman Ave', '4150A', 'V6N 2Z5','Luxury');
+Insert into Branch values (301,'Ackman Ave', '4150A', 'V6N 2Z5','Penthouse');
+Insert into Branch values (111,'Rupert St', '8777', 'V7R 9B8','Single');
+Insert into Branch values (222,'Rupert St', '8777', 'V7R 9B8','Double');
+Insert into Branch values (333,'Rupert St', '8777', 'V7R 9B8','Luxury');
+Insert into Branch values (101,'Tower St', '192', 'G6H 7B5','Single');
+Insert into Branch values (201,'Tower St', '192', 'G6H 7B5','Luxury');
+Insert into Branch values (301,'Tower St', '192', 'G6H 7B5','Penthouse');
+Insert into Branch values (101,'Armann Dr', '222', 'Y8J 0F9','Single');
+Insert into Branch values (201,'Armann Dr', '222', 'Y8J 0F9','Double');
+Insert into Branch values (301,'Armann Dr', '222', 'Y8J 0F9','Single');
+Insert into Branch values (101,'Agarr St', '1231C', 'P9N 8A5','Luxury');
+Insert into Branch values (201,'Agarr St', '1231C', 'P9N 8A5','Single');
+Insert into Branch values (202,'Agarr St', '1231C', 'P9N 8A5','Business');
+
+--Customer
+
+
+
+
+
+
+
+
+
+
 
 
