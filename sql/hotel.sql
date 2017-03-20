@@ -18,7 +18,7 @@ create table Branch(
 	Street varchar(40),
 	HouseNumber varchar(20),
 	PostalCode varchar(20),
-	primary key (Street, HouseNumber, PostalCode)
+	primary key (Street, HouseNumber, PostalCode),
 	foreign key (PostalCode) references BranchLocation(PostalCode)
 );
 
@@ -29,16 +29,16 @@ create table Manager(
 	ManagerId integer,
 	Name varchar(40),
 	Salary integer,
-	primary key (ManagerId)
+	primary key (ManagerId),
 	foreign key (Street, HouseNumber, PostalCode) references Branch
 );
 
 create table RoomType(
 	TypeName varchar(20) primary key,
 	Price integer,
-	InternetAccess bit,
-	Kitchen bit,
-	SatelliteTV bit
+	InternetAccess number,
+	Kitchen number,
+	SatelliteTV number
 );
 
 create table Room(
@@ -79,12 +79,6 @@ create table RentCost(
 	foreign key (ConfirmationID) references Reservation(ConfirmationID)
 );
 
-/* Insert into Customer values (178, 'Bob', 'Credit', '55433');
-Insert into RoomType values ('A', 10);
-Insert into Branch values ('1St', '12B', 'V4');
-Insert into Room values (1, '1St', '12B', 'V4', 'A');
-Insert into Reservation values (12, 1, '1St', '12B', 'V4', 178);
- */
 --BranchLocation
 Insert into BranchLocation values ('Vancouver', 'BC', 'V6N 2Z5');
 Insert into BranchLocation values ('Vancouver', 'BC', 'V7R 9B8');
@@ -142,16 +136,16 @@ Insert into Manager values ('Armann Dr', '222', 'Y8J 0F9',1004,'Kelly Howell',30
 Insert into Manager values ('Agarr St', '1231C', 'P9N 8A5',1005,'Maurus Burkhart',4000);
 
 --reservation
-Insert into Reservation values (2001,'10-OCT-2015','10-NOV-2015',101,'Ackman Ave', '4150A', 'V6N 2Z5',5100);
-Insert into Reservation values (2002,'11-NOV-2015','15-NOV-2015',102,'Ackman Ave', '4150A', 'V6N 2Z5',5100);
-Insert into Reservation values (2003,'16-NOV-2015','19-NOV-2015',202,'Ackman Ave', '4150A', 'V6N 2Z5',5100);
-Insert into Reservation values (2004,'20-NOV-2015','29-NOV-2015',301,'Ackman Ave', '4150A', 'V6N 2Z5',5100);
-Insert into Reservation values (2005,'20-MAR-2015','29-APR-2015',111,'Rupert St', '8777', 'V7R 9B8',5101);
-Insert into Reservation values (2006,'22-JUL-2015','24-JUL-2015',201,'Tower St', '192', 'G6H 7B5',5102);
-Insert into Reservation values (2007,'20-JAN-2015','29-JAN-2015',301,'Tower St', '192', 'G6H 7B5',5103);
-Insert into Reservation values (2008,'20-JAN-2015','02-FEB-2015',101,'Armann Dr', '222', 'Y8J 0F9',5104);
-Insert into Reservation values (2009,'20-FEB-2015','09-MAR-2015',201,'Agarr St', '1231C', 'P9N 8A5',5105);
-Insert into Reservation values (2010,'20-OCT-2015','22-OCT-2015',111,'Rupert St', '8777', 'V7R 9B8',5106);
+Insert into Reservation values (2001,to_date('2015/10/10', 'yyyy/mm/dd'),to_date('2015/11/10', 'yyyy/mm/dd'),101,'Ackman Ave', '4150A', 'V6N 2Z5',5100);
+Insert into Reservation values (2002,to_date('2015/11/11', 'yyyy/mm/dd'),to_date('2015/11/15', 'yyyy/mm/dd'),102,'Ackman Ave', '4150A', 'V6N 2Z5',5100);
+Insert into Reservation values (2003,to_date('2015/11/16', 'yyyy/mm/dd'),to_date('2015/11/19', 'yyyy/mm/dd'),202,'Ackman Ave', '4150A', 'V6N 2Z5',5100);
+Insert into Reservation values (2004,to_date('2015/11/20', 'yyyy/mm/dd'),to_date('2015/11/29', 'yyyy/mm/dd'),301,'Ackman Ave', '4150A', 'V6N 2Z5',5100);
+Insert into Reservation values (2005,to_date('2015/03/20', 'yyyy/mm/dd'),to_date('2015/04/29', 'yyyy/mm/dd'),111,'Rupert St', '8777', 'V7R 9B8',5101);
+Insert into Reservation values (2006,to_date('2015/07/22', 'yyyy/mm/dd'),to_date('2015/07/24', 'yyyy/mm/dd'),201,'Tower St', '192', 'G6H 7B5',5102);
+Insert into Reservation values (2007,to_date('2015/01/20', 'yyyy/mm/dd'),to_date('2015/01/29', 'yyyy/mm/dd'),301,'Tower St', '192', 'G6H 7B5',5103);
+Insert into Reservation values (2008,to_date('2015/01/20', 'yyyy/mm/dd'),to_date('2015/02/02', 'yyyy/mm/dd'),101,'Armann Dr', '222', 'Y8J 0F9',5104);
+Insert into Reservation values (2009,to_date('2015/02/20', 'yyyy/mm/dd'),to_date('2015/03/09', 'yyyy/mm/dd'),201,'Agarr St', '1231C', 'P9N 8A5',5105);
+Insert into Reservation values (2010,to_date('2015/10/20', 'yyyy/mm/dd'),to_date('2015/10/22', 'yyyy/mm/dd'),111,'Rupert St', '8777', 'V7R 9B8',5106);
 
 
 --RENTCOST
@@ -170,10 +164,10 @@ Insert into RentCost values (2010,200);
 
 --null
 Insert into Customer values (5107, 'John Mack', null, '3337895656');
-Insert into Customer values (51085, 'Andrew Ridge', null, null);
-Insert into Reservation values (2011,'21-OCT-2015','22-OCT-2015',222,'Rupert St', '8777', 'V7R 9B8',5107);
+Insert into Customer values (5108, 'Andrew Ridge', null, null);
+Insert into Reservation values (2011,to_date('2015/10/21', 'yyyy/mm/dd'),to_date('2015/10/22', 'yyyy/mm/dd'),222,'Rupert St', '8777', 'V7R 9B8',5107);
 Insert into RentCost values (2011,null);
-Insert into Reservation values (2012,'11-OCT-2015','22-OCT-2015',333,'Rupert St', '8777', 'V7R 9B8',5108);
+Insert into Reservation values (2012,to_date('2015/10/11', 'yyyy/mm/dd'),to_date('2015/10/22', 'yyyy/mm/dd'),333,'Rupert St', '8777', 'V7R 9B8',5108);
 Insert into RentCost values (2012,null);
 Insert into BranchLocation values ('London', null, 'L1N 3F5');
 --...
