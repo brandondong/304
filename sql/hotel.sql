@@ -100,11 +100,11 @@ Insert into Branch values ('Armann Dr', '222', 'Y8J 0F9');
 Insert into Branch values ('Agarr St', '1231C', 'P9N 8A5');
 
 --RoomType
-Insert into RoomType values ('Luxury', 224.99,1,1,1);
-Insert into RoomType values ('Business', 179.99,1,1,0);
-Insert into RoomType values ('Double', 131.49,1,0,0);
-Insert into RoomType values ('Single', 99.99,1,0,0);
-Insert into RoomType values ('Penthouse', 329.49,1,1,1);
+Insert into RoomType values ('Luxury', 225,1,1,1);
+Insert into RoomType values ('Business', 180,1,1,0);
+Insert into RoomType values ('Double', 130,1,0,0);
+Insert into RoomType values ('Single', 100,1,0,0);
+Insert into RoomType values ('Penthouse', 330,1,1,1);
 
 --room
 Insert into Branch values (101,'Ackman Ave', '4150A', 'V6N 2Z5','Single');
@@ -156,16 +156,16 @@ Insert into Reservation values (2010,'20-OCT-2015','22-OCT-2015',111,'Rupert St'
 
 --RENTCOST
 
-Insert into RentCost values (2001,3099.69);
-Insert into RentCost values (2002,525.96);
-Insert into RentCost values (2003,674.97);
-Insert into RentCost values (2004,2965.41);
-Insert into RentCost values (2005,3999.6);
-Insert into RentCost values (2006,449.98);
-Insert into RentCost values (2007,2965.41);
-Insert into RentCost values (2008,1299.87);
-Insert into RentCost values (2009,2103.84);
-Insert into RentCost values (2010,199.98);
+Insert into RentCost values (2001,3100);
+Insert into RentCost values (2002,520);
+Insert into RentCost values (2003,675);
+Insert into RentCost values (2004,2970);
+Insert into RentCost values (2005,4000);
+Insert into RentCost values (2006,450);
+Insert into RentCost values (2007,2970);
+Insert into RentCost values (2008,1300);
+Insert into RentCost values (2009,1600);
+Insert into RentCost values (2010,200);
 
 
 
