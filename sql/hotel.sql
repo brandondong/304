@@ -63,11 +63,11 @@ create table Reservation(
 	ConfirmationID integer primary key,
 	StartDate date not null,
 	EndDate date not null,--or timestamp?
-	RoomNumber integer,
-	Street varchar(40),
-	HouseNumber varchar(20),
-	PostalCode varchar(20),
-	CustomerID integer,
+	RoomNumber integer not null,
+	Street varchar(40) not null,
+	HouseNumber varchar(20) not null,
+	PostalCode varchar(20) not null,
+	CustomerID integer not null,
 	foreign key (RoomNumber, Street, HouseNumber, PostalCode) references Room(RoomNumber, Street, HouseNumber, PostalCode),
 	foreign key (CustomerID) references Customer(CustomerID)
 );
