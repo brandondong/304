@@ -63,11 +63,11 @@ create table Reservation(
 	ConfirmationID integer primary key,
 	StartDate date not null,
 	EndDate date not null,--or timestamp?
-	RoomNumber integer not null,
-	Street varchar(40) not null,
-	HouseNumber varchar(20) not null,
-	PostalCode varchar(20) not null,
-	CustomerID integer not null,
+	RoomNumber integer,
+	Street varchar(40),
+	HouseNumber varchar(20),
+	PostalCode varchar(20),
+	CustomerID integer,
 	foreign key (RoomNumber, Street, HouseNumber, PostalCode) references Room(RoomNumber, Street, HouseNumber, PostalCode),
 	foreign key (CustomerID) references Customer(CustomerID)
 );
@@ -169,9 +169,12 @@ Insert into RentCost values (2010,200);
 
 
 --null
-
-Insert into Customer values (5105, 'Adam Lee', 'Debit', '3337895656');
-
-
-
+Insert into Customer values (5107, 'John Mack', null, '3337895656');
+Insert into Customer values (51085, 'Andrew Ridge', null, null);
+Insert into Reservation values (2011,'21-OCT-2015','22-OCT-2015',222,'Rupert St', '8777', 'V7R 9B8',5107);
+Insert into RentCost values (2011,null);
+Insert into Reservation values (2012,'11-OCT-2015','22-OCT-2015',333,'Rupert St', '8777', 'V7R 9B8',5108);
+Insert into RentCost values (2012,null);
+Insert into BranchLocation values ('London', null, 'L1N 3F5');
+--...
 
