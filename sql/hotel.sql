@@ -146,6 +146,7 @@ Insert into Reservation values (2007,to_date('2015/01/20', 'yyyy/mm/dd'),to_date
 Insert into Reservation values (2008,to_date('2015/01/20', 'yyyy/mm/dd'),to_date('2015/02/02', 'yyyy/mm/dd'),101,'Armann Dr', '222', 'Y8J 0F9',5104);
 Insert into Reservation values (2009,to_date('2015/02/20', 'yyyy/mm/dd'),to_date('2015/03/09', 'yyyy/mm/dd'),201,'Agarr St', '1231C', 'P9N 8A5',5105);
 Insert into Reservation values (2010,to_date('2015/10/20', 'yyyy/mm/dd'),to_date('2015/10/22', 'yyyy/mm/dd'),111,'Rupert St', '8777', 'V7R 9B8',5106);
+Insert into Reservation values (2013,to_date('2015/10/20', 'yyyy/mm/dd'),to_date('2015/10/22', 'yyyy/mm/dd'),111,'Rupert St', '8777', 'V7R 9B8',5100);
 
 
 --RENTCOST

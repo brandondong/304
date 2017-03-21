@@ -50,4 +50,11 @@ class QueryController {
 		return service.getMinOrMaxPricedRoom(false, street, houseNo, postalCode);
 	}
 
+	@RequestMapping("/check-in")
+	public void checkIn(@RequestParam(value = "ConfirmationID") int confirmID,
+			@RequestParam(value = "CustomerID") int custID, @RequestParam(value = "TotalCost") int cost)
+			throws SQLException {
+		service.checkIn(confirmID, custID, cost);
+	}
+
 }

@@ -29,11 +29,20 @@ class QueryBuilder {
 				street, houseNo, postalCode);
 	}
 
+	public String checkIn(int confirmID, int cost) {
+		return String.format("INSERT into RentCost values (%d, %d)", confirmID, cost);
+	}
+
 	public String checkBranchExists(String street, String houseNo, String postalCode) {
 		return String.format(
 				"SELECT COUNT(*) AS COUNT FROM Branch "
 						+ "WHERE Street = '%s' AND HouseNumber = '%s' AND PostalCode = '%s'",
 				street, houseNo, postalCode);
+	}
+
+	public String checkReservationExists(int confirmID, int custID) {
+		return String.format("SELECT COUNT(*) AS COUNT FROM Reservation WHERE ConfirmationID = %d AND CustomerID = %d",
+				confirmID, custID);
 	}
 
 	private String formatAttributes(String[] attributes) {

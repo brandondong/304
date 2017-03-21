@@ -63,6 +63,24 @@ public class QueryService {
 		});
 	}
 
+	public void checkIn(int confirmID, int custID, int cost) throws SQLException {
+		checkReservationExists(confirmID, custID);
+		String query = builder.checkIn(confirmID, cost);
+		executeQuery(query);
+	}
+
+	private void checkReservationExists(int confirmID, int custID) throws SQLException {
+		String query = builder.checkReservationExists(confirmID, custID);
+		boolean missing = executeQuery(query, (rs) -> {
+			rs.next();
+			return rs.getInt("Count") == 0;
+		});
+		if (missing) {
+			throw new SQLException("Failed to find Reservation");
+		}
+
+	}
+
 	private void checkBranchExists(String street, String houseNo, String postalCode) throws SQLException {
 		String query = builder.checkBranchExists(street, houseNo, postalCode);
 		boolean missing = executeQuery(query, (rs) -> {
@@ -78,6 +96,12 @@ public class QueryService {
 		try (Statement stmt = connection.createStatement()) {
 			ResultSet rs = stmt.executeQuery(query);
 			return parser.apply(rs);
+		}
+	}
+
+	private void executeQuery(String query) throws SQLException {
+		try (Statement stmt = connection.createStatement()) {
+			stmt.executeQuery(query);
 		}
 	}
 
