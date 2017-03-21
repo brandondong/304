@@ -1,4 +1,4 @@
-package transaction;
+package queries;
 
 public interface InformationInterface {
 

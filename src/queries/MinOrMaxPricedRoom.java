@@ -1,4 +1,4 @@
-package transaction;
+package queries;
 
 import java.sql.Connection;
 import java.sql.SQLException;

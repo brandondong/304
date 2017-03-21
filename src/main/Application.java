@@ -13,7 +13,7 @@ import java.io.*;
 import javax.swing.*;
 
 import model.Room;
-import transaction.MinOrMaxPricedRoom;
+import queries.MinOrMaxPricedRoom;
 
 import java.awt.*;
 import java.awt.event.*;

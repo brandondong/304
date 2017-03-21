@@ -1,4 +1,4 @@
-/**NOTE: class not used. Queries have been changed to be object based. See 'transaction' package*/
+/**NOTE: class not used. Queries have been changed to be object based. See 'queries' package*/
 
 //package service;
 //
