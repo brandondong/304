@@ -7,7 +7,7 @@ import java.util.List;
 
 import model.Customer;
 
-public class CustomersReservingAllRoomsInBranch extends Information {
+public class CustomersReservingAllRoomsInBranch extends AbstractQuery {
 
 	public CustomersReservingAllRoomsInBranch(String street, String houseNo, String postalCode, Connection con) {
 		super(con);

@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CustomerInfo extends Information{
+public class CustomerInfo extends AbstractQuery{
 	String[] selected;
 	
 	public CustomerInfo(int id, String[] selected, Connection con) {

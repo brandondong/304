@@ -7,7 +7,7 @@ import java.util.List;
 
 import model.Room;
 
-public class MinOrMaxPricedRoom extends Information{
+public class MinOrMaxPricedRoom extends AbstractQuery{
 	
 	public MinOrMaxPricedRoom(boolean isMax, String street, String houseNo, String postalCode, Connection con){
 		super(con);

@@ -1,24 +1,31 @@
 package main;
 
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+//We need to import the java.sql package to use JDBC
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
-//We need to import the java.sql package to use JDBC
-import java.sql.*;
-
-//for reading from the command line
-import java.io.*;
 
 //for the login window
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 import model.Room;
 import queries.MinOrMaxPricedRoom;
-
-import java.awt.*;
-import java.awt.event.*;
-
-
 
 /*
 * This class implements a graphical login window and a simple text
@@ -29,9 +36,6 @@ public class Application implements ActionListener {
 	 * Set to <code>true</code> for development at home through Xmanager
 	 */
 	private static final boolean USE_LOCAL = true;
-	
-	// command line reader
-	private BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
 	private Connection con;
 
@@ -39,9 +43,9 @@ public class Application implements ActionListener {
 	private int loginAttempts = 0;
 
 	// components of the login window
-	private JTextField usernameField;
-	private JPasswordField passwordField;
-	private JFrame mainFrame;
+	private final JTextField usernameField;
+	private final JPasswordField passwordField;
+	private final JFrame mainFrame;
 
 	/*
 	 * constructs login window and loads JDBC driver
@@ -106,6 +110,7 @@ public class Application implements ActionListener {
 
 		// anonymous inner class for closing the window
 		mainFrame.addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
@@ -129,7 +134,7 @@ public class Application implements ActionListener {
 			// Load the Oracle JDBC driver
 			DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
 		} catch (SQLException ex) {
-			System.out.println("Message: " + ex.getMessage());
+			// TODO probably display error dialog to user before exiting?
 			System.exit(-1);
 		}
 	}
@@ -144,14 +149,14 @@ public class Application implements ActionListener {
 			connectURL = "jdbc:oracle:thin:@localhost:1522:ug";
 		else
 			connectURL = "jdbc:oracle:thin:@dbhost.ugrad.cs.ubc.ca:1522:ug";
-		
+
 		try {
 			con = DriverManager.getConnection(connectURL, username, password);
 
 			System.out.println("\nConnected to Oracle!");
 			return true;
 		} catch (SQLException ex) {
-			System.out.println("Message: " + ex.getMessage());
+			// TODO display error in UI
 			return false;
 		}
 	}
@@ -159,6 +164,7 @@ public class Application implements ActionListener {
 	/*
 	 * event handler for login window
 	 */
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (connect(usernameField.getText(), String.valueOf(passwordField.getPassword()))) {
 			// if the username and password are valid,
@@ -178,29 +184,29 @@ public class Application implements ActionListener {
 		}
 
 	}
-	
-	private void showMenu(){
+
+	private void showMenu() {
 		try {
 			con.setAutoCommit(false);
-		} catch (SQLException e) {
-			System.out.println("Message: " + e.getMessage());
-			System.exit(-1);
-		}
-		System.out.println("Running MinOrMaxPricedRoom query");
-		MinOrMaxPricedRoom t = new MinOrMaxPricedRoom(true, "Rupert St", "8777", "V7R 9B8", con);
-		t.execute();
-		ArrayList<Room> r = (ArrayList<Room>) t.getResult();
-		for (int i = 0; i < r.size(); i++) {
-			System.out.println("Room number: "+r.get(i).getRoomNumber());
-			System.out.println("Room price: "+r.get(i).getRoomPrice());
+
+			System.out.println("Running MinOrMaxPricedRoom query");
+			MinOrMaxPricedRoom t = new MinOrMaxPricedRoom(true, "Rupert St", "8777", "V7R 9B8", con);
+			t.execute();
+			ArrayList<Room> r = (ArrayList<Room>) t.getResult();
+			for (int i = 0; i < r.size(); i++) {
+				System.out.println("Room number: " + r.get(i).getRoomNumber());
+				System.out.println("Room price: " + r.get(i).getRoomPrice());
+				System.out.println(" ");
+			}
+			t.close();
+			System.out.println("finished");
 			System.out.println(" ");
+		} catch (SQLException e) {
+			// TODO handle appropriately in UI (error dialog?)
 		}
-		t.close();
-		System.out.println("finished");
-		System.out.println(" ");
 	}
 
 	public static void main(String args[]) {
-		Application a = new Application();
+		new Application();
 	}
 }

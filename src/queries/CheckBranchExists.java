@@ -3,7 +3,7 @@ package queries;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class CheckBranchExists extends Information{
+public class CheckBranchExists extends AbstractQuery{
 
 	public CheckBranchExists(String street, String houseNo, String postalCode, Connection con) {
 		super(con);
