@@ -1,39 +1,42 @@
 package queries;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import model.Room;
 
-public class MinOrMaxPricedRoom extends AbstractQuery{
-	
-	public MinOrMaxPricedRoom(boolean isMax, String street, String houseNo, String postalCode, Connection con){
+public class MinOrMaxPricedRoom extends AbstractQuery<List<Room>> {
+
+	private final boolean isMax;
+
+	private final String street;
+
+	private final String houseNo;
+
+	private final String postalCode;
+
+	public MinOrMaxPricedRoom(boolean isMax, String street, String houseNo, String postalCode, Connection con) {
 		super(con);
-		try {
-			stmt = con.createStatement();
-		} catch (SQLException e) {
-			System.out.println("Message: " + e.getMessage());
-			System.exit(-1);
-		}
-		query = minOrMaxPricedRoomToString(isMax, street, houseNo, postalCode);
+		this.isMax = isMax;
+		this.street = street;
+		this.houseNo = houseNo;
+		this.postalCode = postalCode;
 	}
-	
-	public List<Room> getResult(){
+
+	@Override
+	protected List<Room> parseResult(ResultSet rs) throws SQLException {
 		List<Room> rooms = new ArrayList<>();
-		try {
-			while (rs.next()) {
-				rooms.add(new Room(rs.getInt("RoomNumber"), rs.getInt("Price")));
-			}
-		} catch (SQLException e) {
-			System.out.println("Message: " + e.getMessage());
-			System.exit(-1);
+		while (rs.next()) {
+			rooms.add(new Room(rs.getInt("RoomNumber"), rs.getInt("Price")));
 		}
 		return rooms;
 	}
-	
-	private String minOrMaxPricedRoomToString(boolean isMax, String street, String houseNo, String postalCode) {
+
+	@Override
+	protected String getQueryDefinition() {
 		String maxOrMin = isMax ? "MAX" : "MIN";
 		return String.format(
 				"WITH FilteredRoom (RoomNumber, Price) AS "

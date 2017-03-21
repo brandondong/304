@@ -13,7 +13,7 @@ import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 //for the login window
 import javax.swing.BorderFactory;
@@ -190,15 +190,15 @@ public class Application implements ActionListener {
 			con.setAutoCommit(false);
 
 			System.out.println("Running MinOrMaxPricedRoom query");
+
 			MinOrMaxPricedRoom t = new MinOrMaxPricedRoom(true, "Rupert St", "8777", "V7R 9B8", con);
-			t.execute();
-			ArrayList<Room> r = (ArrayList<Room>) t.getResult();
+			List<Room> r = t.execute();
+
 			for (int i = 0; i < r.size(); i++) {
 				System.out.println("Room number: " + r.get(i).getRoomNumber());
 				System.out.println("Room price: " + r.get(i).getRoomPrice());
 				System.out.println(" ");
 			}
-			t.close();
 			System.out.println("finished");
 			System.out.println(" ");
 		} catch (SQLException e) {

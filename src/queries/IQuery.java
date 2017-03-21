@@ -2,9 +2,10 @@ package queries;
 
 import java.sql.SQLException;
 
-public interface IQuery {
+/**
+ * Holds the semantics of a query and the ability to execute it on a database
+ */
+public interface IQuery<R> {
 
-	public void execute() throws SQLException;
-
-	public void close();
+	public R execute() throws SQLException;
 }

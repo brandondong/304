@@ -1,33 +1,32 @@
 package queries;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class CheckBranchExists extends AbstractQuery{
+public class CheckBranchExists extends AbstractQuery<Boolean> {
+
+	private final String street;
+
+	private final String houseNo;
+
+	private final String postalCode;
 
 	public CheckBranchExists(String street, String houseNo, String postalCode, Connection con) {
 		super(con);
-		try {
-			stmt = con.createStatement();
-		} catch (SQLException e) {
-			System.out.println("Message: " + e.getMessage());
-			System.exit(-1);
-		}
-		query = checkBranchExistsToString(street, houseNo, postalCode);
+		this.street = street;
+		this.houseNo = houseNo;
+		this.postalCode = postalCode;
 	}
-	
-	public boolean getResult(){
-		try {
-			rs.next();
-			return rs.getInt("Count") == 0;
-		} catch (SQLException e) {
-			System.out.println("Message: " + e.getMessage());
-			System.exit(-1);
-			return false;
-		}
+
+	@Override
+	protected Boolean parseResult(ResultSet rs) throws SQLException {
+		rs.next();
+		return rs.getInt("Count") != 0;
 	}
-	
-	private String checkBranchExistsToString(String street, String houseNo, String postalCode) {
+
+	@Override
+	protected String getQueryDefinition() {
 		return String.format(
 				"SELECT COUNT(*) AS COUNT FROM Branch "
 						+ "WHERE Street = '%s' AND HouseNumber = '%s' AND PostalCode = '%s'",
