@@ -1,5 +1,8 @@
 package service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Creates SQL queries
  */
@@ -41,8 +44,9 @@ class QueryBuilder {
 	}
 
 	public String checkReservationExists(int confirmID, int custID) {
-		return String.format("SELECT COUNT(*) AS COUNT FROM Reservation WHERE ConfirmationID = %d AND CustomerID = %d",
-				confirmID, custID);
+		String current = LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE);
+		return String.format("SELECT COUNT(*) AS COUNT FROM Reservation WHERE ConfirmationID = %d AND CustomerID = %d "
+				+ "AND to_date('%s', 'yyyymmdd') BETWEEN StartDate AND EndDate", confirmID, custID, current);
 	}
 
 	private String formatAttributes(String[] attributes) {
