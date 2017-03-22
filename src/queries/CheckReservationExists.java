@@ -1,19 +1,17 @@
 package queries;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class CheckReservationExists extends AbstractQuery<Boolean> {
+class CheckReservationExists extends AbstractQuery<Boolean> {
 
 	private final int confirmID;
 
 	private final int custID;
 
-	public CheckReservationExists(int confirmID, int custID, Connection con) {
-		super(con);
+	public CheckReservationExists(int confirmID, int custID) {
 		this.confirmID = confirmID;
 		this.custID = custID;
 	}

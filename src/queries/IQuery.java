@@ -1,5 +1,6 @@
 package queries;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -7,5 +8,5 @@ import java.sql.SQLException;
  */
 public interface IQuery<R> {
 
-	public R execute() throws SQLException;
+	public R execute(Connection con) throws SQLException;
 }

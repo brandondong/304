@@ -1,6 +1,5 @@
 package queries;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,8 +17,7 @@ public class MinOrMaxPricedRoom extends AbstractQuery<List<Room>> {
 
 	private final String postalCode;
 
-	public MinOrMaxPricedRoom(boolean isMax, String street, String houseNo, String postalCode, Connection con) {
-		super(con);
+	public MinOrMaxPricedRoom(boolean isMax, String street, String houseNo, String postalCode) {
 		this.isMax = isMax;
 		this.street = street;
 		this.houseNo = houseNo;

@@ -1,10 +1,9 @@
 package queries;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class CheckBranchExists extends AbstractQuery<Boolean> {
+class CheckBranchExists extends AbstractQuery<Boolean> {
 
 	private final String street;
 
@@ -12,8 +11,7 @@ public class CheckBranchExists extends AbstractQuery<Boolean> {
 
 	private final String postalCode;
 
-	public CheckBranchExists(String street, String houseNo, String postalCode, Connection con) {
-		super(con);
+	public CheckBranchExists(String street, String houseNo, String postalCode) {
 		this.street = street;
 		this.houseNo = houseNo;
 		this.postalCode = postalCode;

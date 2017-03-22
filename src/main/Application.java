@@ -191,8 +191,8 @@ public class Application implements ActionListener {
 
 			System.out.println("Running MinOrMaxPricedRoom query");
 
-			MinOrMaxPricedRoom t = new MinOrMaxPricedRoom(true, "Rupert St", "8777", "V7R 9B8", con);
-			List<Room> r = t.execute();
+			MinOrMaxPricedRoom t = new MinOrMaxPricedRoom(true, "Rupert St", "8777", "V7R 9B8");
+			List<Room> r = t.execute(con);
 
 			for (int i = 0; i < r.size(); i++) {
 				System.out.println("Room number: " + r.get(i).getRoomNumber());

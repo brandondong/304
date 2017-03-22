@@ -1,6 +1,5 @@
 package queries;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -12,8 +11,7 @@ public class CustomerInfo extends AbstractQuery<Map<String, Object>> {
 
 	private final String[] selected;
 
-	public CustomerInfo(int id, String[] selected, Connection con) {
-		super(con);
+	public CustomerInfo(int id, String[] selected) {
 		this.id = id;
 		this.selected = selected;
 	}
