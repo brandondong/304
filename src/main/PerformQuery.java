@@ -23,4 +23,54 @@ public class PerformQuery extends CollectInput{
 	private String toDateString(int day, int month, int year) {
 		return String.format("%d%d%d", year, month, day);
 	}
+
+	public void CheckInExecute() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void ModifyReservationExecute() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void CheckOutExecute() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void RoomAmenitiesExecute() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void RoomPriceExecute() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void LateCheckOutExecute() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void CustInfoExecute() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void CustAllRoomExecute() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void MLExecute() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void AggrPriceExecute() {
+		// TODO Auto-generated method stub
+		
+	}
 }
