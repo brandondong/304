@@ -13,8 +13,6 @@ import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 //for the login window
 import javax.swing.BorderFactory;
@@ -25,22 +23,17 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import model.BranchLocation;
-import model.Room;
-import queries.AggregatePriceByBranch;
-import queries.MinOrMaxPricedRoom;
-
-/*
+/* 
 * This class implements a graphical login window and a simple text
 * interface for interacting with the branch table 
 */
 public class Application implements ActionListener {
-	
+
 	public static final int COUNT = 0;
 	public static final int MAX = 1;
 	public static final int MIN = 2;
 	public static final int AVG = 3;
-	
+
 	/**
 	 * Set to <code>true</code> for development at home through Xmanager
 	 */
