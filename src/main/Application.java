@@ -13,6 +13,7 @@ import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 //for the login window
@@ -24,7 +25,9 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import model.BranchLocation;
 import model.Room;
+import queries.AggregatePriceByBranch;
 import queries.MinOrMaxPricedRoom;
 
 /*
@@ -32,6 +35,12 @@ import queries.MinOrMaxPricedRoom;
 * interface for interacting with the branch table 
 */
 public class Application implements ActionListener {
+	
+	public static final int COUNT = 0;
+	public static final int MAX = 1;
+	public static final int MIN = 2;
+	public static final int AVG = 3;
+	
 	/**
 	 * Set to <code>true</code> for development at home through Xmanager
 	 */
@@ -189,18 +198,6 @@ public class Application implements ActionListener {
 		try {
 			con.setAutoCommit(false);
 
-			System.out.println("Running MinOrMaxPricedRoom query");
-
-			MinOrMaxPricedRoom t = new MinOrMaxPricedRoom(true, "Rupert St", "8777", "V7R 9B8");
-			List<Room> r = t.execute(con);
-
-			for (int i = 0; i < r.size(); i++) {
-				System.out.println("Room number: " + r.get(i).getRoomNumber());
-				System.out.println("Room price: " + r.get(i).getRoomPrice());
-				System.out.println(" ");
-			}
-			System.out.println("finished");
-			System.out.println(" ");
 		} catch (SQLException e) {
 			// TODO handle appropriately in UI (error dialog?)
 		}
