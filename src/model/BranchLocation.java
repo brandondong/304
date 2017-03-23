@@ -2,16 +2,31 @@ package model;
 
 public class BranchLocation {
 
+	private final String street;
+
+	private final String houseNumber;
+
 	private final String postalCode;
 
 	private final int aggregatedPrice;
-	
-	private final String aggregationType;
 
-	public BranchLocation(String postalCode, int aggregatedPrice, String aggregationType) {
+	private final AggregateOperation aggregationType;
+
+	public BranchLocation(String street, String houseNumber, String postalCode, int aggregatedPrice,
+			AggregateOperation aggregationType) {
+		this.street = street;
+		this.houseNumber = houseNumber;
 		this.postalCode = postalCode;
 		this.aggregatedPrice = aggregatedPrice;
 		this.aggregationType = aggregationType;
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public String getHouseNumber() {
+		return houseNumber;
 	}
 
 	public String getPostalCode() {
@@ -21,8 +36,9 @@ public class BranchLocation {
 	public int getAggregatedPrice() {
 		return aggregatedPrice;
 	}
-	
-	public String getAggregationType(){
+
+	public AggregateOperation getAggregationType() {
 		return aggregationType;
 	}
+
 }
