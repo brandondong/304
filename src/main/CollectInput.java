@@ -105,7 +105,7 @@ public class CollectInput extends MainMenu{
 
 	private boolean checkForNull(JTextField j[]){
 		 for (int i = 0; i < j.length; i++){
-			 if (j[i] < 0)
+			 if (j[i] == null)
 				 return true;
 		 }		
 		 return false;

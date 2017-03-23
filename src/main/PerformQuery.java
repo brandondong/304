@@ -2,6 +2,8 @@ package main;
 
 import java.sql.Connection;
 
+import model.AggregateOperation;
+
 public class PerformQuery extends CollectInput{
 
 	public PerformQuery(Connection con) {
@@ -9,68 +11,74 @@ public class PerformQuery extends CollectInput{
 	}
 
 	public void ReserveRoomExecute() {
-		String StartDate = toDateString(Integer.valueOf(RRTextFields[0].getText()), Integer.valueOf(RRTextFields[1].getText()),
-				Integer.valueOf(RRTextFields[2].getText()));
-		String EndDate = toDateString(Integer.valueOf(RRTextFields[3].getText()), Integer.valueOf(RRTextFields[4].getText()),
-				Integer.valueOf(RRTextFields[5].getText()));
-		int RoomNumber = Integer.valueOf(RRTextFields[6].getText());
-		String Street = RRTextFields[7].getText();
-		String HouseNumber = RRTextFields[8].getText();
-		String PostalCode = RRTextFields[9].getText();
-		int CustomerID = Integer.valueOf(RRTextFields[10].getText());
-	}
-	
-	private String toDateString(int day, int month, int year) {
-		return String.format("%d%d%d", year, month, day);
+		String StartDate = RRTextFields[0].getText();
+		String EndDate = RRTextFields[1].getText();
+		int RoomNumber = Integer.valueOf(RRTextFields[2].getText());
+		String Street = RRTextFields[3].getText();
+		String HouseNumber = RRTextFields[4].getText();
+		String PostalCode = RRTextFields[5].getText();
+		int CustomerID = Integer.valueOf(RRTextFields[6].getText());
 	}
 
 	public void CheckInExecute() {
-		// TODO Auto-generated method stub
-		
+		int ConfirmationID = Integer.valueOf(CTTextFields[0].getText());
+		int CustomerID = Integer.valueOf(CTTextFields[1].getText());
 	}
 
 	public void ModifyReservationExecute() {
-		// TODO Auto-generated method stub
-		
+		String CheckIn = MRTextFields[0].getText();
+		String Checkout = MRTextFields[1].getText();
+		int ConfirmationID = Integer.valueOf(MRTextFields[2].getText());
 	}
 
 	public void CheckOutExecute() {
-		// TODO Auto-generated method stub
-		
+		int ConfirmationID = Integer.valueOf(COTextFields[0].getText());		
 	}
 
 	public void RoomAmenitiesExecute() {
-		// TODO Auto-generated method stub
-		
+		int RoomNumber = Integer.valueOf(RATextFields[0].getText());
+		String Street = RATextFields[1].getText();
+		String HouseNumber = RATextFields[2].getText();
+		String PostalCode = RATextFields[3].getText();		
 	}
 
 	public void RoomPriceExecute() {
-		// TODO Auto-generated method stub
-		
+		int Price = Integer.valueOf(RPTextFields[0].getText());
+		boolean Above = (Integer.valueOf(RPTextFields[1].getText()) == 1)? true: false;
+		String Street = RPTextFields[2].getText();
 	}
 
 	public void LateCheckOutExecute() {
-		// TODO Auto-generated method stub
-		
+		String Date = LCOTextFields[0].getText();
+		String ManagerID = LCOTextFields[1].getText();
 	}
 
 	public void CustInfoExecute() {
-		// TODO Auto-generated method stub
-		
+		int CustomerID = Integer.valueOf(CITextFields[0].getText());
+		boolean Name = (Integer.valueOf(CITextFields[1].getText()) == 1)?true:false;
+		boolean PhoneNumber = (Integer.valueOf(CITextFields[2].getText()) == 1)?true:false;
+		boolean PaymentMethod = (Integer.valueOf(CITextFields[3].getText()) == 1)?true:false;
 	}
 
 	public void CustAllRoomExecute() {
-		// TODO Auto-generated method stub
-		
+		String HouseNumber = CARTextFields[0].getText();
+		String Street = CARTextFields[1].getText();
+		String PostalCode = CARTextFields[2].getText();		
 	}
 
 	public void MLExecute() {
-		// TODO Auto-generated method stub
-		
+		String HouseNumber = MLTextFields[0].getText();
+		String Street = MLTextFields[1].getText();
+		String PostalCode = MLTextFields[2].getText();	
+		boolean Highest = (Integer.valueOf(MLTextFields[3].getText()) == 1)?true:false;
 	}
 
 	public void AggrPriceExecute() {
-		// TODO Auto-generated method stub
-		
+		String HouseNumber = APTextFields[0].getText();
+		String Street = APTextFields[1].getText();
+		String PostalCode = APTextFields[2].getText();	
+		AggregateOperation aggregate = (APTextFields[3].getText()).equals("MAX")? AggregateOperation.MAX : 
+			(APTextFields[3].getText()).equals("MIN")? AggregateOperation.MIN : 
+			(APTextFields[3].getText()).equals("AVG")? AggregateOperation.AVG : AggregateOperation.COUNT;
 	}
 }

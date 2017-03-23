@@ -144,7 +144,7 @@ public class Application implements ActionListener{
 			connectURL = "jdbc:oracle:thin:@dbhost.ugrad.cs.ubc.ca:1522:ug";
 
 		try {
-			con = DriverManager.getConnection(connectURL, "ora_c7l0b", "a30032122");
+			con = DriverManager.getConnection(connectURL, username, password);
 			return true;
 		} catch (SQLException ex) {
 			// TODO display error in UI
