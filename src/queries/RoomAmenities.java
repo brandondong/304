@@ -1,0 +1,38 @@
+package queries;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import model.RoomWithAmenities;
+
+//**** Has not been tested yet
+public class RoomAmenities extends AbstractQuery<RoomWithAmenities>{
+
+	private final int RoomNumber;
+	private final String Street;
+	private final String HouseNumber;
+	private final String PostalCode;
+	
+	public RoomAmenities(int RoomNumber, String Street, String HouseNumber, String PostalCode) {
+		this.RoomNumber = RoomNumber;
+		this.Street =  Street;
+		this.HouseNumber = HouseNumber;
+		this.PostalCode = PostalCode;
+	}
+
+	@Override
+	protected RoomWithAmenities parseResult(ResultSet rs) throws SQLException {
+		rs.next();
+		return new RoomWithAmenities(rs.getString("RoomType"), rs.getInt("RoomPrice"),
+				rs.getFloat("InternetAccess"), rs.getFloat("Kitchen"), rs.getFloat("SatelliteTV"));
+	}
+
+
+	@Override
+	protected String getQueryDefinition() {
+		return String.format(
+				"SELECT t FROM Room r, RoomType t "
+				+ "WHERE r.RoomNumber = %d AND r.Street = '%s' AND r.HouseNumber = '%s' "
+				+ "AND r.PostalCode = '%s' AND r.TypeName = t.TypeName",
+				RoomNumber, Street, HouseNumber, PostalCode);
+	}
+}
