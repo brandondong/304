@@ -32,9 +32,9 @@ public class Application implements ActionListener{
 
 	private int loginAttempts = 0;
 
-	private final JTextField usernameField;
-	private final JPasswordField passwordField;
-	protected final JFrame mainFrame;
+	private final JTextField usernameField = new JTextField(10);
+	private final JPasswordField passwordField = new JPasswordField(10);
+	protected final JFrame 		mainFrame = new JFrame("Hotel Application");
 
 	// components of menu window
 	// private final JFrame menuFrame;
@@ -42,14 +42,13 @@ public class Application implements ActionListener{
 	/*
 	 * constructs login window and loads JDBC driver
 	 */
-	public Application() {
-		mainFrame = new JFrame("Hotel Application");
 
+	public void DisplayLogin() {
+
+		System.out.println("b");
 		JLabel usernameLabel = new JLabel("Enter username: ");
 		JLabel passwordLabel = new JLabel("Enter password: ");
 
-		usernameField = new JTextField(10);
-		passwordField = new JPasswordField(10);
 		passwordField.setEchoChar('*');
 
 		JButton loginButton = new JButton("Log In");
@@ -174,7 +173,7 @@ public class Application implements ActionListener{
 	}
 
 	public static void main(String args[]) {
-		new Application();
+		new Application().DisplayLogin();;
 	}
 
 }

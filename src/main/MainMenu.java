@@ -13,6 +13,7 @@ import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class MainMenu extends Application {
@@ -28,8 +29,10 @@ public class MainMenu extends Application {
 
 	public void showMenu() {
 		try {
+			
+			System.out.println("a");
 			con.setAutoCommit(false);
-
+			
 			int numTags = tags.length;
 			JButton buttons[] = new JButton[numTags];
 

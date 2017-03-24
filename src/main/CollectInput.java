@@ -3,6 +3,7 @@ package main;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Insets;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.sql.Connection;
 
@@ -101,6 +102,10 @@ public class CollectInput extends MainMenu{
 			else
 				p.AggrPriceExecute();	
 		}
+		else if (cmd.equals("Return")){
+			mainFrame.dispose();
+			new MainMenu(con).showMenu();	
+		}
 	}
 
 	private boolean checkForNull(JTextField j[]){
@@ -115,7 +120,7 @@ public class CollectInput extends MainMenu{
 		int numPairs = labels.length;
 		Insets insets = mainFrame.getInsets();
 		mainFrame.setSize(new Dimension(insets.left + insets.right + 500, insets.top + insets.bottom + 500));
-
+		
 		JTextField j[] = new JTextField[numPairs];
 		Container contentPane = mainFrame.getContentPane();
 		SpringLayout layout = new SpringLayout();
@@ -139,14 +144,28 @@ public class CollectInput extends MainMenu{
 		JButton finish = new JButton("Finish");
 		l.setLabelFor(finish);
 		p.add(finish);
-
-		SpringUtilities.makeCompactGrid(p, numPairs + 1, 2,
+		
+		JLabel ret = new JLabel("  ", JLabel.TRAILING);
+		p.add(ret);
+		JButton returnB = new JButton("Return to Menu");
+		ret.setLabelFor(returnB);
+		p.add(returnB);
+		
+		SpringUtilities.makeCompactGrid(p, numPairs + 2, 2,
 				6, 6, 
 				6, 6); 
 
 		j[0].requestFocus();
 		finish.addActionListener(this);
 		finish.setActionCommand(buttonTag);	
+		returnB.addActionListener(this);
+		returnB.setActionCommand("Return");	
+		
+		mainFrame.pack();
+		Dimension d = mainFrame.getToolkit().getScreenSize();
+		Rectangle r = mainFrame.getBounds();
+		mainFrame.setLocation((d.width - r.width) / 2, (d.height - r.height) / 2);
+		mainFrame.setVisible(true);
 		return j;
 	}
 	
@@ -190,9 +209,9 @@ public class CollectInput extends MainMenu{
 	}
 
 	public void CustInfo() {
-		String [] labels = {"Enter Customer ID: ", "Do you want to retrive the customer's name? (1 for yes, 0 for no)",
-				"Do you want to retrive the customer's phone number? (1 for yes, 0 for no)",
-				"Do you want to retrive the customer's payment method? (1 for yes, 0 for no)"};
+		String [] labels = {"Enter Customer ID: ", "Retrieve name? (1 for yes, 0 for no)",
+				"Retrieve phone #? (1 for yes, 0 for no)",
+				"Retrieve payment method? (1 for yes, 0 for no)"};
 		CITextFields = makeGrid(labels, "Cust Info Finish");
 	}
 
@@ -208,7 +227,7 @@ public class CollectInput extends MainMenu{
 
 	public void AggrPrice() {
 		String[] labels = {"Enter House Number: ", "Enter Street: ", "Enter Postal Code: ", 
-				"What you would like to aggregate by? (MAX, MIN, COUNT, AVG)"};
+				"Aggregate by? (MAX, MIN, COUNT, AVG)"};
 		APTextFields = makeGrid(labels, "AP Finish");	
 	}
 }
