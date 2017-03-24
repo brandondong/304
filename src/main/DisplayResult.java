@@ -2,10 +2,12 @@ package main;
 
 import java.sql.Connection;
 
-public class DisplayResult extends PerformQuery{
+import javax.swing.JFrame;
 
-	public DisplayResult(Connection con) {
-		super(con);
+public class DisplayResult extends PerformQuery {
+
+	public DisplayResult(Connection con, JFrame mainFrame) {
+		super(con, mainFrame);
 	}
 
 }
