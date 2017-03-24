@@ -3,6 +3,7 @@ package components;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Insets;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -16,6 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
 import queries.IQuery;
+import ui.MainMenu;
 import ui.SpringUtilities;
 
 public abstract class AbstractQueryComponent<T> implements ActionListener {
@@ -37,14 +39,25 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		IQuery<T> query = createQuery(textFields);
-		try {
-			T results = query.execute(con);
-			System.out.println("Successful");
-			// TODO display results
-		} catch (SQLException e) {
-			e.printStackTrace();
-			// TODO display failures
+		String cmd = event.getActionCommand();
+		if (cmd.equals("Finish")) {
+			if (checkForNull(textFields)) {
+				mainFrame.dispose();
+				render();
+			} else {
+				IQuery<T> query = createQuery(textFields);
+				try {
+					T results = query.execute(con);
+					System.out.println("Successful");
+					// TODO display results
+				} catch (SQLException e) {
+					e.printStackTrace();
+					// TODO display failures
+				}
+			}
+		} else if (cmd.equals("Return")){
+			mainFrame.dispose();
+			new MainMenu(con, mainFrame).showMenu();
 		}
 	}
 
@@ -77,10 +90,25 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 		l.setLabelFor(finish);
 		p.add(finish);
 
-		SpringUtilities.makeCompactGrid(p, numPairs + 1, 2, 6, 6, 6, 6);
+		JLabel ret = new JLabel("  ", JLabel.TRAILING);
+		p.add(ret);
+		JButton returnB = new JButton("Return to Menu");
+		ret.setLabelFor(returnB);
+		p.add(returnB);
+
+		SpringUtilities.makeCompactGrid(p, numPairs + 2, 2, 6, 6, 6, 6);
 
 		j[0].requestFocus();
 		finish.addActionListener(this);
+		finish.setActionCommand("Finish");
+		returnB.addActionListener(this);
+		returnB.setActionCommand("Return");
+
+		mainFrame.pack();
+		Dimension d = mainFrame.getToolkit().getScreenSize();
+		Rectangle r = mainFrame.getBounds();
+		mainFrame.setLocation((d.width - r.width) / 2, (d.height - r.height) / 2);
+		mainFrame.setVisible(true);
 		return j;
 	}
 
@@ -88,4 +116,11 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 
 	protected abstract IQuery<T> createQuery(JTextField[] textFields);
 
+	private boolean checkForNull(JTextField j[]) {
+		for (int i = 0; i < j.length; i++) {
+			if (j[i].getText().equals(""))
+				return true;
+		}
+		return false;
+	}
 }

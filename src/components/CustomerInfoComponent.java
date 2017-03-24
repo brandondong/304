@@ -19,10 +19,9 @@ public class CustomerInfoComponent extends AbstractQueryComponent<Map<String, Ob
 
 	@Override
 	protected String[] getLabels() {
-		return new String[] { "Enter Customer ID: ",
-				"Do you want to retrive the customer's name? (1 for yes, 0 for no)",
-				"Do you want to retrive the customer's phone number? (1 for yes, 0 for no)",
-				"Do you want to retrive the customer's payment method? (1 for yes, 0 for no)" };
+		return new String[] { "Enter Customer ID: ", "Retrieve name? (1 for yes, 0 for no)",
+				"Retrieve phone #? (1 for yes, 0 for no)",
+				"Retrieve payment method? (1 for yes, 0 for no)" };
 	}
 
 	@Override

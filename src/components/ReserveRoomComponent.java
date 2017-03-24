@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 import queries.IQuery;
+import queries.MakeReservation;
 
 public class ReserveRoomComponent extends AbstractQueryComponent<Void> {
 
@@ -28,8 +29,8 @@ public class ReserveRoomComponent extends AbstractQueryComponent<Void> {
 		String HouseNumber = textFields[4].getText();
 		String PostalCode = textFields[5].getText();
 		int CustomerID = Integer.valueOf(textFields[6].getText());
-		// TODO query hasn't been implemented yet
-		return null;
+		
+		return new MakeReservation(StartDate, EndDate, RoomNumber, Street, HouseNumber, PostalCode, CustomerID);
 	}
 
 }
