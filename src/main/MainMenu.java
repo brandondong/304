@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
@@ -16,15 +17,20 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class MainMenu extends Application {
-	protected Connection con;
-	private String tags[] = { "Reserve Room", "Check In", "Modify Reservation", "Check Out", "Query Room Amenities",
-			"Query Room Above/Below Price", "Query Late Check Outs", "Query Customer Information",
-			"Query Customer Who Reserved All Rooms In Branch", "Query Most/Least Expensive Room In Branch",
-			"Query Aggregated Prices In Branch" };
+public class MainMenu implements ActionListener {
 
-	public MainMenu(Connection con) {
+	private final Connection con;
+
+	private final JFrame mainFrame;
+
+	private final String tags[] = { "Reserve Room", "Check In", "Modify Reservation", "Check Out",
+			"Query Room Amenities", "Query Room Above/Below Price", "Query Late Check Outs",
+			"Query Customer Information", "Query Customer Who Reserved All Rooms In Branch",
+			"Query Most/Least Expensive Room In Branch", "Query Aggregated Prices In Branch" };
+
+	public MainMenu(Connection con, JFrame mainFrame) {
 		this.con = con;
+		this.mainFrame = mainFrame;
 	}
 
 	public void showMenu() {
@@ -77,7 +83,7 @@ public class MainMenu extends Application {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
-		CollectInput c = new CollectInput(con);
+		CollectInput c = new CollectInput(con, mainFrame);
 		if (cmd.equals(tags[0])) {
 			mainFrame.dispose();
 			c.ReserveRoom();

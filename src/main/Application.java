@@ -23,21 +23,17 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-
-public class Application implements ActionListener{
+public class Application implements ActionListener {
 
 	private static final boolean USE_LOCAL = true;
 
-	protected Connection con;
+	private Connection con;
 
 	private int loginAttempts = 0;
 
 	private final JTextField usernameField = new JTextField(10);
 	private final JPasswordField passwordField = new JPasswordField(10);
 	protected final JFrame 		mainFrame = new JFrame("Hotel Application");
-
-	// components of menu window
-	// private final JFrame menuFrame;
 
 	/*
 	 * constructs login window and loads JDBC driver
@@ -157,7 +153,7 @@ public class Application implements ActionListener{
 		if (cmd.equals("Log")) {
 			if (connect(usernameField.getText(), String.valueOf(passwordField.getPassword()))) {
 				mainFrame.dispose();
-				new MainMenu(con).showMenu();
+				new MainMenu(con, mainFrame).showMenu();
 			} else {
 				loginAttempts++;
 
