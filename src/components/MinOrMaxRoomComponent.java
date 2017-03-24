@@ -37,4 +37,9 @@ public class MinOrMaxRoomComponent extends AbstractQueryComponent<List<Room>> {
 		return new MinOrMaxPricedRoom(isMax, street, houseNo, postalCode);
 	}
 
+	@Override
+	public String getDescription() {
+		return "Query Most/Least Expensive Room In Branch";
+	}
+
 }

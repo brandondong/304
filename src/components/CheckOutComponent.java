@@ -31,4 +31,9 @@ public class CheckOutComponent extends AbstractQueryComponent<Integer> {
 		return null;
 	}
 
+	@Override
+	public String getDescription() {
+		return "Check Out";
+	}
+
 }

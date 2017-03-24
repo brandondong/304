@@ -95,6 +95,8 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 		return j;
 	}
 
+	public abstract String getDescription();
+
 	protected abstract String[] getLabels();
 
 	protected abstract IQuery<T> createQuery(JTextField[] textFields);

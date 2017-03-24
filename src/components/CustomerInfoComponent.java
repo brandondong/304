@@ -96,4 +96,9 @@ public class CustomerInfoComponent extends AbstractQueryComponent<Map<String, St
 		mainFrame.setVisible(true);
 	}
 
+	@Override
+	public String getDescription() {
+		return "Query Customer Information";
+	}
+
 }

@@ -64,4 +64,9 @@ public class AggregateBranchPriceComponent extends AbstractQueryComponent<List<B
 		// / 2);
 		// mainFrame.setVisible(true);
 	}
+
+	@Override
+	public String getDescription() {
+		return "Query Aggregated Prices In Branch";
+	}
 }

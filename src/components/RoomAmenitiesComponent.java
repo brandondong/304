@@ -31,7 +31,11 @@ public class RoomAmenitiesComponent extends AbstractQueryComponent<Object> {
 	@Override
 	protected void displayData(Object t) {
 		// TODO Auto-generated method stub
+	}
 
+	@Override
+	public String getDescription() {
+		return "Query Room Amenities";
 	}
 
 }

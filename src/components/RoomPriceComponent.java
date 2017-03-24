@@ -68,4 +68,9 @@ public class RoomPriceComponent extends AbstractQueryComponent<List<Room>> {
 		return null;
 	}
 
+	@Override
+	public String getDescription() {
+		return "Query Room Above/Below Price";
+	}
+
 }

@@ -5,8 +5,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
@@ -17,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import components.AbstractQueryComponent;
 import components.AggregateBranchPriceComponent;
 import components.CheckInComponent;
 import components.CheckOutComponent;
@@ -29,16 +28,11 @@ import components.ReserveRoomComponent;
 import components.RoomAmenitiesComponent;
 import components.RoomPriceComponent;
 
-public class MainMenu implements ActionListener {
+public class MainMenu {
 
 	private final Connection con;
 
 	private final JFrame mainFrame;
-
-	private final String tags[] = { "Reserve Room", "Check In", "Modify Reservation", "Check Out",
-			"Query Room Amenities", "Query Room Above/Below Price", "Query Late Check Outs",
-			"Query Customer Information", "Query Customer Who Reserved All Rooms In Branch",
-			"Query Most/Least Expensive Room In Branch", "Query Aggregated Prices In Branch" };
 
 	public MainMenu(Connection con, JFrame mainFrame) {
 		this.con = con;
@@ -48,9 +42,6 @@ public class MainMenu implements ActionListener {
 	public void showMenu() {
 		try {
 			con.setAutoCommit(false);
-
-			int numTags = tags.length;
-			JButton buttons[] = new JButton[numTags];
 
 			JPanel contentPane = new JPanel();
 			mainFrame.setContentPane(contentPane);
@@ -62,12 +53,14 @@ public class MainMenu implements ActionListener {
 			c.insets = new Insets(5, 10, 10, 10);
 			c.anchor = GridBagConstraints.CENTER;
 
-			for (int i = 0; i < numTags; i++) {
-				buttons[i] = new JButton(tags[i]);
-				gb.setConstraints(buttons[i], c);
-				contentPane.add(buttons[i]);
-				buttons[i].setActionCommand(tags[i]);
-				buttons[i].addActionListener(this);
+			for (AbstractQueryComponent<?> comp : getComponents(con, mainFrame)) {
+				JButton button = new JButton(comp.getDescription());
+				gb.setConstraints(button, c);
+				contentPane.add(button);
+				button.addActionListener((e) -> {
+					mainFrame.dispose();
+					comp.render();
+				});
 			}
 
 			mainFrame.addWindowListener(new WindowAdapter() {
@@ -90,43 +83,13 @@ public class MainMenu implements ActionListener {
 		}
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		String cmd = e.getActionCommand();
-		if (cmd.equals(tags[0])) {
-			mainFrame.dispose();
-			new ReserveRoomComponent(con, mainFrame).render();
-		} else if (cmd.equals(tags[1])) {
-			mainFrame.dispose();
-			new CheckInComponent(con, mainFrame).render();
-		} else if (cmd.equals(tags[2])) {
-			mainFrame.dispose();
-			new ModifyReservationComponent(con, mainFrame).render();
-		} else if (cmd.equals(tags[3])) {
-			mainFrame.dispose();
-			new CheckOutComponent(con, mainFrame).render();
-		} else if (cmd.equals(tags[4])) {
-			mainFrame.dispose();
-			new RoomAmenitiesComponent(con, mainFrame).render();
-		} else if (cmd.equals(tags[5])) {
-			mainFrame.dispose();
-			new RoomPriceComponent(con, mainFrame).render();
-		} else if (cmd.equals(tags[6])) {
-			mainFrame.dispose();
-			new LateCheckOutComponent(con, mainFrame).render();
-		} else if (cmd.equals(tags[7])) {
-			mainFrame.dispose();
-			new CustomerInfoComponent(con, mainFrame).render();
-		} else if (cmd.equals(tags[8])) {
-			mainFrame.dispose();
-			new CustomerAllRoomsComponent(con, mainFrame).render();
-		} else if (cmd.equals(tags[9])) {
-			mainFrame.dispose();
-			new MinOrMaxRoomComponent(con, mainFrame).render();
-		} else if (cmd.equals(tags[10])) {
-			mainFrame.dispose();
-			new AggregateBranchPriceComponent(con, mainFrame).render();
-		}
+	private AbstractQueryComponent<?>[] getComponents(Connection con, JFrame mainFrame) {
+		return new AbstractQueryComponent<?>[] { new ReserveRoomComponent(con, mainFrame),
+				new CheckInComponent(con, mainFrame), new ModifyReservationComponent(con, mainFrame),
+				new CheckOutComponent(con, mainFrame), new RoomAmenitiesComponent(con, mainFrame),
+				new RoomPriceComponent(con, mainFrame), new LateCheckOutComponent(con, mainFrame),
+				new CustomerInfoComponent(con, mainFrame), new CustomerAllRoomsComponent(con, mainFrame),
+				new MinOrMaxRoomComponent(con, mainFrame), new AggregateBranchPriceComponent(con, mainFrame) };
 	}
 
 }

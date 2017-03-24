@@ -40,4 +40,9 @@ public class ReserveRoomComponent extends AbstractQueryComponent<Reservation> {
 		return new MakeReservation(StartDate, EndDate, RoomNumber, Street, HouseNumber, PostalCode, CustomerID);
 	}
 
+	@Override
+	public String getDescription() {
+		return "Reserve Room";
+	}
+
 }

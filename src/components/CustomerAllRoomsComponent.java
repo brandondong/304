@@ -35,4 +35,9 @@ public class CustomerAllRoomsComponent extends AbstractQueryComponent<List<Custo
 		return new CustomersReservingAllRoomsInBranch(street, houseNo, postalCode);
 	}
 
+	@Override
+	public String getDescription() {
+		return "Query Customer Who Reserved All Rooms In Branch";
+	}
+
 }

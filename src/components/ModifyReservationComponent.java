@@ -36,4 +36,9 @@ public class ModifyReservationComponent extends AbstractQueryComponent<Reservati
 
 	}
 
+	@Override
+	public String getDescription() {
+		return "Modify Reservation";
+	}
+
 }

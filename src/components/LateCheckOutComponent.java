@@ -32,4 +32,9 @@ public class LateCheckOutComponent extends AbstractQueryComponent<Object> {
 		return null;
 	}
 
+	@Override
+	public String getDescription() {
+		return "Query Late Check Outs";
+	}
+
 }

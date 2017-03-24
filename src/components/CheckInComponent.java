@@ -33,4 +33,9 @@ public class CheckInComponent extends AbstractQueryComponent<Void> {
 		return new CheckIn(confirmID, custID, cost);
 	}
 
+	@Override
+	public String getDescription() {
+		return "Check In";
+	}
+
 }
