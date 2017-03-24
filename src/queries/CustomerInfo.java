@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CustomerInfo extends AbstractQuery<Map<String, Object>> {
+public class CustomerInfo extends AbstractQuery<Map<String, String>> {
 
 	private final int id;
 
@@ -17,11 +17,11 @@ public class CustomerInfo extends AbstractQuery<Map<String, Object>> {
 	}
 
 	@Override
-	protected Map<String, Object> parseResult(ResultSet rs) throws SQLException {
-		Map<String, Object> props = new HashMap<>();
+	protected Map<String, String> parseResult(ResultSet rs) throws SQLException {
+		Map<String, String> props = new HashMap<>();
 		if (rs.next()) {
 			for (String attribute : selected) {
-				props.put(attribute, rs.getObject(attribute));
+				props.put(attribute, rs.getString(attribute));
 			}
 		}
 		return props;

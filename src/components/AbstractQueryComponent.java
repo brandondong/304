@@ -7,7 +7,6 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
-import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,15 +15,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
-import queries.IQuery;
 import ui.MainMenu;
 import ui.SpringUtilities;
 
 public abstract class AbstractQueryComponent<T> implements ActionListener {
 
-	private final Connection con;
+	protected final Connection con;
 
-	private final JFrame mainFrame;
+	protected final JFrame mainFrame;
 
 	private JTextField textFields[];
 
@@ -45,17 +43,9 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 				mainFrame.dispose();
 				render();
 			} else {
-				IQuery<T> query = createQuery(textFields);
-				try {
-					T results = query.execute(con);
-					System.out.println("Successful");
-					// TODO display results
-				} catch (SQLException e) {
-					e.printStackTrace();
-					// TODO display failures
-				}
+				executeQuery(textFields);
 			}
-		} else if (cmd.equals("Return")){
+		} else if (cmd.equals("Return")) {
 			mainFrame.dispose();
 			new MainMenu(con, mainFrame).showMenu();
 		}
@@ -63,18 +53,9 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 
 	private JTextField[] makeGrid(String[] labels) {
 		int numPairs = labels.length;
-		Insets insets = mainFrame.getInsets();
-		mainFrame.setSize(new Dimension(insets.left + insets.right + 500, insets.top + insets.bottom + 500));
-
 		JTextField j[] = new JTextField[numPairs];
-		Container contentPane = mainFrame.getContentPane();
-		SpringLayout layout = new SpringLayout();
-		contentPane.setLayout(layout);
-		mainFrame.setVisible(true);
-
-		JPanel p = new JPanel(new SpringLayout());
-
-		mainFrame.setContentPane(p);
+	
+		JPanel p = setUpLayout();
 
 		for (int i = 0; i < numPairs; i++) {
 			JLabel l = new JLabel(labels[i], JLabel.TRAILING);
@@ -99,12 +80,12 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 		SpringUtilities.makeCompactGrid(p, numPairs + 2, 2, 6, 6, 6, 6);
 
 		j[0].requestFocus();
+		mainFrame.pack();
 		finish.addActionListener(this);
 		finish.setActionCommand("Finish");
 		returnB.addActionListener(this);
 		returnB.setActionCommand("Return");
 
-		mainFrame.pack();
 		Dimension d = mainFrame.getToolkit().getScreenSize();
 		Rectangle r = mainFrame.getBounds();
 		mainFrame.setLocation((d.width - r.width) / 2, (d.height - r.height) / 2);
@@ -114,7 +95,11 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 
 	protected abstract String[] getLabels();
 
-	protected abstract IQuery<T> createQuery(JTextField[] textFields);
+	// protected abstract IQuery<T> createQuery(JTextField[] textFields);
+
+	protected abstract void executeQuery(JTextField[] textFields);
+
+	protected abstract void displayData(T t);
 
 	private boolean checkForNull(JTextField j[]) {
 		for (int i = 0; i < j.length; i++) {
@@ -122,5 +107,17 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 				return true;
 		}
 		return false;
+	}
+	
+	protected JPanel setUpLayout(){
+		Insets insets = mainFrame.getInsets();
+		mainFrame.setSize(new Dimension(insets.left + insets.right + 500, insets.top + insets.bottom + 500));
+		Container contentPane = mainFrame.getContentPane();
+		SpringLayout layout = new SpringLayout();
+		contentPane.setLayout(layout);
+		mainFrame.setVisible(true);
+		JPanel p = new JPanel(new SpringLayout());
+		mainFrame.setContentPane(p);
+		return p;
 	}
 }

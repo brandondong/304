@@ -1,13 +1,15 @@
 package components;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
-import queries.IQuery;
+import model.Reservation;
+import queries.ModifyReservation;
 
-public class ModifyReservationComponent extends AbstractQueryComponent<Void> {
+public class ModifyReservationComponent extends AbstractQueryComponent<Reservation> {
 
 	public ModifyReservationComponent(Connection con, JFrame mainFrame) {
 		super(con, mainFrame);
@@ -19,13 +21,36 @@ public class ModifyReservationComponent extends AbstractQueryComponent<Void> {
 				"Enter Confirmation Number: " };
 	}
 
+//	@Override
+//	protected IQuery<Void> createQuery(JTextField[] textFields) {
+//		String CheckIn = textFields[0].getText();
+//		String Checkout = textFields[1].getText();
+//		int ConfirmationID = Integer.valueOf(textFields[2].getText());
+//		
+//		return new ModifyReservation(CheckIn, Checkout, ConfirmationID);
+//	}
+
 	@Override
-	protected IQuery<Void> createQuery(JTextField[] textFields) {
+	protected void executeQuery(JTextField[] textFields) {
 		String CheckIn = textFields[0].getText();
 		String Checkout = textFields[1].getText();
 		int ConfirmationID = Integer.valueOf(textFields[2].getText());
-		// TODO query hasn't been implemented yet
-		return null;
+		
+		ModifyReservation mr = new ModifyReservation(CheckIn, Checkout, ConfirmationID);
+		try{
+			Reservation r = mr.execute(con);
+			mainFrame.dispose();
+			displayData(r);
+		} catch (SQLException e) {
+			mainFrame.dispose();
+			render();
+		}
+	}
+
+	@Override
+	protected void displayData(Reservation t) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
