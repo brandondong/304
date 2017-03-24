@@ -40,8 +40,6 @@ public class Application implements ActionListener {
 	 */
 
 	public void DisplayLogin() {
-
-		System.out.println("b");
 		JLabel usernameLabel = new JLabel("Enter username: ");
 		JLabel passwordLabel = new JLabel("Enter password: ");
 

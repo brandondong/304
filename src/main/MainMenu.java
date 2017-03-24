@@ -35,8 +35,6 @@ public class MainMenu implements ActionListener {
 
 	public void showMenu() {
 		try {
-			
-			System.out.println("a");
 			con.setAutoCommit(false);
 			
 			int numTags = tags.length;

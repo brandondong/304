@@ -44,61 +44,105 @@ public class CollectInput implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
 		PerformQuery p = new PerformQuery(con, mainFrame);
+		CollectInput c = new CollectInput(con, mainFrame);
 		if (cmd.equals("Reserve Room Finish")) {
 			if (checkForNull(RRTextFields)) {
-				ReserveRoom();
-			} else
+				mainFrame.dispose();
+				c.ReserveRoom();
+			} else{
+				mainFrame.dispose();
 				p.ReserveRoomExecute(RRTextFields);
+			}
 		} else if (cmd.equals("Check In Finish")) {
-			if (checkForNull(CTTextFields))
-				CheckIn();
-			else
+			if (checkForNull(CTTextFields)){
+				mainFrame.dispose();
+				c.CheckIn();
+			}
+			else{
+				mainFrame.dispose();
 				p.CheckInExecute(CTTextFields);
+			}
 		} else if (cmd.equals("Modify Reservation Finish")) {
-			if (checkForNull(MRTextFields))
-				ModifyReservation();
-			else
+			if (checkForNull(MRTextFields)){
+				mainFrame.dispose();
+				c.ModifyReservation();
+			}
+			else{
+				mainFrame.dispose();
 				p.ModifyReservationExecute(MRTextFields);
+			}
 		} else if (cmd.equals("Check Out Finish")) {
-			if (checkForNull(COTextFields))
-				CheckOut();
-			else
+			if (checkForNull(COTextFields)){
+				mainFrame.dispose();
+				c.CheckOut();
+			}
+			else{
+				mainFrame.dispose();
 				p.CheckOutExecute(COTextFields);
+			}
 		} else if (cmd.equals("Room Amenities Finish")) {
-			if (checkForNull(RATextFields))
-				RoomAmenities();
-			else
+			if (checkForNull(RATextFields)){
+				mainFrame.dispose();
+				c.RoomAmenities();
+			}
+			else{
+				mainFrame.dispose();
 				p.RoomAmenitiesExecute(RATextFields);
+			}
 		} else if (cmd.equals("Room Price Finish")) {
-			if (checkForNull(RPTextFields))
-				RoomPrice();
-			else
+			if (checkForNull(RPTextFields)){
+				mainFrame.dispose();
+				c.RoomPrice();
+			}
+			else{
+				mainFrame.dispose();
 				p.RoomPriceExecute(RPTextFields);
+			}
 		} else if (cmd.equals("Late Check Out Finish")) {
-			if (checkForNull(LCOTextFields))
-				LateCheckOut();
-			else
+			if (checkForNull(LCOTextFields)){
+				mainFrame.dispose();
+				c.LateCheckOut();
+			}
+			else{
+				mainFrame.dispose();
 				p.LateCheckOutExecute(LCOTextFields);
+			}
 		} else if (cmd.equals("Cust Info Finish")) {
-			if (checkForNull(CITextFields))
-				CustInfo();
-			else
+			if (checkForNull(CITextFields)){
+				mainFrame.dispose();
+				c.CustInfo();
+			}
+			else{
+				mainFrame.dispose();
 				p.CustInfoExecute(CITextFields);
+			}
 		} else if (cmd.equals("Cust All Finish")) {
-			if (checkForNull(CARTextFields))
-				CustAllRoom();
-			else
+			if (checkForNull(CARTextFields)){
+				mainFrame.dispose();
+				c.CustAllRoom();
+			}
+			else{
+				mainFrame.dispose();
 				p.CustAllRoomExecute(CARTextFields);
+			}
 		} else if (cmd.equals("ML Finish")) {
-			if (checkForNull(MLTextFields))
-				ML();
-			else
+			if (checkForNull(MLTextFields)){
+				mainFrame.dispose();
+				c.ML();
+			}
+			else{
+				mainFrame.dispose();
 				p.MLExecute(MLTextFields);
+			}
 		} else if (cmd.equals("AP Finish")) {
-			if (checkForNull(APTextFields))
-				AggrPrice();
-			else
+			if (checkForNull(APTextFields)){
+				mainFrame.dispose();
+				c.AggrPrice();
+			}
+			else{
+				mainFrame.dispose();
 				p.AggrPriceExecute(APTextFields);
+			}
 		}
 		else if (cmd.equals("Return")){
 			mainFrame.dispose();
@@ -108,7 +152,7 @@ public class CollectInput implements ActionListener {
 
 	private boolean checkForNull(JTextField j[]) {
 		for (int i = 0; i < j.length; i++) {
-			if (j[i] == null)
+			if (j[i].getText().equals(""))
 				return true;
 		}
 		return false;
@@ -173,7 +217,7 @@ public class CollectInput implements ActionListener {
 	}
 
 	public void CheckIn() {
-		String[] labels = { "Enter Confirmation Number: ", "Enter Customer ID: " };
+		String[] labels = { "Enter Confirmation Number: ", "Enter Customer ID: ", "Enter Cost: " };
 		CTTextFields = makeGrid(labels, "Check In Finish");
 	}
 
@@ -205,9 +249,9 @@ public class CollectInput implements ActionListener {
 	}
 
 	public void CustInfo() {
-		String [] labels = {"Enter Customer ID: ", "Retrieve name? (1 for yes, 0 for no)",
+		String [] labels = { "Enter Customer ID: ", "Retrieve name? (1 for yes, 0 for no)",
 				"Retrieve phone #? (1 for yes, 0 for no)",
-				"Retrieve payment method? (1 for yes, 0 for no)"};
+				"Retrieve payment method? (1 for yes, 0 for no)" };
 		CITextFields = makeGrid(labels, "Cust Info Finish");
 	}
 
@@ -223,8 +267,7 @@ public class CollectInput implements ActionListener {
 	}
 
 	public void AggrPrice() {
-		String[] labels = {"Enter House Number: ", "Enter Street: ", "Enter Postal Code: ", 
-				"Aggregate by? (MAX, MIN, COUNT, AVG)"};
+		String[] labels = {"Aggregate by? (MAX, MIN, COUNT, AVG)" };
 		APTextFields = makeGrid(labels, "AP Finish");	
 	}
 }
