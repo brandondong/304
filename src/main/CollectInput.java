@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
+import ui.MainMenu;
 import ui.SpringUtilities;
 
 public class CollectInput implements ActionListener {

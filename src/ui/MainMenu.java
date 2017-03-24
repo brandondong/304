@@ -1,4 +1,4 @@
-package main;
+package ui;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -16,6 +16,18 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import components.AggregateBranchPriceComponent;
+import components.CheckInComponent;
+import components.CheckOutComponent;
+import components.CustomerAllRoomsComponent;
+import components.CustomerInfoComponent;
+import components.LateCheckOutComponent;
+import components.MinOrMaxRoomComponent;
+import components.ModifyReservationComponent;
+import components.ReserveRoomComponent;
+import components.RoomAmenitiesComponent;
+import components.RoomPriceComponent;
 
 public class MainMenu implements ActionListener {
 
@@ -36,7 +48,7 @@ public class MainMenu implements ActionListener {
 	public void showMenu() {
 		try {
 			con.setAutoCommit(false);
-			
+
 			int numTags = tags.length;
 			JButton buttons[] = new JButton[numTags];
 
@@ -81,40 +93,39 @@ public class MainMenu implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
-		CollectInput c = new CollectInput(con, mainFrame);
 		if (cmd.equals(tags[0])) {
 			mainFrame.dispose();
-			c.ReserveRoom();
+			new ReserveRoomComponent(con, mainFrame).render();
 		} else if (cmd.equals(tags[1])) {
 			mainFrame.dispose();
-			c.CheckIn();
+			new CheckInComponent(con, mainFrame).render();
 		} else if (cmd.equals(tags[2])) {
 			mainFrame.dispose();
-			c.ModifyReservation();
+			new ModifyReservationComponent(con, mainFrame).render();
 		} else if (cmd.equals(tags[3])) {
 			mainFrame.dispose();
-			c.CheckOut();
+			new CheckOutComponent(con, mainFrame).render();
 		} else if (cmd.equals(tags[4])) {
 			mainFrame.dispose();
-			c.RoomAmenities();
+			new RoomAmenitiesComponent(con, mainFrame).render();
 		} else if (cmd.equals(tags[5])) {
 			mainFrame.dispose();
-			c.RoomPrice();
+			new RoomPriceComponent(con, mainFrame).render();
 		} else if (cmd.equals(tags[6])) {
 			mainFrame.dispose();
-			c.LateCheckOut();
+			new LateCheckOutComponent(con, mainFrame).render();
 		} else if (cmd.equals(tags[7])) {
 			mainFrame.dispose();
-			c.CustInfo();
+			new CustomerInfoComponent(con, mainFrame).render();
 		} else if (cmd.equals(tags[8])) {
 			mainFrame.dispose();
-			c.CustAllRoom();
+			new CustomerAllRoomsComponent(con, mainFrame).render();
 		} else if (cmd.equals(tags[9])) {
 			mainFrame.dispose();
-			c.ML();
+			new MinOrMaxRoomComponent(con, mainFrame).render();
 		} else if (cmd.equals(tags[10])) {
 			mainFrame.dispose();
-			c.AggrPrice();
+			new AggregateBranchPriceComponent(con, mainFrame).render();
 		}
 	}
 

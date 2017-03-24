@@ -1,4 +1,4 @@
-package main;
+package ui;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -31,18 +31,21 @@ public class Application implements ActionListener {
 
 	private int loginAttempts = 0;
 
-	private final JTextField usernameField = new JTextField(10);
-	private final JPasswordField passwordField = new JPasswordField(10);
-	protected final JFrame 		mainFrame = new JFrame("Hotel Application");
+	private final JTextField usernameField;
+	private final JPasswordField passwordField;
+	private final JFrame mainFrame;
 
 	/*
 	 * constructs login window and loads JDBC driver
 	 */
+	public Application() {
+		mainFrame = new JFrame("Hotel Application");
 
-	public void DisplayLogin() {
 		JLabel usernameLabel = new JLabel("Enter username: ");
 		JLabel passwordLabel = new JLabel("Enter password: ");
 
+		usernameField = new JTextField(10);
+		passwordField = new JPasswordField(10);
 		passwordField.setEchoChar('*');
 
 		JButton loginButton = new JButton("Log In");
@@ -167,7 +170,7 @@ public class Application implements ActionListener {
 	}
 
 	public static void main(String args[]) {
-		new Application().DisplayLogin();;
+		new Application();
 	}
 
 }
