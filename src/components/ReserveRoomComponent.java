@@ -2,12 +2,13 @@ package components;
 
 import java.sql.Connection;
 
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
-import javax.swing.JTextField;
 
 import model.Reservation;
 import queries.IQuery;
 import queries.MakeReservation;
+import ui.QueryControl;
 
 public class ReserveRoomComponent extends AbstractQueryComponent<Reservation> {
 
@@ -16,9 +17,11 @@ public class ReserveRoomComponent extends AbstractQueryComponent<Reservation> {
 	}
 
 	@Override
-	protected String[] getLabels() {
-		return new String[] { "Enter Start Date (yyyymmdd)", "Enter End Date (yyyymmdd): ", "Enter Room Number: ",
-				"Enter Street: ", "Enter House Number: ", "Enter Postal Code: ", "Enter Customer Id: " };
+	protected QueryControl[] getFields() {
+		return new QueryControl[] { QueryControl.text("Enter Start Date (yyyymmdd)"),
+				QueryControl.text("Enter End Date (yyyymmdd): "), QueryControl.integer("Enter Room Number: "),
+				QueryControl.text("Enter Street: "), QueryControl.text("Enter House Number: "),
+				QueryControl.text("Enter Postal Code: "), QueryControl.integer("Enter Customer ID: ") };
 	}
 
 	@Override
@@ -28,14 +31,14 @@ public class ReserveRoomComponent extends AbstractQueryComponent<Reservation> {
 	}
 
 	@Override
-	protected IQuery<Reservation> createQuery(JTextField[] textFields) {
+	protected IQuery<Reservation> createQuery(JFormattedTextField[] textFields) {
 		String StartDate = textFields[0].getText();
 		String EndDate = textFields[1].getText();
-		int RoomNumber = Integer.valueOf(textFields[2].getText());
+		int RoomNumber = (int) textFields[2].getValue();
 		String Street = textFields[3].getText();
 		String HouseNumber = textFields[4].getText();
 		String PostalCode = textFields[5].getText();
-		int CustomerID = Integer.valueOf(textFields[6].getText());
+		int CustomerID = (int) textFields[6].getValue();
 
 		return new MakeReservation(StartDate, EndDate, RoomNumber, Street, HouseNumber, PostalCode, CustomerID);
 	}

@@ -3,12 +3,13 @@ package components;
 import java.sql.Connection;
 import java.util.List;
 
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
-import javax.swing.JTextField;
 
 import model.Room;
 import queries.IQuery;
 import queries.MinOrMaxPricedRoom;
+import ui.QueryControl;
 
 public class MinOrMaxRoomComponent extends AbstractQueryComponent<List<Room>> {
 
@@ -17,9 +18,10 @@ public class MinOrMaxRoomComponent extends AbstractQueryComponent<List<Room>> {
 	}
 
 	@Override
-	protected String[] getLabels() {
-		return new String[] { "Enter House Number: ", "Enter Street: ", "Enter Postal Code: ",
-				"What you would like to select? (1 for highest, 0 for lowest)" };
+	protected QueryControl[] getFields() {
+		return new QueryControl[] { QueryControl.text("Enter House Number: "), QueryControl.text("Enter Street: "),
+				QueryControl.text("Enter Postal Code: "),
+				QueryControl.integer("What you would like to select? (1 for highest, 0 for lowest)") };
 	}
 
 	@Override
@@ -29,11 +31,11 @@ public class MinOrMaxRoomComponent extends AbstractQueryComponent<List<Room>> {
 	}
 
 	@Override
-	protected IQuery<List<Room>> createQuery(JTextField[] textFields) {
+	protected IQuery<List<Room>> createQuery(JFormattedTextField[] textFields) {
 		String houseNo = textFields[0].getText();
 		String street = textFields[1].getText();
 		String postalCode = textFields[2].getText();
-		boolean isMax = Integer.valueOf(textFields[3].getText()) == 1;
+		boolean isMax = (int) textFields[3].getValue() == 1;
 		return new MinOrMaxPricedRoom(isMax, street, houseNo, postalCode);
 	}
 

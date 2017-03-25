@@ -2,10 +2,11 @@ package components;
 
 import java.sql.Connection;
 
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
-import javax.swing.JTextField;
 
 import queries.IQuery;
+import ui.QueryControl;
 
 public class LateCheckOutComponent extends AbstractQueryComponent<Object> {
 
@@ -14,8 +15,9 @@ public class LateCheckOutComponent extends AbstractQueryComponent<Object> {
 	}
 
 	@Override
-	protected String[] getLabels() {
-		return new String[] { "Enter Current Date: ", "Enter Manager ID: " };
+	protected QueryControl[] getFields() {
+		return new QueryControl[] { QueryControl.text("Enter Current Date: "),
+				QueryControl.text("Enter Manager ID: ") };
 	}
 
 	@Override
@@ -25,7 +27,7 @@ public class LateCheckOutComponent extends AbstractQueryComponent<Object> {
 	}
 
 	@Override
-	protected IQuery<Object> createQuery(JTextField[] textFields) {
+	protected IQuery<Object> createQuery(JFormattedTextField[] textFields) {
 		String Date = textFields[0].getText();
 		String ManagerID = textFields[1].getText();
 		// TODO implement query

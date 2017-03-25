@@ -3,12 +3,13 @@ package components;
 import java.sql.Connection;
 import java.util.List;
 
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
-import javax.swing.JTextField;
 
 import model.Customer;
 import queries.CustomersReservingAllRoomsInBranch;
 import queries.IQuery;
+import ui.QueryControl;
 
 public class CustomerAllRoomsComponent extends AbstractQueryComponent<List<Customer>> {
 
@@ -17,8 +18,9 @@ public class CustomerAllRoomsComponent extends AbstractQueryComponent<List<Custo
 	}
 
 	@Override
-	protected String[] getLabels() {
-		return new String[] { "Enter House Number: ", "Enter Street: ", "Enter Postal Code: " };
+	protected QueryControl[] getFields() {
+		return new QueryControl[] { QueryControl.text("Enter House Number: "), QueryControl.text("Enter Street: "),
+				QueryControl.text("Enter Postal Code: ") };
 	}
 
 	@Override
@@ -28,7 +30,7 @@ public class CustomerAllRoomsComponent extends AbstractQueryComponent<List<Custo
 	}
 
 	@Override
-	protected IQuery<List<Customer>> createQuery(JTextField[] textFields) {
+	protected IQuery<List<Customer>> createQuery(JFormattedTextField[] textFields) {
 		String houseNo = textFields[0].getText();
 		String street = textFields[1].getText();
 		String postalCode = textFields[2].getText();

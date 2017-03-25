@@ -2,10 +2,11 @@ package components;
 
 import java.sql.Connection;
 
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
-import javax.swing.JTextField;
 
 import queries.IQuery;
+import ui.QueryControl;
 
 public class CheckOutComponent extends AbstractQueryComponent<Integer> {
 
@@ -14,8 +15,8 @@ public class CheckOutComponent extends AbstractQueryComponent<Integer> {
 	}
 
 	@Override
-	protected String[] getLabels() {
-		return new String[] { "Enter Confirmation Number:  " };
+	protected QueryControl[] getFields() {
+		return new QueryControl[] { QueryControl.integer("Enter Confirmation Number:  ") };
 	}
 
 	@Override
@@ -25,8 +26,8 @@ public class CheckOutComponent extends AbstractQueryComponent<Integer> {
 	}
 
 	@Override
-	protected IQuery<Integer> createQuery(JTextField[] textFields) {
-		int ConfirmationID = Integer.valueOf(textFields[0].getText());
+	protected IQuery<Integer> createQuery(JFormattedTextField[] textFields) {
+		int ConfirmationID = (int) textFields[0].getValue();
 		// TODO implement query
 		return null;
 	}

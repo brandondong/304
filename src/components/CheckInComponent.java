@@ -2,11 +2,12 @@ package components;
 
 import java.sql.Connection;
 
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
-import javax.swing.JTextField;
 
 import queries.CheckIn;
 import queries.IQuery;
+import ui.QueryControl;
 
 public class CheckInComponent extends AbstractQueryComponent<Void> {
 
@@ -15,8 +16,9 @@ public class CheckInComponent extends AbstractQueryComponent<Void> {
 	}
 
 	@Override
-	protected String[] getLabels() {
-		return new String[] { "Enter Confirmation Number: ", "Enter Customer ID: ", "Enter Rental Cost: " };
+	protected QueryControl[] getFields() {
+		return new QueryControl[] { QueryControl.integer("Enter Confirmation Number: "),
+				QueryControl.integer("Enter Customer ID: "), QueryControl.integer("Enter Rental Cost: ") };
 	}
 
 	@Override
@@ -26,10 +28,10 @@ public class CheckInComponent extends AbstractQueryComponent<Void> {
 	}
 
 	@Override
-	protected IQuery<Void> createQuery(JTextField[] textFields) {
-		int confirmID = Integer.valueOf(textFields[0].getText());
-		int custID = Integer.valueOf(textFields[1].getText());
-		int cost = Integer.valueOf(textFields[2].getText());
+	protected IQuery<Void> createQuery(JFormattedTextField[] textFields) {
+		int confirmID = (int) textFields[0].getValue();
+		int custID = (int) textFields[1].getValue();
+		int cost = (int) textFields[2].getValue();
 		return new CheckIn(confirmID, custID, cost);
 	}
 

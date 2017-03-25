@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -18,6 +19,7 @@ import javax.swing.SpringLayout;
 
 import queries.CustomerInfo;
 import queries.IQuery;
+import ui.QueryControl;
 import ui.SpringUtilities;
 
 public class CustomerInfoComponent extends AbstractQueryComponent<Map<String, String>> {
@@ -27,17 +29,19 @@ public class CustomerInfoComponent extends AbstractQueryComponent<Map<String, St
 	}
 
 	@Override
-	protected String[] getLabels() {
-		return new String[] { "Enter Customer ID: ", "Retrieve name? (1 for yes, 0 for no)",
-				"Retrieve phone #? (1 for yes, 0 for no)", "Retrieve payment method? (1 for yes, 0 for no)" };
+	protected QueryControl[] getFields() {
+		return new QueryControl[] { QueryControl.integer("Enter Customer ID: "),
+				QueryControl.integer("Retrieve name? (1 for yes, 0 for no)"),
+				QueryControl.integer("Retrieve phone #? (1 for yes, 0 for no)"),
+				QueryControl.integer("Retrieve payment method? (1 for yes, 0 for no)") };
 	}
 
 	@Override
-	protected IQuery<Map<String, String>> createQuery(JTextField[] textFields) {
-		int CustomerID = Integer.valueOf(textFields[0].getText());
-		boolean Name = Integer.valueOf(textFields[1].getText()) == 1;
-		boolean PhoneNumber = Integer.valueOf(textFields[2].getText()) == 1;
-		boolean PaymentMethod = Integer.valueOf(textFields[3].getText()) == 1;
+	protected IQuery<Map<String, String>> createQuery(JFormattedTextField[] textFields) {
+		int CustomerID = (int) textFields[0].getValue();
+		boolean Name = (int) textFields[1].getValue() == 1;
+		boolean PhoneNumber = (int) textFields[2].getValue() == 1;
+		boolean PaymentMethod = (int) textFields[3].getValue() == 1;
 		List<String> selection = new ArrayList<>();
 		if (Name) {
 			selection.add("Name");

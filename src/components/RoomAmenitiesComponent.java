@@ -2,10 +2,11 @@ package components;
 
 import java.sql.Connection;
 
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
-import javax.swing.JTextField;
 
 import queries.IQuery;
+import ui.QueryControl;
 
 public class RoomAmenitiesComponent extends AbstractQueryComponent<Object> {
 
@@ -14,13 +15,14 @@ public class RoomAmenitiesComponent extends AbstractQueryComponent<Object> {
 	}
 
 	@Override
-	protected String[] getLabels() {
-		return new String[] { "Enter Room Number:  ", "Enter Street: ", "Enter House Number: ", "Enter Postal Code: " };
+	protected QueryControl[] getFields() {
+		return new QueryControl[] { QueryControl.integer("Enter Room Number:  "), QueryControl.text("Enter Street: "),
+				QueryControl.text("Enter House Number: "), QueryControl.text("Enter Postal Code: ") };
 	}
 
 	@Override
-	protected IQuery<Object> createQuery(JTextField[] textFields) {
-		int RoomNumber = Integer.valueOf(textFields[0].getText());
+	protected IQuery<Object> createQuery(JFormattedTextField[] textFields) {
+		int RoomNumber = (int) textFields[0].getValue();
 		String Street = textFields[1].getText();
 		String HouseNumber = textFields[2].getText();
 		String PostalCode = textFields[3].getText();

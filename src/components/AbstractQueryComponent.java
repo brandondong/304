@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,6 +19,7 @@ import javax.swing.SpringLayout;
 
 import queries.IQuery;
 import ui.MainMenu;
+import ui.QueryControl;
 import ui.SpringUtilities;
 
 public abstract class AbstractQueryComponent<T> implements ActionListener {
@@ -26,7 +28,7 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 
 	protected final JFrame mainFrame;
 
-	private JTextField textFields[];
+	private JFormattedTextField textFields[];
 
 	public AbstractQueryComponent(Connection con, JFrame mainFrame) {
 		this.con = con;
@@ -34,7 +36,7 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 	}
 
 	public void render() {
-		textFields = makeGrid(getLabels());
+		textFields = makeGrid(getFields());
 	}
 
 	@Override
@@ -53,16 +55,16 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 		}
 	}
 
-	private JTextField[] makeGrid(String[] labels) {
-		int numPairs = labels.length;
-		JTextField j[] = new JTextField[numPairs];
+	private JFormattedTextField[] makeGrid(QueryControl[] fields) {
+		int numPairs = fields.length;
+		JFormattedTextField j[] = new JFormattedTextField[numPairs];
 
 		JPanel p = setUpLayout();
 
 		for (int i = 0; i < numPairs; i++) {
-			JLabel l = new JLabel(labels[i], JLabel.TRAILING);
+			JLabel l = new JLabel(fields[i].getLabel(), JLabel.TRAILING);
 			p.add(l);
-			JTextField textField = new JTextField(10);
+			JFormattedTextField textField = fields[i].getField();
 			j[i] = textField;
 			l.setLabelFor(textField);
 			p.add(textField);
@@ -97,9 +99,9 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 
 	public abstract String getDescription();
 
-	protected abstract String[] getLabels();
+	protected abstract QueryControl[] getFields();
 
-	protected abstract IQuery<T> createQuery(JTextField[] textFields);
+	protected abstract IQuery<T> createQuery(JFormattedTextField[] textFields);
 
 	protected abstract void displayData(T t);
 
@@ -135,4 +137,5 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 		mainFrame.setContentPane(p);
 		return p;
 	}
+
 }
