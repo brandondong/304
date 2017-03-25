@@ -4,6 +4,7 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 
 import javax.swing.JFormattedTextField;
+import javax.swing.text.MaskFormatter;
 import javax.swing.text.NumberFormatter;
 
 public class QueryControl {
@@ -45,6 +46,16 @@ public class QueryControl {
 		numberFormatter.setValueClass(Integer.class);
 
 		return new QueryControl(label, new JFormattedTextField(numberFormatter));
+	}
+
+	public static QueryControl date(String label) {
+		try {
+			MaskFormatter dateMask = new MaskFormatter("####-##-##");
+			JFormattedTextField field = new JFormattedTextField(dateMask);
+			return new QueryControl(label, field);
+		} catch (ParseException e) {
+			throw new IllegalStateException();
+		}
 	}
 
 }

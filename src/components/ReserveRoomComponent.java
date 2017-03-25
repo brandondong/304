@@ -18,8 +18,8 @@ public class ReserveRoomComponent extends AbstractQueryComponent<Reservation> {
 
 	@Override
 	protected QueryControl[] getFields() {
-		return new QueryControl[] { QueryControl.text("Enter Start Date (yyyymmdd)"),
-				QueryControl.text("Enter End Date (yyyymmdd): "), QueryControl.integer("Enter Room Number: "),
+		return new QueryControl[] { QueryControl.date("Enter Start Date (yyyy-mm-dd)"),
+				QueryControl.date("Enter End Date (yyyy-mm-dd): "), QueryControl.integer("Enter Room Number: "),
 				QueryControl.text("Enter Street: "), QueryControl.text("Enter House Number: "),
 				QueryControl.text("Enter Postal Code: "), QueryControl.integer("Enter Customer ID: ") };
 	}

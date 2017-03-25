@@ -16,7 +16,7 @@ public class LateCheckOutComponent extends AbstractQueryComponent<Object> {
 
 	@Override
 	protected QueryControl[] getFields() {
-		return new QueryControl[] { QueryControl.text("Enter Current Date: "),
+		return new QueryControl[] { QueryControl.date("Enter Current Date (yyyy-mm-dd): "),
 				QueryControl.text("Enter Manager ID: ") };
 	}
 
