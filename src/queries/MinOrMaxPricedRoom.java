@@ -1,6 +1,5 @@
 package queries;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -8,7 +7,7 @@ import java.util.List;
 
 import model.Room;
 
-public class MinOrMaxPricedRoom implements IQuery<List<Room>> {
+public class MinOrMaxPricedRoom extends AbstractQuery<List<Room>> {
 
 	private final boolean isMax;
 
@@ -25,6 +24,7 @@ public class MinOrMaxPricedRoom implements IQuery<List<Room>> {
 		this.postalCode = postalCode;
 	}
 
+	@Override
 	protected List<Room> parseResult(ResultSet rs) throws SQLException {
 		List<Room> rooms = new ArrayList<>();
 		while (rs.next()) {
@@ -33,6 +33,7 @@ public class MinOrMaxPricedRoom implements IQuery<List<Room>> {
 		return rooms;
 	}
 
+	@Override
 	protected String getQueryDefinition() {
 		String maxOrMin = isMax ? "MAX" : "MIN";
 		return String.format(
@@ -41,12 +42,6 @@ public class MinOrMaxPricedRoom implements IQuery<List<Room>> {
 						+ "WHERE Street = '%s' AND HouseNumber = '%s' AND PostalCode = '%s') "
 						+ "SELECT * FROM FilteredRoom WHERE Price = (SELECT %s(Price) FROM FilteredRoom)",
 				street, houseNo, postalCode, maxOrMin);
-	}
-
-	@Override
-	public List<Room> execute(Connection con) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

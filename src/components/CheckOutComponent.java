@@ -1,12 +1,11 @@
 package components;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
-import queries.CheckOut;
+import queries.IQuery;
 
 public class CheckOutComponent extends AbstractQueryComponent<Integer> {
 
@@ -20,33 +19,16 @@ public class CheckOutComponent extends AbstractQueryComponent<Integer> {
 	}
 
 	@Override
-	protected void executeQuery(JTextField[] textFields) {
-		int ConfirmationID = Integer.valueOf(textFields[0].getText());
-		
-		CheckOut c = new CheckOut(ConfirmationID);
-		
-		try{
-			Integer i = c.execute(con);
-			mainFrame.dispose();
-			displayData(i);
-		} catch (SQLException e) {
-			mainFrame.dispose();
-			render();
-		}
+	protected void displayData(Integer t) {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
-	protected void displayData(Integer t){
-		// TODO Auto-generated method stub
-		
+	protected IQuery<Integer> createQuery(JTextField[] textFields) {
+		int ConfirmationID = Integer.valueOf(textFields[0].getText());
+		// TODO implement query
+		return null;
 	}
-	
-
-//	@Override
-//	protected IQuery<Void> createQuery(JTextField[] textFields) {
-//		int ConfirmationID = Integer.valueOf(textFields[0].getText());
-//		// TODO implement query
-//		return null;
-//	}
 
 }

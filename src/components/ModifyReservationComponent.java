@@ -1,12 +1,12 @@
 package components;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 import model.Reservation;
+import queries.IQuery;
 import queries.ModifyReservation;
 
 public class ModifyReservationComponent extends AbstractQueryComponent<Reservation> {
@@ -21,36 +21,19 @@ public class ModifyReservationComponent extends AbstractQueryComponent<Reservati
 				"Enter Confirmation Number: " };
 	}
 
-//	@Override
-//	protected IQuery<Void> createQuery(JTextField[] textFields) {
-//		String CheckIn = textFields[0].getText();
-//		String Checkout = textFields[1].getText();
-//		int ConfirmationID = Integer.valueOf(textFields[2].getText());
-//		
-//		return new ModifyReservation(CheckIn, Checkout, ConfirmationID);
-//	}
-
 	@Override
-	protected void executeQuery(JTextField[] textFields) {
+	protected IQuery<Reservation> createQuery(JTextField[] textFields) {
 		String CheckIn = textFields[0].getText();
 		String Checkout = textFields[1].getText();
 		int ConfirmationID = Integer.valueOf(textFields[2].getText());
-		
-		ModifyReservation mr = new ModifyReservation(CheckIn, Checkout, ConfirmationID);
-		try{
-			Reservation r = mr.execute(con);
-			mainFrame.dispose();
-			displayData(r);
-		} catch (SQLException e) {
-			mainFrame.dispose();
-			render();
-		}
+
+		return new ModifyReservation(CheckIn, Checkout, ConfirmationID);
 	}
 
 	@Override
 	protected void displayData(Reservation t) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

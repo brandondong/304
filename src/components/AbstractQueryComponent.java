@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,12 +16,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
+import queries.IQuery;
 import ui.MainMenu;
 import ui.SpringUtilities;
 
 public abstract class AbstractQueryComponent<T> implements ActionListener {
 
-	protected final Connection con;
+	private final Connection con;
 
 	protected final JFrame mainFrame;
 
@@ -43,7 +45,7 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 				mainFrame.dispose();
 				render();
 			} else {
-				executeQuery(textFields);
+				executeQuery();
 			}
 		} else if (cmd.equals("Return")) {
 			mainFrame.dispose();
@@ -54,7 +56,7 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 	private JTextField[] makeGrid(String[] labels) {
 		int numPairs = labels.length;
 		JTextField j[] = new JTextField[numPairs];
-	
+
 		JPanel p = setUpLayout();
 
 		for (int i = 0; i < numPairs; i++) {
@@ -95,11 +97,22 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 
 	protected abstract String[] getLabels();
 
-	// protected abstract IQuery<T> createQuery(JTextField[] textFields);
-
-	protected abstract void executeQuery(JTextField[] textFields);
+	protected abstract IQuery<T> createQuery(JTextField[] textFields);
 
 	protected abstract void displayData(T t);
+
+	private void executeQuery() {
+		IQuery<T> query = createQuery(textFields);
+		try {
+			T results = query.execute(con);
+			mainFrame.dispose();
+			displayData(results);
+		} catch (SQLException e) {
+			// TODO maybe display failures?
+			mainFrame.dispose();
+			render();
+		}
+	}
 
 	private boolean checkForNull(JTextField j[]) {
 		for (int i = 0; i < j.length; i++) {
@@ -108,8 +121,8 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 		}
 		return false;
 	}
-	
-	protected JPanel setUpLayout(){
+
+	protected JPanel setUpLayout() {
 		Insets insets = mainFrame.getInsets();
 		mainFrame.setSize(new Dimension(insets.left + insets.right + 500, insets.top + insets.bottom + 500));
 		Container contentPane = mainFrame.getContentPane();
