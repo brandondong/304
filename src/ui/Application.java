@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -19,6 +20,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -29,10 +31,14 @@ public class Application implements ActionListener {
 
 	private Connection con;
 
-	private int loginAttempts = 0;
+	private int loginAttempts = 3;
 
 	private final JTextField usernameField;
+
 	private final JPasswordField passwordField;
+
+	private final JLabel errorLabel;
+
 	private final JFrame mainFrame;
 
 	/*
@@ -49,6 +55,9 @@ public class Application implements ActionListener {
 		passwordField.setEchoChar('*');
 
 		JButton loginButton = new JButton("Log In");
+
+		errorLabel = new JLabel(" ");
+		errorLabel.setForeground(Color.RED);
 
 		JPanel contentPane = new JPanel();
 		mainFrame.setContentPane(contentPane);
@@ -92,6 +101,13 @@ public class Application implements ActionListener {
 		gb.setConstraints(loginButton, c);
 		contentPane.add(loginButton);
 
+		// place the error label
+		c.gridwidth = GridBagConstraints.REMAINDER;
+		c.insets = new Insets(0, 10, 0, 10);
+		c.anchor = GridBagConstraints.CENTER;
+		gb.setConstraints(errorLabel, c);
+		contentPane.add(errorLabel);
+
 		// register password field and OK button with action event handler
 		passwordField.addActionListener(this);
 		loginButton.addActionListener(this);
@@ -123,7 +139,8 @@ public class Application implements ActionListener {
 			// Load the Oracle JDBC driver
 			DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
 		} catch (SQLException ex) {
-			// TODO probably display error dialog to user before exiting?
+			JOptionPane.showMessageDialog(mainFrame, "Failed to register drivers. The application will now terminate.",
+					"Setup error", JOptionPane.ERROR_MESSAGE);
 			System.exit(-1);
 		}
 	}
@@ -141,9 +158,9 @@ public class Application implements ActionListener {
 
 		try {
 			con = DriverManager.getConnection(connectURL, username, password);
+			con.setAutoCommit(false);
 			return true;
 		} catch (SQLException ex) {
-			// TODO display error in UI
 			return false;
 		}
 	}
@@ -156,9 +173,14 @@ public class Application implements ActionListener {
 				mainFrame.dispose();
 				new MainMenu(con, mainFrame).showMenu();
 			} else {
-				loginAttempts++;
+				loginAttempts--;
+				String s = loginAttempts != 1 ? "s" : "";
+				errorLabel.setText(String.format("Login failed. %d attempt%s remaining.", loginAttempts, s));
 
-				if (loginAttempts >= 3) {
+				if (loginAttempts == 0) {
+					JOptionPane.showMessageDialog(mainFrame,
+							"Maximum login attempt reached. The application will now terminate.", "Login error",
+							JOptionPane.ERROR_MESSAGE);
 					mainFrame.dispose();
 					System.exit(-1);
 				} else {

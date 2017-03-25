@@ -8,7 +8,6 @@ import java.awt.Rectangle;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
-import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -40,47 +39,40 @@ public class MainMenu {
 	}
 
 	public void showMenu() {
-		try {
-			con.setAutoCommit(false);
+		JPanel contentPane = new JPanel();
+		mainFrame.setContentPane(contentPane);
+		GridBagLayout gb = new GridBagLayout();
+		GridBagConstraints c = new GridBagConstraints();
+		contentPane.setLayout(gb);
+		contentPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		c.gridwidth = GridBagConstraints.REMAINDER;
+		c.insets = new Insets(5, 10, 10, 10);
+		c.anchor = GridBagConstraints.CENTER;
 
-			JPanel contentPane = new JPanel();
-			mainFrame.setContentPane(contentPane);
-			GridBagLayout gb = new GridBagLayout();
-			GridBagConstraints c = new GridBagConstraints();
-			contentPane.setLayout(gb);
-			contentPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-			c.gridwidth = GridBagConstraints.REMAINDER;
-			c.insets = new Insets(5, 10, 10, 10);
-			c.anchor = GridBagConstraints.CENTER;
-
-			for (AbstractQueryComponent<?> comp : getComponents(con, mainFrame)) {
-				JButton button = new JButton(comp.getDescription());
-				gb.setConstraints(button, c);
-				contentPane.add(button);
-				button.addActionListener((e) -> {
-					mainFrame.dispose();
-					comp.render();
-				});
-			}
-
-			mainFrame.addWindowListener(new WindowAdapter() {
-				@Override
-				public void windowClosing(WindowEvent e) {
-					System.exit(0);
-				}
+		for (AbstractQueryComponent<?> comp : getComponents(con, mainFrame)) {
+			JButton button = new JButton(comp.getDescription());
+			gb.setConstraints(button, c);
+			contentPane.add(button);
+			button.addActionListener((e) -> {
+				mainFrame.dispose();
+				comp.render();
 			});
-
-			mainFrame.pack();
-
-			Dimension d = mainFrame.getToolkit().getScreenSize();
-			Rectangle r = mainFrame.getBounds();
-			mainFrame.setLocation((d.width - r.width) / 2, (d.height - r.height) / 2);
-
-			mainFrame.setVisible(true);
-
-		} catch (SQLException e) {
-			// TODO handle appropriately in UI (error dialog?)
 		}
+
+		mainFrame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				System.exit(0);
+			}
+		});
+
+		mainFrame.pack();
+
+		Dimension d = mainFrame.getToolkit().getScreenSize();
+		Rectangle r = mainFrame.getBounds();
+		mainFrame.setLocation((d.width - r.width) / 2, (d.height - r.height) / 2);
+
+		mainFrame.setVisible(true);
 	}
 
 	private AbstractQueryComponent<?>[] getComponents(Connection con, JFrame mainFrame) {
