@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
@@ -112,7 +113,9 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 			mainFrame.dispose();
 			displayData(results);
 		} catch (SQLException e) {
-			// TODO maybe display failures?
+			JOptionPane.showMessageDialog(mainFrame,
+					String.format("An error occurred during query execution:\n%s", e.getMessage()), "Query Error",
+					JOptionPane.ERROR_MESSAGE);
 			mainFrame.dispose();
 			render();
 		}

@@ -1,6 +1,7 @@
 package ui;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.text.NumberFormatter;
@@ -11,14 +12,9 @@ public class QueryControl {
 
 	private final JFormattedTextField field;
 
-	private QueryControl(String label) {
+	private QueryControl(String label, JFormattedTextField field) {
 		this.label = label;
-		field = new JFormattedTextField();
-	}
-
-	private QueryControl(String label, JFormattedTextField.AbstractFormatter formatter) {
-		this.label = label;
-		field = new JFormattedTextField(formatter);
+		this.field = field;
 	}
 
 	public String getLabel() {
@@ -30,16 +26,25 @@ public class QueryControl {
 	}
 
 	public static QueryControl text(String label) {
-		return new QueryControl(label);
+		return new QueryControl(label, new JFormattedTextField());
 	}
 
 	public static QueryControl integer(String label) {
 		NumberFormat intFormat = NumberFormat.getIntegerInstance();
-		NumberFormatter numberFormatter = new NumberFormatter(intFormat);
+		NumberFormatter numberFormatter = new NumberFormatter(intFormat) {
+
+			@Override
+			public Object stringToValue(String string) throws ParseException {
+				if (string.isEmpty()) {
+					return null;
+				}
+				return super.stringToValue(string);
+			}
+		};
 		numberFormatter.setAllowsInvalid(false);
 		numberFormatter.setValueClass(Integer.class);
 
-		return new QueryControl(label, numberFormatter);
+		return new QueryControl(label, new JFormattedTextField(numberFormatter));
 	}
 
 }

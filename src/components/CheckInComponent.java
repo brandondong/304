@@ -4,6 +4,7 @@ import java.sql.Connection;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import queries.CheckIn;
 import queries.IQuery;
@@ -23,8 +24,9 @@ public class CheckInComponent extends AbstractQueryComponent<Void> {
 
 	@Override
 	protected void displayData(Void t) {
-		// TODO Auto-generated method stub
-
+		JOptionPane.showMessageDialog(mainFrame, "Successfully checked in. Rental data was added to the database.",
+				"Query Successful", JOptionPane.INFORMATION_MESSAGE);
+		render();
 	}
 
 	@Override

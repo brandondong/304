@@ -140,7 +140,7 @@ public class Application implements ActionListener {
 			DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
 		} catch (SQLException ex) {
 			JOptionPane.showMessageDialog(mainFrame, "Failed to register drivers. The application will now terminate.",
-					"Setup error", JOptionPane.ERROR_MESSAGE);
+					"Setup Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(-1);
 		}
 	}
@@ -179,7 +179,7 @@ public class Application implements ActionListener {
 
 				if (loginAttempts == 0) {
 					JOptionPane.showMessageDialog(mainFrame,
-							"Maximum login attempt reached. The application will now terminate.", "Login error",
+							"Maximum login attempt reached. The application will now terminate.", "Login Error",
 							JOptionPane.ERROR_MESSAGE);
 					mainFrame.dispose();
 					System.exit(-1);
