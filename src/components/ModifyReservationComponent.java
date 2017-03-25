@@ -18,7 +18,7 @@ public class ModifyReservationComponent extends AbstractQueryComponent<Reservati
 	@Override
 	protected String[] getLabels() {
 		return new String[] { "Enter New Check-In Date (yyyymmdd): ", "Enter New Check-out Date (yyyymmdd): ",
-				"Enter Confirmation Number: " };
+				"Enter Confirmation Number: ", "Enter Customer ID: " };
 	}
 
 	@Override
@@ -26,8 +26,9 @@ public class ModifyReservationComponent extends AbstractQueryComponent<Reservati
 		String CheckIn = textFields[0].getText();
 		String Checkout = textFields[1].getText();
 		int ConfirmationID = Integer.valueOf(textFields[2].getText());
+		int custID = Integer.valueOf(textFields[3].getText());
 
-		return new ModifyReservation(CheckIn, Checkout, ConfirmationID);
+		return new ModifyReservation(CheckIn, Checkout, ConfirmationID, custID);
 	}
 
 	@Override
