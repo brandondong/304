@@ -49,9 +49,11 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 		String cmd = event.getActionCommand();
 		if (cmd.equals("Finish")) {
 			if (checkForNull(textFields)) {
+				System.out.println("a");
 				mainFrame.dispose();
 				render();
 			} else {
+				System.out.println("b");
 				executeQuery();
 			}
 		} else if (cmd.equals("Return")) {
@@ -150,21 +152,24 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 		SpringUtilities.makeCompactGrid(p,rows+2, cols,3,3,3,3);
 		
 		mainFrame.pack();
+		mainFrame.setVisible(true);
 		returnB.addActionListener(this);
 		returnB.setActionCommand("Return");
 		Dimension d = mainFrame.getToolkit().getScreenSize();
 		Rectangle r = mainFrame.getBounds();
 		mainFrame.setLocation((d.width - r.width) / 2, (d.height - r.height) / 2);
-		mainFrame.setVisible(true);
 	}
 
 	private void executeQuery() {
+		System.out.println("c");
 		IQuery<T> query = createQuery(textFields);
 		try {
 			T results = query.execute(con);
 			mainFrame.dispose();
+			System.out.println("d");
 			displayData(parseData(results));
 		} catch (SQLException e) {
+			System.out.println("e");
 			JOptionPane.showMessageDialog(mainFrame,
 					String.format("An error occurred during query execution:\n%s", e.getMessage()), "Query Error",
 					JOptionPane.ERROR_MESSAGE);
