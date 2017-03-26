@@ -4,11 +4,11 @@ public class RoomWithAmenities {
 
 	private final String roomType;
 	private final int roomPrice;
-	private final float InternetAccess;
-	private final float Kitchen;
-	private final float SatelliteTV;
-	
-	public RoomWithAmenities(String roomType, int roomPrice, float InternetAccess, float Kitchen, float SatelliteTV) {
+	private final int InternetAccess;
+	private final int Kitchen;
+	private final int SatelliteTV;
+
+	public RoomWithAmenities(String roomType, int roomPrice, int InternetAccess, int Kitchen, int SatelliteTV) {
 		this.roomType = roomType;
 		this.roomPrice = roomPrice;
 		this.InternetAccess = InternetAccess;
@@ -23,16 +23,16 @@ public class RoomWithAmenities {
 	public int getRoomPrice() {
 		return roomPrice;
 	}
-	
-	public float getInternetAccess(){
+
+	public int getInternetAccess() {
 		return InternetAccess;
 	}
-	
-	public float getKitched(){
+
+	public int getKitched() {
 		return Kitchen;
 	}
-	
-	public float getSatelliteTV(){
+
+	public int getSatelliteTV() {
 		return SatelliteTV;
 	}
 }
