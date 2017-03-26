@@ -29,8 +29,8 @@ public class ReserveRoomComponent extends AbstractQueryComponent<Reservation> {
 
 	@Override
 	protected IQuery<Reservation> createQuery(JFormattedTextField[] textFields) {
-		String StartDate = textFields[0].getText();
-		String EndDate = textFields[1].getText();
+		String StartDate = textFields[0].getText().replace("-", "");
+		String EndDate = textFields[1].getText().replace("-", "");
 		int RoomNumber = (int) textFields[2].getValue();
 		String Street = textFields[3].getText();
 		String HouseNumber = textFields[4].getText();
@@ -51,7 +51,7 @@ public class ReserveRoomComponent extends AbstractQueryComponent<Reservation> {
 		data.add(Arrays.asList("ConfirmationID", "StartDate", "EndDate", "RoomNumber", "Street",
 				"HouseNumber", "PostalCode", "CustomerID"));
 		data.add(Arrays.asList(Integer.toString(t.getConfirmationID()), t.getStartDate(), t.getEndDate(),
-				Integer.toString(t.getRoomNumber()), t.getStreet(), t.getPostalCode(), Integer.toString(t.getCustomerID())));
+				Integer.toString(t.getRoomNumber()), t.getStreet(), t.getHouseNumber(), t.getPostalCode(), Integer.toString(t.getCustomerID())));
 		return data;
 	}
 }

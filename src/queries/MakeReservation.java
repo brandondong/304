@@ -16,6 +16,7 @@ public class MakeReservation implements IQuery<Reservation> {
 	String houseNumber;
 	String postalCode;
 	int customerID;
+	int confirmationID;
 	
 	public MakeReservation(String checkIn, String checkOut, int roomNumber, String street, String houseNumber, String postalCode, int customerID) {
 		this.checkIn = checkIn;
@@ -29,7 +30,7 @@ public class MakeReservation implements IQuery<Reservation> {
 
 	protected Reservation parseResult(ResultSet rs) throws SQLException {
 		rs.next();
-		return new Reservation(customerID, checkIn,checkOut, roomNumber, street, houseNumber, postalCode, customerID);
+		return new Reservation(confirmationID, checkIn,checkOut, roomNumber, street, houseNumber, postalCode, customerID);
 	}
 	
 	@Override
@@ -37,11 +38,8 @@ public class MakeReservation implements IQuery<Reservation> {
 		boolean valid = new CheckIfReservationValid().execute(con);
 		if (valid){
 			try (Statement stmt = con.createStatement()) {
-				System.out.println("1");
+				confirmationID = new getMaxID().execute(con) + 1;
 				ResultSet rs = stmt.executeQuery(getQueryDefinition());
-				System.out.println("here");
-				customerID = new GetConfirmationID().execute(con);
-				System.out.println("2");
 				return parseResult(rs);
 			}
 		}
@@ -52,8 +50,8 @@ public class MakeReservation implements IQuery<Reservation> {
 	protected String getQueryDefinition() {
 		return String.format(
 				"INSERT INTO Reservation "
-				+ "VALUES (reservation_id.nextval, to_date(%s, 'yyyymmdd'), to_date(%s, 'yyyymmdd'), %d, '%s', '%s', '%s', %d)",
-				checkIn, checkOut, roomNumber, street, houseNumber, postalCode, customerID);
+				+ "VALUES (%d, to_date(%s, 'yyyymmdd'), to_date(%s, 'yyyymmdd'), %d, '%s', '%s', '%s', %d)",
+				confirmationID, checkIn, checkOut, roomNumber, street, houseNumber, postalCode, customerID);
 	}
 	
 	private class CheckIfReservationValid extends AbstractQuery<Boolean> {
@@ -78,17 +76,17 @@ public class MakeReservation implements IQuery<Reservation> {
 		}
 	}
 	
-	private class GetConfirmationID extends AbstractQuery<Integer>{
-		
+	private class getMaxID extends AbstractQuery<Integer> {
+
 		@Override
 		protected Integer parseResult(ResultSet rs) throws SQLException {
 			rs.next();
-			return rs.getInt("ConfirmationID");
+			return rs.getInt("Max");
 		}
 
 		@Override
 		protected String getQueryDefinition() {
-			return "SELECT last_insert_rowid()";
+			return String.format("SELECT MAX(ConfirmationID) AS Max FROM Reservation");
 		}
 	}
 }
