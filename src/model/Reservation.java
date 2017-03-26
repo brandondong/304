@@ -25,4 +25,16 @@ public class Reservation {
 	public int getConfirmationID(){
 		return ConfirmationID;
 	}
+	
+	public int getCustomerID() {
+		return CustomerID;
+	}
+	
+	public String getStartDate() {
+		return StartDate;
+	}
+	
+	public String getEndDate() {
+		return EndDate;
+	}
 }

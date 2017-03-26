@@ -9,10 +9,10 @@ import model.Reservation;
 
 public class ModifyReservation extends AbstractQuery<Reservation>{
 	
-	String checkIn;
-	String checkout;
-	int confirmationID;
-	int custID;
+	private String checkIn;
+	private String checkout;
+	private int confirmationID;
+	private int custID;
 
 	public ModifyReservation(String checkIn, String checkout, int confirmationID, int custID) {
 		this.checkIn = checkIn;
