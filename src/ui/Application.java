@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -47,6 +48,8 @@ public class Application implements ActionListener {
 	public Application() {
 		mainFrame = new JFrame("Hotel Application");
 
+		new SpringUtilities().setUIFont(new javax.swing.plaf.FontUIResource("Serif",Font.ROMAN_BASELINE,22));
+		
 		JLabel usernameLabel = new JLabel("Enter username: ");
 		JLabel passwordLabel = new JLabel("Enter password: ");
 

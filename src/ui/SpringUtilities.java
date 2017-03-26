@@ -34,6 +34,7 @@ package ui;
 import javax.swing.*;
 import javax.swing.SpringLayout;
 import java.awt.*;
+import java.util.Enumeration;
 
 /**
  * A 1.4 file that provides utility methods for
@@ -222,4 +223,14 @@ public class SpringUtilities {
         pCons.setConstraint(SpringLayout.SOUTH, y);
         pCons.setConstraint(SpringLayout.EAST, x);
     }
+    
+    public void setUIFont (javax.swing.plaf.FontUIResource f){
+        Enumeration<Object> keys = UIManager.getDefaults().keys();
+        while (keys.hasMoreElements()) {
+          Object key = keys.nextElement();
+          Object value = UIManager.get (key);
+          if (value != null && value instanceof javax.swing.plaf.FontUIResource)
+            UIManager.put (key, f);
+          }
+        } 
 }
