@@ -21,7 +21,7 @@ public class LateCheckOutComponent extends AbstractQueryComponent<List<Customer>
 
 	@Override
 	public String getDescription() {
-		return "Query Customers whose checkout date is before the given date";
+		return "Query Customers Who Are Late To Check Out";
 	}
 
 	@Override

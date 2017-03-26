@@ -7,7 +7,6 @@ import java.sql.Statement;
 
 import model.Reservation;
 
-//**** Still being worked on. Currently does not work
 public class MakeReservation implements IQuery<Reservation> {
 	String checkIn;
 	String checkOut;
@@ -36,15 +35,17 @@ public class MakeReservation implements IQuery<Reservation> {
 	@Override
 	public Reservation execute(Connection con) throws SQLException {
 		boolean valid = new CheckIfReservationValid().execute(con);
-		if (valid){
+		if (Integer.parseInt(checkOut) <= Integer.parseInt(checkIn))
+			throw new SQLException("Error making reservation. Check out date must be after check in date");
+		else if (!valid)
+			throw new SQLException("Error making reservation. Room not avaliable on the given dates");
+		else{
 			try (Statement stmt = con.createStatement()) {
 				confirmationID = new getMaxID().execute(con) + 1;
 				ResultSet rs = stmt.executeQuery(getQueryDefinition());
 				return parseResult(rs);
 			}
 		}
-		else
-			return null;
 	}
 
 	protected String getQueryDefinition() {
@@ -69,10 +70,9 @@ public class MakeReservation implements IQuery<Reservation> {
 		protected String getQueryDefinition() {
 			return String.format(
 					"SELECT COUNT(*) AS Count FROM Reservation "
-					+ "WHERE ((to_date(%s, 'yyyymmdd') BETWEEN StartDate AND EndDate) "
-					+ "OR (to_date(%s, 'yyyymmdd') BETWEEN StartDate AND EndDate)) "
+					+ "WHERE StartDate <= to_date('%s', 'yyyymmdd') AND (to_date('%s', 'yyyymmdd') <= EndDate) "
 					+ "AND RoomNumber = %d AND HouseNumber = '%s' AND Street = '%s' AND PostalCode = '%s'",
-					checkIn, checkOut, roomNumber, houseNumber, street, postalCode);
+					checkOut, checkIn, roomNumber, houseNumber, street, postalCode);
 		}
 	}
 	

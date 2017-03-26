@@ -117,7 +117,6 @@ public class AggregateBranchPriceComponent extends AbstractQueryComponent<List<B
 	protected List<List<String>> parseData(List<BranchLocation> t) {
 		List<List<String>> data = new ArrayList<List<String>>();
 		data.add(Arrays.asList("Street", "HouseNumber", "PostalCode", "AggregatedPrice"));
-		System.out.println("size: "+ Integer.toString(t.size()));
 		for (int i = 0; i < t.size(); i++){
 			BranchLocation b = t.get(i);
 			data.add(Arrays.asList(b.getStreet(), b.getHouseNumber(), b.getPostalCode(), Integer.toString(b.getAggregatedPrice())));

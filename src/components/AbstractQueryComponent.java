@@ -49,11 +49,9 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 		String cmd = event.getActionCommand();
 		if (cmd.equals("Finish")) {
 			if (checkForNull(textFields)) {
-				System.out.println("a");
 				mainFrame.dispose();
 				render();
 			} else {
-				System.out.println("b");
 				executeQuery();
 			}
 		} else if (cmd.equals("Return")) {

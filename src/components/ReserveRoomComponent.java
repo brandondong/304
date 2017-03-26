@@ -42,7 +42,7 @@ public class ReserveRoomComponent extends AbstractQueryComponent<Reservation> {
 
 	@Override
 	public String getDescription() {
-		return "Reserve Room";
+		return "Make a Reservation";
 	}
 
 	@Override

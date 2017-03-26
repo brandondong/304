@@ -7,7 +7,6 @@ import java.util.List;
 
 import model.Room;
 
-//**** Has not been tested yet
 public class RoomAboveOrBelowPrice extends AbstractQuery<List<Room>>{
 
 	private final int BorderPrice;
