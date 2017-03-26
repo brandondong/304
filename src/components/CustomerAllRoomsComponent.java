@@ -33,9 +33,6 @@ public class CustomerAllRoomsComponent extends AbstractQueryComponent<List<Custo
 		String houseNo = textFields[0].getText();
 		String street = textFields[1].getText();
 		String postalCode = textFields[2].getText();
-		System.out.println("house:" + houseNo);
-		System.out.println("Street" + street);
-		System.out.println("Post" + postalCode);
 		return new CustomersReservingAllRoomsInBranch(street, houseNo, postalCode);
 	}
 

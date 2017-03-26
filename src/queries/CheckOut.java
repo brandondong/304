@@ -3,10 +3,6 @@ package queries;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
-import model.Reservation;
 
 public class CheckOut extends AbstractQuery<Integer>{
 	

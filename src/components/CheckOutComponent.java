@@ -5,7 +5,6 @@ import java.sql.Connection;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,28 +32,12 @@ public class CheckOutComponent extends AbstractQueryComponent<Integer> {
 	@Override
 	protected IQuery<Integer> createQuery(JFormattedTextField[] textFields) {
 		int ConfirmationID = (int) textFields[0].getValue();
-		// TODO implement query
-		return null;
+		return new CheckOut(ConfirmationID);
 	}
 
 	@Override
 	public String getDescription() {
 		return "Check Out";
-	}
-
-	protected void executeQuery(JTextField[] textFields) {
-		int ConfirmationID = Integer.valueOf(textFields[0].getText());
-		
-		CheckOut c = new CheckOut(ConfirmationID);
-		
-		try{
-			Integer i = c.execute(con);
-			mainFrame.dispose();
-			displayData(parseData(i));
-		} catch (SQLException e) {
-			mainFrame.dispose();
-			render();
-		}
 	}
 
 	@Override

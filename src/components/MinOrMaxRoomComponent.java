@@ -1,6 +1,8 @@
 package components;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JFormattedTextField;
@@ -40,8 +42,13 @@ public class MinOrMaxRoomComponent extends AbstractQueryComponent<List<Room>> {
 
 	@Override
 	protected List<List<String>> parseData(List<Room> t) {
-		// TODO Auto-generated method stub
-		return null;
+		List<List<String>> data = new ArrayList<List<String>>();
+		data.add(Arrays.asList("Room Number", "Room Price"));
+		for (int i = 0; i < t.size(); i++){
+			Room b = t.get(i);
+			data.add(Arrays.asList(Integer.toString(b.getRoomNumber()), Integer.toString(b.getRoomPrice())));
+		}
+		return data;
 	}
 
 }

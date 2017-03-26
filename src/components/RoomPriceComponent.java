@@ -3,6 +3,8 @@ package components;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -11,8 +13,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import model.BranchLocation;
 import model.Room;
 import queries.IQuery;
+import queries.RoomAboveOrBelowPrice;
 import ui.QueryControl;
 import ui.SpringUtilities;
 
@@ -34,8 +38,9 @@ public class RoomPriceComponent extends AbstractQueryComponent<List<Room>> {
 		int Price = (int) textFields[0].getValue();
 		boolean Above = (int) textFields[1].getValue() == 1;
 		String Street = textFields[2].getText();
-		// TODO implement query
-		return null;
+		String HouseNumber = textFields[3].getText();
+		String PostalCode = textFields[4].getText();
+		return new RoomAboveOrBelowPrice(Price, Above, Street, HouseNumber, PostalCode);
 	}
 
 	@Override
@@ -45,8 +50,14 @@ public class RoomPriceComponent extends AbstractQueryComponent<List<Room>> {
 
 	@Override
 	protected List<List<String>> parseData(List<Room> t) {
-		// TODO Auto-generated method stub
-		return null;
+		List<List<String>> data = new ArrayList<List<String>>();
+		data.add(Arrays.asList("RoomNumber", "RoomPrice"));
+		System.out.println("size: "+ Integer.toString(t.size()));
+		for (int i = 0; i < t.size(); i++){
+			Room b = t.get(i);
+			data.add(Arrays.asList(Integer.toString(b.getRoomNumber()), Integer.toString(b.getRoomPrice())));
+		}
+		return data;
 	}
 
 }

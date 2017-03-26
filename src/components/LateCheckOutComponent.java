@@ -1,42 +1,51 @@
 package components;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 
+import model.Customer;
 import queries.IQuery;
+import queries.LateCheckOut;
 import ui.QueryControl;
 
-public class LateCheckOutComponent extends AbstractQueryComponent<Object> {
+public class LateCheckOutComponent extends AbstractQueryComponent<List<Customer>> {
 
 	public LateCheckOutComponent(Connection con, JFrame mainFrame) {
 		super(con, mainFrame);
 	}
 
 	@Override
-	protected List<List<String>> parseData(Object t) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Query Customers whose checkout date is before the given date";
 	}
 
 	@Override
 	protected QueryControl[] getFields() {
-		// TODO Auto-generated method stub
-		return null;
+		return new QueryControl[] { QueryControl.date("Enter Current Date (yyyy-mm-dd): "), QueryControl.integer("Enter Manager ID: ")};
 	}
 
 	@Override
-	protected IQuery<Object> createQuery(JFormattedTextField[] textFields) {
-		// TODO Auto-generated method stub
-		return null;
+	protected IQuery<List<Customer>> createQuery(JFormattedTextField[] textFields) {
+		String Date = textFields[0].getText().replace("-", "");
+		int ManagerID = (int) textFields[0].getValue(); 
+		return new LateCheckOut(Date, ManagerID);
 	}
+	
+	@Override
+	protected List<List<String>> parseData(List<Customer> l) {
+		List<List<String>> data = new ArrayList<List<String>>();
+		data.add(Arrays.asList("Customer ID", "Name"));
+		for (int i = 0; i < l.size(); i++){
+			Customer b = l.get(i);
+			data.add(Arrays.asList(Integer.toString(b.getId()), b.getName()));
+		}
+		return data;
+	}
+
 
 }

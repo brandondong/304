@@ -1,6 +1,8 @@
 package components;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JFormattedTextField;
@@ -41,8 +43,12 @@ public class ModifyReservationComponent extends AbstractQueryComponent<Reservati
 
 	@Override
 	protected List<List<String>> parseData(Reservation t) {
-		// TODO Auto-generated method stub
-		return null;
+		List<List<String>> data = new ArrayList<List<String>>();
+		data.add(Arrays.asList("ConfirmationID", "StartDate", "EndDate", "RoomNumber", "Street",
+				"HouseNumber", "PostalCode", "CustomerID"));
+		data.add(Arrays.asList(Integer.toString(t.getConfirmationID()), t.getStartDate(), t.getEndDate(),
+				Integer.toString(t.getRoomNumber()), t.getStreet(), t.getPostalCode(), Integer.toString(t.getCustomerID())));
+		return data;
 	}
 
 }

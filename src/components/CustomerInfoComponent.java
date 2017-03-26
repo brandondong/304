@@ -34,6 +34,7 @@ public class CustomerInfoComponent extends AbstractQueryComponent<Map<String, St
 		boolean PhoneNumber = (int) textFields[2].getValue() == 1;
 		boolean PaymentMethod = (int) textFields[3].getValue() == 1;
 		List<String> selection = new ArrayList<>();
+		
 		if (Name) {
 			selection.add("Name");
 		}

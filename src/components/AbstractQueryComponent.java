@@ -1,5 +1,6 @@
 package components;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -10,6 +11,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -18,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
+import javax.swing.border.Border;
 
 import queries.IQuery;
 import ui.MainMenu;
@@ -116,14 +119,24 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 		mainFrame.setContentPane(p);
 
 		for (int i = 0; i < cols; i++){
-			JTextField text = new JTextField(titles.get(i));
+			JLabel text = new JLabel(titles.get(i));
+	        Border paddingBorder = BorderFactory.createEmptyBorder(8,8,8,8);
+	        Border border = BorderFactory.createLineBorder(Color.BLUE);
+	        text.setBorder(BorderFactory.createCompoundBorder(border,paddingBorder));
+	        text.setOpaque(true);
+	        text.setBackground(Color.WHITE);
 			p.add(text);
 		}
 		
 		for (int r = 0; r < rows; r++) {
 		    for (int c = 0; c < cols; c++) {
-		        JTextField textField = new JTextField(data.get(r).get(c));
-		        p.add(textField);
+		        JLabel text = new JLabel(data.get(r).get(c));
+		        text.setOpaque(true);
+		        text.setBackground(Color.WHITE);
+		        Border paddingBorder = BorderFactory.createEmptyBorder(8,8,8,8);
+		        Border border = BorderFactory.createLineBorder(Color.GRAY);
+		        text.setBorder(BorderFactory.createCompoundBorder(border,paddingBorder));
+		        p.add(text);
 		    }
 		}
 		

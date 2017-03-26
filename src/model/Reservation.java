@@ -1,14 +1,14 @@
 package model;
 
 public class Reservation {
-	int ConfirmationID;
-	String StartDate;
-	String EndDate;
-	int RoomNumber;
-	String Street;
-	String HouseNumber;
-	String PostalCode;
-	int CustomerID;
+	private final int ConfirmationID;
+	private final String StartDate;
+	private final String EndDate;
+	private final int RoomNumber;
+	private final String Street;
+	private final String HouseNumber;
+	private final String PostalCode;
+	private final int CustomerID;
 	
 	public Reservation(	int ConfirmationID, String StartDate, String EndDate, int RoomNumber, String Street,
 			String HouseNumber, String PostalCode, int CustomerID){
@@ -36,5 +36,21 @@ public class Reservation {
 	
 	public String getEndDate() {
 		return EndDate;
+	}
+	
+	public int getRoomNumber() {
+		return RoomNumber;
+	}
+
+	public String getPostalCode() {
+		return PostalCode;
+	}
+	
+	public String getHouseNumber() {
+		return HouseNumber;
+	}
+	
+	public String getStreet() {
+		return Street;
 	}
 }

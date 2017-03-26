@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Customer;
-import model.Reservation;
 
 public class LateCheckOut extends AbstractQuery<List<Customer>>{
 	
@@ -30,7 +29,6 @@ public class LateCheckOut extends AbstractQuery<List<Customer>>{
 
 	@Override
 	protected List<Customer> parseResult(ResultSet rs) throws SQLException {
-		// TODO Auto-generated method stub
 		List<Customer> lateCustomers = new ArrayList<>();
 		while(rs.next()) {
 			lateCustomers.add(new Customer(rs.getInt("CustomerID"), rs.getString("Name")));
@@ -40,7 +38,6 @@ public class LateCheckOut extends AbstractQuery<List<Customer>>{
 
 	@Override
 	protected String getQueryDefinition() {
-		// TODO Auto-generated method stub
 		return String.format("SELECT c.CustomerID, c.Name "
 				+ "FROM Manager m INNER JOIN Reservation r ON m.Street = r.Street AND m.HouseNumber = r.HouseNumber AND m.PostalCode = r.PostalCode "
 				+ "INNER JOIN Customer c ON c.CustomerID = r.CustomerID "
