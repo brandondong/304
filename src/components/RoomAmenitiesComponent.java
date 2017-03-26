@@ -43,9 +43,14 @@ public class RoomAmenitiesComponent extends AbstractQueryComponent<RoomWithAmeni
 	protected List<List<String>> parseData(RoomWithAmenities t) {
 		List<List<String>> data = new ArrayList<List<String>>();
 		data.add(Arrays.asList("RoomType", "RoomPrice", "InternetAccess", "Kitchen", "SatelliteTV"));
-		data.add(Arrays.asList(t.getRoomType(), Integer.toString(t.getRoomPrice()), Float.toString(t.getInternetAccess()),
-				Float.toString(t.getKitched()), Float.toString(t.getSatelliteTV())));
+		data.add(
+				Arrays.asList(t.getRoomType(), Integer.toString(t.getRoomPrice()), formatAmenity(t.getInternetAccess()),
+						formatAmenity(t.getKitched()), formatAmenity(t.getSatelliteTV())));
 		return data;
+	}
+
+	private String formatAmenity(int included) {
+		return included == 1 ? "Included" : "Not included";
 	}
 
 }
