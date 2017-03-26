@@ -45,7 +45,6 @@ public class RoomPriceComponent extends AbstractQueryComponent<List<Room>> {
 	protected List<List<String>> parseData(List<Room> t) {
 		List<List<String>> data = new ArrayList<List<String>>();
 		data.add(Arrays.asList("RoomNumber", "RoomPrice"));
-		System.out.println("size: "+ Integer.toString(t.size()));
 		for (int i = 0; i < t.size(); i++){
 			Room b = t.get(i);
 			data.add(Arrays.asList(Integer.toString(b.getRoomNumber()), Integer.toString(b.getRoomPrice())));
