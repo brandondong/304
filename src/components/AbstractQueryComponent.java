@@ -60,7 +60,7 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 		}
 	}
 
-	private JFormattedTextField[] makeGrid(QueryControl[] fields) {
+	protected JFormattedTextField[] makeGrid(QueryControl[] fields) {
 		int numPairs = fields.length;
 		JFormattedTextField j[] = new JFormattedTextField[numPairs];
 
@@ -173,7 +173,7 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 		}
 	}
 
-	private boolean checkForNull(JTextField j[]) {
+	protected boolean checkForNull(JTextField j[]) {
 		for (int i = 0; i < j.length; i++) {
 			if (j[i].getText().equals(""))
 				return true;
