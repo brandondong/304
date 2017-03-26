@@ -161,15 +161,12 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 	}
 
 	private void executeQuery() {
-		System.out.println("c");
 		IQuery<T> query = createQuery(textFields);
 		try {
 			T results = query.execute(con);
 			mainFrame.dispose();
-			System.out.println("d");
 			displayData(parseData(results));
 		} catch (SQLException e) {
-			System.out.println("e");
 			JOptionPane.showMessageDialog(mainFrame,
 					String.format("An error occurred during query execution:\n%s", e.getMessage()), "Query Error",
 					JOptionPane.ERROR_MESSAGE);
