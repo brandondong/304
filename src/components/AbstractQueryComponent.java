@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
@@ -25,7 +26,7 @@ import ui.SpringUtilities;
 
 public abstract class AbstractQueryComponent<T> implements ActionListener {
 
-	private final Connection con;
+	protected final Connection con;
 
 	protected final JFrame mainFrame;
 
@@ -104,14 +105,52 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 
 	protected abstract IQuery<T> createQuery(JFormattedTextField[] textFields);
 
-	protected abstract void displayData(T t);
+	protected abstract List<List<String>> parseData(T t);
+	
+	protected void displayData(List<List<String>> data){
+		List<String> titles = data.remove(0);
+		int cols = titles.size();
+		int rows = data.size();
+
+		JPanel p = new JPanel(new SpringLayout());
+		mainFrame.setContentPane(p);
+
+		for (int i = 0; i < cols; i++){
+			JTextField text = new JTextField(titles.get(i));
+			p.add(text);
+		}
+		
+		for (int r = 0; r < rows; r++) {
+		    for (int c = 0; c < cols; c++) {
+		        JTextField textField = new JTextField(data.get(r).get(c));
+		        p.add(textField);
+		    }
+		}
+		
+		for (int i = 0; i < cols-1; i++){
+			JLabel text = new JLabel("  ", JLabel.TRAILING);
+			p.add(text);
+		}
+		JButton returnB = new JButton("Return to Menu");
+		p.add(returnB);
+		
+		SpringUtilities.makeCompactGrid(p,rows+2, cols,3,3,3,3);
+		
+		mainFrame.pack();
+		returnB.addActionListener(this);
+		returnB.setActionCommand("Return");
+		Dimension d = mainFrame.getToolkit().getScreenSize();
+		Rectangle r = mainFrame.getBounds();
+		mainFrame.setLocation((d.width - r.width) / 2, (d.height - r.height) / 2);
+		mainFrame.setVisible(true);
+	}
 
 	private void executeQuery() {
 		IQuery<T> query = createQuery(textFields);
 		try {
 			T results = query.execute(con);
 			mainFrame.dispose();
-			displayData(results);
+			displayData(parseData(results));
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(mainFrame,
 					String.format("An error occurred during query execution:\n%s", e.getMessage()), "Query Error",

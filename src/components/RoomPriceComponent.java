@@ -30,39 +30,6 @@ public class RoomPriceComponent extends AbstractQueryComponent<List<Room>> {
 	}
 
 	@Override
-	protected void displayData(List<Room> t) {
-		int cols = 2;
-		int rows = t.size();
-
-		JPanel p = setUpLayout();
-
-		JTextField title1 = new JTextField("RoomNumber");
-		JTextField title2 = new JTextField("RoomPrice");
-		p.add(title1);
-		p.add(title2);
-
-		for (int r = 0; r < rows; r++) {
-			for (int c = 0; c < cols; c++) {
-				JTextField textField = new JTextField((r == 0) ? t.get(c).getRoomNumber() : t.get(c).getRoomPrice());
-				p.add(textField);
-			}
-		}
-
-		JButton returnB = new JButton("Return to Menu");
-		p.add(returnB);
-		returnB.addActionListener(this);
-		returnB.setActionCommand("Return");
-
-		SpringUtilities.makeCompactGrid(p, rows + 2, cols, 3, 3, 3, 3);
-
-		mainFrame.pack();
-		Dimension d = mainFrame.getToolkit().getScreenSize();
-		Rectangle r = mainFrame.getBounds();
-		mainFrame.setLocation((d.width - r.width) / 2, (d.height - r.height) / 2);
-		mainFrame.setVisible(true);
-	}
-
-	@Override
 	protected IQuery<List<Room>> createQuery(JFormattedTextField[] textFields) {
 		int Price = (int) textFields[0].getValue();
 		boolean Above = (int) textFields[1].getValue() == 1;
@@ -74,6 +41,12 @@ public class RoomPriceComponent extends AbstractQueryComponent<List<Room>> {
 	@Override
 	public String getDescription() {
 		return "Query Room Above/Below Price";
+	}
+
+	@Override
+	protected List<List<String>> parseData(List<Room> t) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -6,6 +6,8 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import java.util.List;
+
 import queries.CheckIn;
 import queries.IQuery;
 import ui.QueryControl;
@@ -23,7 +25,7 @@ public class CheckInComponent extends AbstractQueryComponent<Void> {
 	}
 
 	@Override
-	protected void displayData(Void t) {
+	protected void displayData(List<List<String>> d) {
 		JOptionPane.showMessageDialog(mainFrame, "Successfully checked in. Rental data was added to the database.",
 				"Query Successful", JOptionPane.INFORMATION_MESSAGE);
 		render();
@@ -42,4 +44,8 @@ public class CheckInComponent extends AbstractQueryComponent<Void> {
 		return "Check In";
 	}
 
+	protected List<List<String>> parseData(Void t)  {
+		return null;
+	}
+	
 }

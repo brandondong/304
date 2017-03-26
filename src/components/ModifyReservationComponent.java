@@ -1,6 +1,7 @@
 package components;
 
 import java.sql.Connection;
+import java.util.List;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -34,14 +35,14 @@ public class ModifyReservationComponent extends AbstractQueryComponent<Reservati
 	}
 
 	@Override
-	protected void displayData(Reservation t) {
-		// TODO Auto-generated method stub
-
+	public String getDescription() {
+		return "Modify Reservation";
 	}
 
 	@Override
-	public String getDescription() {
-		return "Modify Reservation";
+	protected List<List<String>> parseData(Reservation t) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

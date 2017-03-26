@@ -1,6 +1,7 @@
 package components;
 
 import java.sql.Connection;
+import java.util.List;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -15,28 +16,27 @@ public class LateCheckOutComponent extends AbstractQueryComponent<Object> {
 	}
 
 	@Override
-	protected QueryControl[] getFields() {
-		return new QueryControl[] { QueryControl.date("Enter Current Date (yyyy-mm-dd): "),
-				QueryControl.text("Enter Manager ID: ") };
-	}
-
-	@Override
-	protected void displayData(Object t) {
+	protected List<List<String>> parseData(Object t) {
 		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected IQuery<Object> createQuery(JFormattedTextField[] textFields) {
-		String Date = textFields[0].getText();
-		String ManagerID = textFields[1].getText();
-		// TODO implement query
 		return null;
 	}
 
 	@Override
 	public String getDescription() {
-		return "Query Late Check Outs";
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected QueryControl[] getFields() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected IQuery<Object> createQuery(JFormattedTextField[] textFields) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

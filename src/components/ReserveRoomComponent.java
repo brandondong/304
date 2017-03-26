@@ -1,6 +1,7 @@
 package components;
 
 import java.sql.Connection;
+import java.util.List;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -25,12 +26,6 @@ public class ReserveRoomComponent extends AbstractQueryComponent<Reservation> {
 	}
 
 	@Override
-	protected void displayData(Reservation t) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	protected IQuery<Reservation> createQuery(JFormattedTextField[] textFields) {
 		String StartDate = textFields[0].getText();
 		String EndDate = textFields[1].getText();
@@ -46,6 +41,12 @@ public class ReserveRoomComponent extends AbstractQueryComponent<Reservation> {
 	@Override
 	public String getDescription() {
 		return "Reserve Room";
+	}
+
+	@Override
+	protected List<List<String>> parseData(Reservation t) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

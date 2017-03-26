@@ -1,6 +1,7 @@
 package components;
 
 import java.sql.Connection;
+import java.util.List;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -31,13 +32,14 @@ public class RoomAmenitiesComponent extends AbstractQueryComponent<Object> {
 	}
 
 	@Override
-	protected void displayData(Object t) {
-		// TODO Auto-generated method stub
+	public String getDescription() {
+		return "Query Room Amenities";
 	}
 
 	@Override
-	public String getDescription() {
-		return "Query Room Amenities";
+	protected List<List<String>> parseData(Object t) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

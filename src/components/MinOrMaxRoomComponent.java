@@ -25,12 +25,6 @@ public class MinOrMaxRoomComponent extends AbstractQueryComponent<List<Room>> {
 	}
 
 	@Override
-	protected void displayData(List<Room> t) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	protected IQuery<List<Room>> createQuery(JFormattedTextField[] textFields) {
 		String houseNo = textFields[0].getText();
 		String street = textFields[1].getText();
@@ -42,6 +36,12 @@ public class MinOrMaxRoomComponent extends AbstractQueryComponent<List<Room>> {
 	@Override
 	public String getDescription() {
 		return "Query Most/Least Expensive Room In Branch";
+	}
+
+	@Override
+	protected List<List<String>> parseData(List<Room> t) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
