@@ -70,7 +70,7 @@ public class MakeReservation implements IQuery<Reservation> {
 		@Override
 		protected Boolean parseResult(ResultSet rs) throws SQLException {
 			rs.next();
-			if ((rs.getInt("Count") != 0) || (checkIn.compareTo(checkOut)) >= 0) {
+			if ((rs.getInt("Count") != 0)) {
 				return false;
 			}
 			return true;
