@@ -54,5 +54,4 @@ public class ReserveRoomComponent extends AbstractQueryComponent<Reservation> {
 				Integer.toString(t.getRoomNumber()), t.getStreet(), t.getPostalCode(), Integer.toString(t.getCustomerID())));
 		return data;
 	}
-
 }

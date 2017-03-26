@@ -1,24 +1,17 @@
 package components;
 
-import java.awt.Dimension;
-import java.awt.Rectangle;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
-import model.BranchLocation;
 import model.Room;
 import queries.IQuery;
 import queries.RoomAboveOrBelowPrice;
 import ui.QueryControl;
-import ui.SpringUtilities;
 
 public class RoomPriceComponent extends AbstractQueryComponent<List<Room>> {
 

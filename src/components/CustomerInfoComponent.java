@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JFormattedTextField;
-
 import javax.swing.JFrame;
 
 import queries.CustomerInfo;
@@ -65,5 +64,4 @@ public class CustomerInfoComponent extends AbstractQueryComponent<Map<String, St
 	public String getDescription() {
 		return "Query Customer Information";
 	}
-
 }

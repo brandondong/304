@@ -38,9 +38,9 @@ public class RoomAboveOrBelowPrice extends AbstractQuery<List<Room>>{
 	protected String getQueryDefinition() {
 		char sort = above ? '>' : '<';
 		return String.format(
-				"SELECT r.RoomNumber, t.Price FROM Room r, RoomType t"
-				+ "WHERE Street = '%s' AND HouseNumber = '%s' "
-				+ "AND PostalCode = '%s' AND r.RoomType = t.RoomType "
+				"SELECT r.RoomNumber, t.Price FROM Room r, RoomType t "
+				+ "WHERE r.Street = '%s' AND r.HouseNumber = '%s' "
+				+ "AND r.PostalCode = '%s' AND r.TypeName = t.TypeName "
 				+ "AND t.Price %c %d",
 				Street, HouseNumber, PostalCode, sort, BorderPrice);
 	}

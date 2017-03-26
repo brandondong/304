@@ -33,6 +33,7 @@ public class QueryControl {
 	public static QueryControl integer(String label) {
 		NumberFormat intFormat = NumberFormat.getIntegerInstance();
 		NumberFormatter numberFormatter = new NumberFormatter(intFormat) {
+			private static final long serialVersionUID = 5312234052717937655L;
 
 			@Override
 			public Object stringToValue(String string) throws ParseException {
