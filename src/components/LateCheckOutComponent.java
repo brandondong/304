@@ -32,7 +32,7 @@ public class LateCheckOutComponent extends AbstractQueryComponent<List<Customer>
 	@Override
 	protected IQuery<List<Customer>> createQuery(JFormattedTextField[] textFields) {
 		String Date = textFields[0].getText().replace("-", "");
-		int ManagerID = (int) textFields[0].getValue(); 
+		int ManagerID = (int) textFields[1].getValue(); 
 		return new LateCheckOut(Date, ManagerID);
 	}
 	
