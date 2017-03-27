@@ -3,6 +3,8 @@ package queries;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.GregorianCalendar;
 
 import model.Reservation;
@@ -23,14 +25,14 @@ public class ModifyReservation extends AbstractQuery<Reservation>{
 
 	@Override
 	public Reservation execute(Connection con) throws SQLException {
-		boolean exists = new CheckReservationExists(confirmationID, custID).execute(con);
+		boolean exists = new FindReservation(confirmationID, custID).execute(con);
 		if (!exists) {
-			throw new SQLException("Failed to find existing non expired reservation for the given customer");
+			throw new SQLException("Failed to find reservation with given Confirmation and Customer ID's");
 		}
-		boolean timeGood = checkDates();
-		if(!timeGood) {
-			throw new SQLException("Error: Check In time must be before Check Out time and after Current time");
-		}
+//		boolean timeGood = checkDates();
+//		if(!timeGood) {
+//			throw new SQLException("Error: Check In time must be before Check Out time and after Current time");
+//		}
 		super.execute(con);
 		con.commit();
 		Reservation r = new GetCorrespondingReservation(confirmationID).execute(con);
@@ -91,6 +93,32 @@ public class ModifyReservation extends AbstractQuery<Reservation>{
 		}
 		
 	}
+
+	class FindReservation extends AbstractQuery<Boolean> {
+
+		private final int confirmID;
+
+		private final int custID;
+
+		public FindReservation(int confirmID, int custID) {
+			this.confirmID = confirmID;
+			this.custID = custID;
+		}
+
+		@Override
+		protected Boolean parseResult(ResultSet rs) throws SQLException {
+			rs.next();
+			return rs.getInt("Count") != 0;
+		}
+
+		@Override
+		protected String getQueryDefinition() {
+			return String.format("SELECT COUNT(*) AS COUNT FROM Reservation "
+					+ "WHERE ConfirmationID = %d AND CustomerID = %d", confirmID, custID);
+		}
+
+	}
+
 
 }
 
