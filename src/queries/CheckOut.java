@@ -19,8 +19,8 @@ public class CheckOut extends AbstractQuery<Integer>{
 			throw new SQLException("Failed to find existing rental for given confirmation number");
 		}
 		int cost = new GetRentalCost(confirmationID).execute(con);
-		new DeleteCorrespondingReservation(confirmationID).execute(con);
 		super.execute(con);
+		new DeleteCorrespondingReservation(confirmationID).execute(con);
 		con.commit();
 		return cost;
 	}
