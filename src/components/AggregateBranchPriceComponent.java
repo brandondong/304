@@ -22,11 +22,12 @@ import javax.swing.SpringLayout;
 
 import model.AggregateOperation;
 import model.BranchLocation;
+import model.NestedBranchPrice;
 import queries.AggregatePriceByBranch;
 import queries.IQuery;
 import ui.QueryControl;
 
-public class AggregateBranchPriceComponent extends AbstractQueryComponent<List<BranchLocation>> {
+public class AggregateBranchPriceComponent extends AbstractQueryComponent<NestedBranchPrice> {
 
 	private JComboBox<AggregateOperation> firstAggregation;
 
@@ -43,7 +44,7 @@ public class AggregateBranchPriceComponent extends AbstractQueryComponent<List<B
 	}
 
 	@Override
-	protected IQuery<List<BranchLocation>> createQuery(JFormattedTextField[] textFields) {
+	protected IQuery<NestedBranchPrice> createQuery(JFormattedTextField[] textFields) {
 		AggregateOperation first = (AggregateOperation) firstAggregation.getSelectedItem();
 		AggregateOperation second = (AggregateOperation) secondAggregation.getSelectedItem();
 		return new AggregatePriceByBranch(first, second);
@@ -104,13 +105,12 @@ public class AggregateBranchPriceComponent extends AbstractQueryComponent<List<B
 	}
 
 	@Override
-	protected List<List<String>> parseData(List<BranchLocation> t) {
+	protected List<List<String>> parseData(NestedBranchPrice t) {
 		List<List<String>> data = new ArrayList<List<String>>();
 		data.add(Arrays.asList("Street", "HouseNumber", "PostalCode", "AggregatedPrice"));
-		for (int i = 0; i < t.size(); i++) {
-			BranchLocation b = t.get(i);
+		for (BranchLocation b : t.getBranches()) {
 			data.add(Arrays.asList(b.getStreet(), b.getHouseNumber(), b.getPostalCode(),
-					Integer.toString(b.getAggregatedPrice())));
+					Float.toString(b.getAggregatedPrice())));
 		}
 		return data;
 	}

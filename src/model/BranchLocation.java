@@ -8,17 +8,13 @@ public class BranchLocation {
 
 	private final String postalCode;
 
-	private final int aggregatedPrice;
+	private final float aggregatedPrice;
 
-	private final AggregateOperation aggregationType;
-
-	public BranchLocation(String street, String houseNumber, String postalCode, int aggregatedPrice,
-			AggregateOperation aggregationType) {
+	public BranchLocation(String street, String houseNumber, String postalCode, float aggregatedPrice) {
 		this.street = street;
 		this.houseNumber = houseNumber;
 		this.postalCode = postalCode;
 		this.aggregatedPrice = aggregatedPrice;
-		this.aggregationType = aggregationType;
 	}
 
 	public String getStreet() {
@@ -33,12 +29,8 @@ public class BranchLocation {
 		return postalCode;
 	}
 
-	public int getAggregatedPrice() {
+	public float getAggregatedPrice() {
 		return aggregatedPrice;
-	}
-
-	public AggregateOperation getAggregationType() {
-		return aggregationType;
 	}
 
 }
