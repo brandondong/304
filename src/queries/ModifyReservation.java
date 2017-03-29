@@ -29,10 +29,11 @@ public class ModifyReservation extends AbstractQuery<Reservation>{
 		if (!exists) {
 			throw new SQLException("Failed to find reservation with given Confirmation and Customer ID's");
 		}
-//		boolean timeGood = checkDates();
-//		if(!timeGood) {
-//			throw new SQLException("Error: Check In time must be before Check Out time and after Current time");
-//		}
+		// Call checkDates helper to determine if start time after current time
+		boolean timeGood = checkDates();
+		if(!timeGood) {
+			throw new SQLException("Error: Check In time must be after Current time");
+		}
 		super.execute(con);
 		con.commit();
 		Reservation r = new GetCorrespondingReservation(confirmationID).execute(con);
@@ -51,16 +52,12 @@ public class ModifyReservation extends AbstractQuery<Reservation>{
 	}
 	
 	
+	// Since we cannot perform a check on the current time without a trigger in SQL, we 
+	// create a helper which checks that the input startDate is before the current date.
 	protected boolean checkDates() {
 		GregorianCalendar startDate = new GregorianCalendar(Integer.parseInt(checkIn.substring(0, 4)),
 				Integer.parseInt(checkIn.substring(4, 6)),
 				Integer.parseInt(checkIn.substring(6, 8)));
-		GregorianCalendar endDate = new GregorianCalendar(Integer.parseInt(checkout.substring(0, 4)),
-				Integer.parseInt(checkout.substring(4, 6)),
-				Integer.parseInt(checkout.substring(6, 8)));
-		if(!startDate.before(endDate)) {
-			return false;
-		}
 		if(!startDate.after(new GregorianCalendar())) {
 			return false;
 		}

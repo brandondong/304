@@ -68,15 +68,16 @@ create table Reservation(
 	HouseNumber varchar(20) not null,
 	PostalCode varchar(20) not null,
 	CustomerID integer not null,
+	check (StartDate < EndDate),
 	foreign key (RoomNumber, Street, HouseNumber, PostalCode) references Room(RoomNumber, Street, HouseNumber, PostalCode),
-	foreign key (CustomerID) references Customer(CustomerID)
+	foreign key (CustomerID) references Customer(CustomerID) ON DELETE Cascade
 );
 
 
 create table RentCost(
 	ConfirmationID integer primary key,
 	TotalCost integer,
-	foreign key (ConfirmationID) references Reservation(ConfirmationID)
+	foreign key (ConfirmationID) references Reservation(ConfirmationID) ON DELETE Cascade
 );
 
 --BranchLocation
@@ -127,6 +128,7 @@ Insert into Customer values (5103, 'Angela Spahn', 'Debit', '6198884512');
 Insert into Customer values (5104, 'Frank Martinez', 'Credit', '3631007812');
 Insert into Customer values (5105, 'Adam Lee', 'Debit', '3337895656');
 Insert into Customer values (5106, 'Frank Smith', 'Cash', '3337895656');
+Insert into Customer values (5200, 'Cheapo NoReservo', 'Cash', '7787787788');
 
 --Manager
 Insert into Manager values ('Ackman Ave', '4150A', 'V6N 2Z5',1001,'Yehonatan Hamo',5000);
