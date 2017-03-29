@@ -10,10 +10,14 @@ import model.BranchLocation;
 
 public class AggregatePriceByBranch extends AbstractQuery<List<BranchLocation>> {
 
-	public AggregateOperation aggregation;
+	private final AggregateOperation first;
 
-	public AggregatePriceByBranch(AggregateOperation a) {
-		this.aggregation = a;
+	private final AggregateOperation second;
+
+	public AggregatePriceByBranch(AggregateOperation first, AggregateOperation second) {
+		this.first = first;
+		this.second = second;
+
 	}
 
 	@Override
@@ -21,7 +25,7 @@ public class AggregatePriceByBranch extends AbstractQuery<List<BranchLocation>> 
 		List<BranchLocation> locations = new ArrayList<>();
 		while (rs.next()) {
 			locations.add(new BranchLocation(rs.getString("Street"), rs.getString("HouseNumber"),
-					rs.getString("PostalCode"), rs.getInt("AggregatePrice"), aggregation));
+					rs.getString("PostalCode"), rs.getInt("AggregatePrice"), first));
 		}
 		return locations;
 	}
@@ -30,7 +34,7 @@ public class AggregatePriceByBranch extends AbstractQuery<List<BranchLocation>> 
 	protected String getQueryDefinition() {
 		return String.format("SELECT Street, HouseNumber, PostalCode, %s(TotalCost) AS AggregatePrice "
 				+ "FROM RentCost INNER JOIN Reservation ON RentCost.ConfirmationID = Reservation.ConfirmationID "
-				+ "GROUP BY Street, HouseNumber, PostalCode", aggregation);
+				+ "GROUP BY Street, HouseNumber, PostalCode", first);
 	}
 
 }
