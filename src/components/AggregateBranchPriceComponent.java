@@ -8,6 +8,7 @@ import java.awt.Rectangle;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -26,6 +27,7 @@ import model.NestedBranchPrice;
 import queries.AggregatePriceByBranch;
 import queries.IQuery;
 import ui.QueryControl;
+import ui.SpringUtilities;
 
 public class AggregateBranchPriceComponent extends AbstractQueryComponent<NestedBranchPrice> {
 
@@ -112,7 +114,43 @@ public class AggregateBranchPriceComponent extends AbstractQueryComponent<Nested
 			data.add(Arrays.asList(b.getStreet(), b.getHouseNumber(), b.getPostalCode(),
 					Float.toString(b.getAggregatedPrice())));
 		}
+		data.add(Collections.singletonList(Float.toString(t.getAggregatedPrice())));
 		return data;
+	}
+
+	@Override
+	protected void displayData(List<List<String>> data) {
+		List<String> titles = data.remove(0);
+		List<String> price = data.remove(data.size() - 1);
+		int cols = titles.size();
+		int rows = data.size();
+
+		JPanel p = new JPanel(new SpringLayout());
+		mainFrame.setContentPane(p);
+
+		new ResultsTable(titles, data).addTable(p);
+		for (int i = 0; i < cols - 2; i++) {
+			JLabel text = new JLabel("  ", JLabel.TRAILING);
+			p.add(text);
+		}
+		new ResultsTable(Collections.singletonList("Combined Prices"), Collections.singletonList(price)).addTable(p);
+
+		for (int i = 0; i < cols - 1; i++) {
+			JLabel text = new JLabel("  ", JLabel.TRAILING);
+			p.add(text);
+		}
+		JButton returnB = new JButton("Return to Menu");
+		p.add(returnB);
+
+		SpringUtilities.makeCompactGrid(p, rows + 3, cols, 3, 3, 3, 3);
+
+		mainFrame.pack();
+		mainFrame.setVisible(true);
+		returnB.addActionListener(this);
+		returnB.setActionCommand("Return");
+		Dimension d = mainFrame.getToolkit().getScreenSize();
+		Rectangle r = mainFrame.getBounds();
+		mainFrame.setLocation((d.width - r.width) / 2, (d.height - r.height) / 2);
 	}
 
 	@Override

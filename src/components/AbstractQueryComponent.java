@@ -1,6 +1,5 @@
 package components;
 
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -11,7 +10,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -20,7 +18,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
-import javax.swing.border.Border;
 
 import queries.IQuery;
 import ui.MainMenu;
@@ -109,8 +106,8 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 	protected abstract IQuery<T> createQuery(JFormattedTextField[] textFields);
 
 	protected abstract List<List<String>> parseData(T t);
-	
-	protected void displayData(List<List<String>> data){
+
+	protected void displayData(List<List<String>> data) {
 		List<String> titles = data.remove(0);
 		int cols = titles.size();
 		int rows = data.size();
@@ -118,37 +115,17 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 		JPanel p = new JPanel(new SpringLayout());
 		mainFrame.setContentPane(p);
 
-		for (int i = 0; i < cols; i++){
-			JLabel text = new JLabel(titles.get(i));
-	        Border paddingBorder = BorderFactory.createEmptyBorder(8,8,8,8);
-	        Border border = BorderFactory.createLineBorder(Color.BLUE);
-	        text.setBorder(BorderFactory.createCompoundBorder(border,paddingBorder));
-	        text.setOpaque(true);
-	        text.setBackground(Color.WHITE);
-			p.add(text);
-		}
-		
-		for (int r = 0; r < rows; r++) {
-		    for (int c = 0; c < cols; c++) {
-		        JLabel text = new JLabel(data.get(r).get(c));
-		        text.setOpaque(true);
-		        text.setBackground(Color.WHITE);
-		        Border paddingBorder = BorderFactory.createEmptyBorder(8,8,8,8);
-		        Border border = BorderFactory.createLineBorder(Color.GRAY);
-		        text.setBorder(BorderFactory.createCompoundBorder(border,paddingBorder));
-		        p.add(text);
-		    }
-		}
-		
-		for (int i = 0; i < cols-1; i++){
+		new ResultsTable(titles, data).addTable(p);
+
+		for (int i = 0; i < cols - 1; i++) {
 			JLabel text = new JLabel("  ", JLabel.TRAILING);
 			p.add(text);
 		}
 		JButton returnB = new JButton("Return to Menu");
 		p.add(returnB);
-		
-		SpringUtilities.makeCompactGrid(p,rows+2, cols,3,3,3,3);
-		
+
+		SpringUtilities.makeCompactGrid(p, rows + 2, cols, 3, 3, 3, 3);
+
 		mainFrame.pack();
 		mainFrame.setVisible(true);
 		returnB.addActionListener(this);
