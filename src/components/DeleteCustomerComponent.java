@@ -1,23 +1,21 @@
 package components;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
-import model.Customer;
+import model.CustomerDetails;
 import queries.DeleteCustomer;
 import queries.GetAllCustomers;
 import queries.IQuery;
 import ui.AbstractMenu;
 import ui.QueryControl;
 
-public class DeleteCustomerComponent extends AbstractQueryComponent<List<Customer>> {
+public class DeleteCustomerComponent extends AbstractQueryComponent<List<CustomerDetails>> {
 
 	public DeleteCustomerComponent(Connection con, JFrame mainFrame, AbstractMenu menu) {
 		super(con, mainFrame, menu);
@@ -29,18 +27,12 @@ public class DeleteCustomerComponent extends AbstractQueryComponent<List<Custome
 	}
 
 	@Override
-	protected IQuery<List<Customer>> createQuery(JFormattedTextField[] textFields) {
+	protected IQuery<List<CustomerDetails>> createQuery(JFormattedTextField[] textFields) {
 		int customerID = (int) textFields[0].getValue();
-		try {
+		return (con) -> {
 			new DeleteCustomer(customerID).execute(con);
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(mainFrame,
-					String.format("An error occurred during query execution:\n%s", e.getMessage()), "Query Error",
-					JOptionPane.ERROR_MESSAGE);
-			mainFrame.dispose();
-			render();
-		}
-		return new GetAllCustomers();
+			return new GetAllCustomers().execute(con);
+		};
 	}
 
 	@Override
@@ -49,11 +41,11 @@ public class DeleteCustomerComponent extends AbstractQueryComponent<List<Custome
 	}
 
 	@Override
-	protected List<List<String>> parseData(List<Customer> t) {
+	protected List<List<String>> parseData(List<CustomerDetails> t) {
 		List<List<String>> data = new ArrayList<List<String>>();
 		data.add(Arrays.asList("CustomerID", "Name", "PaymentMethod", "PhoneNumber"));
 		for (int i = 0; i < t.size(); i++) {
-			Customer c = t.get(i);
+			CustomerDetails c = t.get(i);
 			data.add(Arrays.asList(Integer.toString(c.getId()), c.getName(), c.getPaymentMethod(), c.getPhoneNumber()));
 		}
 		return data;

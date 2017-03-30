@@ -26,7 +26,7 @@ import ui.SpringUtilities;
 
 public abstract class AbstractQueryComponent<T> implements ActionListener {
 
-	protected final Connection con;
+	private final Connection con;
 
 	protected final JFrame mainFrame;
 

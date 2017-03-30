@@ -5,23 +5,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DeleteCustomer extends AbstractQuery<Void> {
-	int customerID;
-	
+
+	private final int customerID;
+
 	public DeleteCustomer(int custID) {
 		customerID = custID;
 	}
-	
+
 	@Override
 	public Void execute(Connection con) throws SQLException {
 		super.execute(con);
 		con.commit();
 		return null;
-		
 	}
 
 	@Override
 	protected Void parseResult(ResultSet rs) throws SQLException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
