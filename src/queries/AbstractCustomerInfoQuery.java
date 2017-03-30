@@ -20,8 +20,9 @@ abstract class AbstractCustomerInfoQuery extends AbstractQuery<Map<String, Strin
 			for (String attribute : selected) {
 				props.put(attribute, rs.getString(attribute));
 			}
+			return props;
 		}
-		return props;
+		throw new SQLException("No customer found with specified identification");
 	}
 
 	@Override
