@@ -18,7 +18,6 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-//import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import javax.swing.SpringLayout;
 
@@ -29,13 +28,13 @@ import ui.AbstractMenu;
 import ui.QueryControl;
 
 public class CustomerInfoComponent extends AbstractQueryComponent<Map<String, String>> {
-	JCheckBox idButton;
-	JCheckBox nameButton;
-	JCheckBox phoneButton;
-	JCheckBox payButton;
+	private JCheckBox idButton;
+	private JCheckBox nameButton;
+	private JCheckBox phoneButton;
+	private JCheckBox payButton;
 
-	JRadioButton byidButton;
-	JRadioButton bynameButton;
+	private JRadioButton byidButton;
+	private JRadioButton bynameButton;
 
 	public CustomerInfoComponent(Connection con, JFrame mainFrame, AbstractMenu menu) {
 		super(con, mainFrame, menu);
@@ -48,7 +47,6 @@ public class CustomerInfoComponent extends AbstractQueryComponent<Map<String, St
 
 	@Override
 	protected IQuery<Map<String, String>> createQuery(JFormattedTextField[] textFields) {
-		// System.out.println(textFields[0].getText());
 		String nameORid = textFields[0].getText().toString();
 		int CustomerID = 0;
 
