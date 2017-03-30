@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import model.Reservation;
-
 public class DeleteCustomer extends AbstractQuery<Void> {
 	int customerID;
 	

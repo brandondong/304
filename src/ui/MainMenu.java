@@ -14,20 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import components.AbstractQueryComponent;
-import components.AggregateBranchPriceComponent;
-import components.CheckInComponent;
-import components.CheckOutComponent;
-import components.CustomerAllRoomsComponent;
-import components.CustomerInfoComponent;
-import components.LateCheckOutComponent;
-import components.MinOrMaxRoomComponent;
-import components.ModifyReservationComponent;
-import components.ReserveRoomComponent;
-import components.RoomAmenitiesComponent;
-import components.RoomPriceComponent;
-
-public class MainMenu {
+public class MainMenu{
 
 	private final Connection con;
 
@@ -49,15 +36,21 @@ public class MainMenu {
 		c.insets = new Insets(5, 10, 10, 10);
 		c.anchor = GridBagConstraints.CENTER;
 
-		for (AbstractQueryComponent<?> comp : getComponents(con, mainFrame)) {
-			JButton button = new JButton(comp.getDescription());
-			gb.setConstraints(button, c);
-			contentPane.add(button);
-			button.addActionListener((e) -> {
-				mainFrame.dispose();
-				comp.render();
-			});
-		}
+		JButton button1 = new JButton("Customer");
+		gb.setConstraints(button1, c);
+		contentPane.add(button1);
+		button1.addActionListener((e) -> {
+			mainFrame.dispose();
+			new CustomerMenu(con, mainFrame).showMenu();
+		});
+
+		JButton button2 = new JButton("Manager");
+		gb.setConstraints(button2, c);
+		contentPane.add(button2);
+		button2.addActionListener((e) -> {
+			mainFrame.dispose();
+			new ManagerMenu(con, mainFrame).showMenu();
+		});
 
 		mainFrame.addWindowListener(new WindowAdapter() {
 			@Override
@@ -74,14 +67,4 @@ public class MainMenu {
 
 		mainFrame.setVisible(true);
 	}
-
-	private AbstractQueryComponent<?>[] getComponents(Connection con, JFrame mainFrame) {
-		return new AbstractQueryComponent<?>[] { new ReserveRoomComponent(con, mainFrame),
-				new CheckInComponent(con, mainFrame), new ModifyReservationComponent(con, mainFrame),
-				new CheckOutComponent(con, mainFrame), new RoomAmenitiesComponent(con, mainFrame),
-				new RoomPriceComponent(con, mainFrame), new LateCheckOutComponent(con, mainFrame),
-				new CustomerInfoComponent(con, mainFrame), new CustomerAllRoomsComponent(con, mainFrame),
-				new MinOrMaxRoomComponent(con, mainFrame), new AggregateBranchPriceComponent(con, mainFrame) };
-	}
-
 }
