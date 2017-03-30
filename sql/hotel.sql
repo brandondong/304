@@ -54,7 +54,7 @@ create table Room(
 
 create table Customer(
 	CustomerID integer primary key,
-	Name varchar(40),
+	Name varchar(40) not null,
 	PaymentMethod varchar(20),
 	PhoneNumber varchar(20)
 );
@@ -62,7 +62,7 @@ create table Customer(
 create table Reservation(
 	ConfirmationID integer primary key,
 	StartDate date not null,
-	EndDate date not null,--or timestamp?
+	EndDate date not null,
 	RoomNumber integer not null,
 	Street varchar(40) not null,
 	HouseNumber varchar(20) not null,
