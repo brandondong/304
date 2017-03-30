@@ -13,6 +13,9 @@ import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+//import javax.swing.JComboBox;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,13 +23,17 @@ import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
 import queries.CustomerInfo;
+import queries.CustomerInfoByName;
 import queries.IQuery;
 import ui.QueryControl;
 
 public class CustomerInfoComponent extends AbstractQueryComponent<Map<String, String>> {
+	JCheckBox idButton;
 	JCheckBox nameButton;
 	JCheckBox phoneButton;
 	JCheckBox payButton;
+	
+	JRadioButton byidButton;JRadioButton bynameButton;
 	
 	public CustomerInfoComponent(Connection con, JFrame mainFrame) {
 		super(con, mainFrame);
@@ -34,14 +41,20 @@ public class CustomerInfoComponent extends AbstractQueryComponent<Map<String, St
 
 	@Override
 	protected QueryControl[] getFields() {
-		return new QueryControl[] { QueryControl.integer("Enter Customer ID: ")};
+		return new QueryControl[] { QueryControl.text("Enter Customer ID or name: ")};
 	}
 
 	@Override
 	protected IQuery<Map<String, String>> createQuery(JFormattedTextField[] textFields) {
-		int CustomerID = (int) textFields[0].getValue();
+		//System.out.println(textFields[0].getText());
+		String nameORid = textFields[0].getText().toString();
+		int CustomerID=0;
+		
 		List<String> selection = new ArrayList<>();
 		
+		if (idButton.isSelected()){
+			selection.add("CustomerID");
+		}
 		if (nameButton.isSelected()){
 			selection.add("Name");
 		}
@@ -51,9 +64,19 @@ public class CustomerInfoComponent extends AbstractQueryComponent<Map<String, St
 		if (payButton.isSelected()){
 			selection.add("PaymentMethod");
 		}
-		return new CustomerInfo(CustomerID, selection.toArray(new String[selection.size()]));
+		if(byidButton.isSelected()){
+			CustomerID = Integer.parseInt(nameORid);
+			return new CustomerInfo(CustomerID, selection.toArray(new String[selection.size()]));
+			}
+			else{
+				return new CustomerInfoByName(nameORid, selection.toArray(new String[selection.size()]));
+			}
+	
 	}
 
+
+	
+	
 	@Override
 	protected JFormattedTextField[] makeGrid(QueryControl[] fields){
 
@@ -69,22 +92,45 @@ public class CustomerInfoComponent extends AbstractQueryComponent<Map<String, St
 	    
 		JLabel l = new JLabel(fields[0].getLabel(), JLabel.TRAILING);
 		p.add(l);
+		
+		JLabel m = new JLabel("Id or Name?");
+		p.add(m);
+		byidButton=new JRadioButton("By CustomerID");
+		bynameButton=new JRadioButton("By Customer name");
+		p.add(byidButton);
+		p.add(bynameButton);
+		ButtonGroup bgroup1 = new ButtonGroup();
+		bgroup1.add(byidButton);
+		bgroup1.add(bynameButton);
+		byidButton.addActionListener(this);
+	    bynameButton.addActionListener(this);
+	    byidButton.setSelected(true);
+		p.add(new JLabel(" "));
+		
+		
 		JFormattedTextField textField = fields[0].getField();
+		
 		j[0] = textField;
 		l.setLabelFor(textField);
+		
 		p.add(textField);
 		
-		JLabel k = new JLabel("What would you like to retrieve?");
+		JLabel k = new JLabel(" What would you like to retrieve?");
 		p.add(k);
 		
+		idButton = new JCheckBox("CustomerID");
 		nameButton = new JCheckBox("Name");
 	    phoneButton = new JCheckBox("Phone Number");
 	    payButton = new JCheckBox("Payment Method");
 	    
+	    idButton.setSelected(true);
 	    nameButton.setSelected(true);
 	    phoneButton.setSelected(true);
 	    payButton.setSelected(true);
 	    
+	    p.add(idButton);
+		k = new JLabel(" ");
+		p.add(k);
 	    p.add(nameButton);
 		k = new JLabel(" ");
 		p.add(k);
@@ -93,6 +139,7 @@ public class CustomerInfoComponent extends AbstractQueryComponent<Map<String, St
 		p.add(k);
 	    p.add(payButton);
 	    
+	    idButton.addActionListener(this);
 	    nameButton.addActionListener(this);
 	    phoneButton.addActionListener(this);
 	    payButton.addActionListener(this);
@@ -117,7 +164,6 @@ public class CustomerInfoComponent extends AbstractQueryComponent<Map<String, St
 		Rectangle r = mainFrame.getBounds();
 		mainFrame.setLocation((d.width - r.width) / 2, (d.height - r.height) / 2);
 		mainFrame.setVisible(true);
-        
 		return j;
 	}
 	
@@ -131,6 +177,8 @@ public class CustomerInfoComponent extends AbstractQueryComponent<Map<String, St
 		for (int i = 0; i < titles.size(); i++)
 			entries.add(t.get(titles.get(i)));
 		data.add(entries);
+		
+
 		return data;
 	}
 
@@ -139,3 +187,4 @@ public class CustomerInfoComponent extends AbstractQueryComponent<Map<String, St
 		return "Query Customer Information";
 	}
 }
+
