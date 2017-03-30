@@ -8,6 +8,7 @@ import components.AbstractQueryComponent;
 import components.AggregateBranchPriceComponent;
 import components.CustomerAllRoomsComponent;
 import components.CustomerInfoComponent;
+import components.DeleteCustomerComponent;
 import components.LateCheckOutComponent;
 import components.MinOrMaxRoomComponent;
 import components.ModifyReservationComponent;
@@ -27,7 +28,8 @@ public class ManagerMenu extends AbstractMenu{
 				new RoomAmenitiesComponent(con, mainFrame),
 				new RoomPriceComponent(con, mainFrame), new LateCheckOutComponent(con, mainFrame),
 				new CustomerInfoComponent(con, mainFrame), new CustomerAllRoomsComponent(con, mainFrame),
-				new MinOrMaxRoomComponent(con, mainFrame), new AggregateBranchPriceComponent(con, mainFrame) };
+				new MinOrMaxRoomComponent(con, mainFrame), new AggregateBranchPriceComponent(con, mainFrame),
+				new DeleteCustomerComponent(con, mainFrame)};
 	}
 
 }
