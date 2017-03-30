@@ -11,12 +11,13 @@ import javax.swing.JFrame;
 import model.RoomWithAmenities;
 import queries.IQuery;
 import queries.RoomAmenities;
+import ui.AbstractMenu;
 import ui.QueryControl;
 
 public class RoomAmenitiesComponent extends AbstractQueryComponent<RoomWithAmenities> {
 
-	public RoomAmenitiesComponent(Connection con, JFrame mainFrame) {
-		super(con, mainFrame);
+	public RoomAmenitiesComponent(Connection con, JFrame mainFrame, AbstractMenu menu) {
+		super(con, mainFrame, menu);
 	}
 
 	@Override

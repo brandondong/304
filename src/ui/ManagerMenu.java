@@ -15,21 +15,20 @@ import components.ModifyReservationComponent;
 import components.RoomAmenitiesComponent;
 import components.RoomPriceComponent;
 
-public class ManagerMenu extends AbstractMenu{
+public class ManagerMenu extends AbstractMenu {
 
 	public ManagerMenu(Connection con, JFrame mainFrame) {
 		super(con, mainFrame);
 	}
-	
+
 	@Override
 	protected AbstractQueryComponent<?>[] getComponents(Connection con, JFrame mainFrame) {
-		return new AbstractQueryComponent<?>[] {
-				new ModifyReservationComponent(con, mainFrame),
-				new RoomAmenitiesComponent(con, mainFrame),
-				new RoomPriceComponent(con, mainFrame), new LateCheckOutComponent(con, mainFrame),
-				new CustomerInfoComponent(con, mainFrame), new CustomerAllRoomsComponent(con, mainFrame),
-				new MinOrMaxRoomComponent(con, mainFrame), new AggregateBranchPriceComponent(con, mainFrame),
-				new DeleteCustomerComponent(con, mainFrame)};
+		return new AbstractQueryComponent<?>[] { new ModifyReservationComponent(con, mainFrame, this),
+				new RoomAmenitiesComponent(con, mainFrame, this), new RoomPriceComponent(con, mainFrame, this),
+				new LateCheckOutComponent(con, mainFrame, this), new CustomerInfoComponent(con, mainFrame, this),
+				new CustomerAllRoomsComponent(con, mainFrame, this), new MinOrMaxRoomComponent(con, mainFrame, this),
+				new AggregateBranchPriceComponent(con, mainFrame, this),
+				new DeleteCustomerComponent(con, mainFrame, this) };
 	}
 
 }

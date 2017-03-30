@@ -2,27 +2,25 @@ package components;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import model.Customer;
-import model.Room;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import queries.DeleteCustomer;
-import queries.IQuery;
 import queries.GetAllCustomers;
+import queries.IQuery;
+import ui.AbstractMenu;
 import ui.QueryControl;
 
 public class DeleteCustomerComponent extends AbstractQueryComponent<List<Customer>> {
 
-	public DeleteCustomerComponent(Connection con, JFrame mainFrame) {
-		super(con, mainFrame);
+	public DeleteCustomerComponent(Connection con, JFrame mainFrame, AbstractMenu menu) {
+		super(con, mainFrame, menu);
 	}
 
 	@Override
@@ -54,7 +52,7 @@ public class DeleteCustomerComponent extends AbstractQueryComponent<List<Custome
 	protected List<List<String>> parseData(List<Customer> t) {
 		List<List<String>> data = new ArrayList<List<String>>();
 		data.add(Arrays.asList("CustomerID", "Name", "PaymentMethod", "PhoneNumber"));
-		for (int i = 0; i < t.size(); i++){
+		for (int i = 0; i < t.size(); i++) {
 			Customer c = t.get(i);
 			data.add(Arrays.asList(Integer.toString(c.getId()), c.getName(), c.getPaymentMethod(), c.getPhoneNumber()));
 		}

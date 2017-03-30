@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
 import queries.IQuery;
-import ui.MainMenu;
+import ui.AbstractMenu;
 import ui.QueryControl;
 import ui.SpringUtilities;
 
@@ -32,9 +32,12 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 
 	private JFormattedTextField textFields[];
 
-	public AbstractQueryComponent(Connection con, JFrame mainFrame) {
+	private final AbstractMenu menu;
+
+	public AbstractQueryComponent(Connection con, JFrame mainFrame, AbstractMenu menu) {
 		this.con = con;
 		this.mainFrame = mainFrame;
+		this.menu = menu;
 	}
 
 	public void render() {
@@ -53,7 +56,7 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 			}
 		} else if (cmd.equals("Return")) {
 			mainFrame.dispose();
-			new MainMenu(con, mainFrame).showMenu();
+			menu.showMenu();
 		}
 	}
 

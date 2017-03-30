@@ -11,12 +11,13 @@ import javax.swing.JFrame;
 import model.Reservation;
 import queries.IQuery;
 import queries.ModifyReservation;
+import ui.AbstractMenu;
 import ui.QueryControl;
 
 public class ModifyReservationComponent extends AbstractQueryComponent<Reservation> {
 
-	public ModifyReservationComponent(Connection con, JFrame mainFrame) {
-		super(con, mainFrame);
+	public ModifyReservationComponent(Connection con, JFrame mainFrame, AbstractMenu menu) {
+		super(con, mainFrame, menu);
 	}
 
 	@Override
@@ -44,10 +45,11 @@ public class ModifyReservationComponent extends AbstractQueryComponent<Reservati
 	@Override
 	protected List<List<String>> parseData(Reservation t) {
 		List<List<String>> data = new ArrayList<List<String>>();
-		data.add(Arrays.asList("ConfirmationID", "StartDate", "EndDate", "RoomNumber", "Street",
-				"HouseNumber", "PostalCode", "CustomerID"));
+		data.add(Arrays.asList("ConfirmationID", "StartDate", "EndDate", "RoomNumber", "Street", "HouseNumber",
+				"PostalCode", "CustomerID"));
 		data.add(Arrays.asList(Integer.toString(t.getConfirmationID()), t.getStartDate(), t.getEndDate(),
-				Integer.toString(t.getRoomNumber()), t.getStreet(), t.getPostalCode(), Integer.toString(t.getCustomerID())));
+				Integer.toString(t.getRoomNumber()), t.getStreet(), t.getPostalCode(),
+				Integer.toString(t.getCustomerID())));
 		return data;
 	}
 

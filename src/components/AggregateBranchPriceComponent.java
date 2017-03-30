@@ -26,6 +26,7 @@ import model.BranchLocation;
 import model.NestedBranchPrice;
 import queries.AggregatePriceByBranch;
 import queries.IQuery;
+import ui.AbstractMenu;
 import ui.QueryControl;
 import ui.SpringUtilities;
 
@@ -35,8 +36,8 @@ public class AggregateBranchPriceComponent extends AbstractQueryComponent<Nested
 
 	private JComboBox<AggregateOperation> secondAggregation;
 
-	public AggregateBranchPriceComponent(Connection con, JFrame mainFrame) {
-		super(con, mainFrame);
+	public AggregateBranchPriceComponent(Connection con, JFrame mainFrame, AbstractMenu menu) {
+		super(con, mainFrame, menu);
 	}
 
 	@Override

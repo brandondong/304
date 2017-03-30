@@ -15,17 +15,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import components.AbstractQueryComponent;
-import components.AggregateBranchPriceComponent;
-import components.CheckInComponent;
-import components.CheckOutComponent;
-import components.CustomerAllRoomsComponent;
-import components.CustomerInfoComponent;
-import components.LateCheckOutComponent;
-import components.MinOrMaxRoomComponent;
-import components.ModifyReservationComponent;
-import components.ReserveRoomComponent;
-import components.RoomAmenitiesComponent;
-import components.RoomPriceComponent;
 
 public abstract class AbstractMenu {
 
@@ -58,7 +47,7 @@ public abstract class AbstractMenu {
 				comp.render();
 			});
 		}
-		
+
 		JButton b = new JButton("Change user type");
 		gb.setConstraints(b, c);
 		contentPane.add(b);
@@ -83,12 +72,5 @@ public abstract class AbstractMenu {
 		mainFrame.setVisible(true);
 	}
 
-	protected AbstractQueryComponent<?>[] getComponents(Connection con, JFrame mainFrame) {
-		return new AbstractQueryComponent<?>[] { new ReserveRoomComponent(con, mainFrame),
-				new CheckInComponent(con, mainFrame), new ModifyReservationComponent(con, mainFrame),
-				new CheckOutComponent(con, mainFrame), new RoomAmenitiesComponent(con, mainFrame),
-				new RoomPriceComponent(con, mainFrame), new LateCheckOutComponent(con, mainFrame),
-				new CustomerInfoComponent(con, mainFrame), new CustomerAllRoomsComponent(con, mainFrame),
-				new MinOrMaxRoomComponent(con, mainFrame), new AggregateBranchPriceComponent(con, mainFrame) };
-	}
+	protected abstract AbstractQueryComponent<?>[] getComponents(Connection con, JFrame mainFrame);
 }

@@ -1,21 +1,21 @@
 package components;
 
 import java.sql.Connection;
+import java.util.List;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import java.util.List;
-
 import queries.CheckIn;
 import queries.IQuery;
+import ui.AbstractMenu;
 import ui.QueryControl;
 
 public class CheckInComponent extends AbstractQueryComponent<Void> {
 
-	public CheckInComponent(Connection con, JFrame mainFrame) {
-		super(con, mainFrame);
+	public CheckInComponent(Connection con, JFrame mainFrame, AbstractMenu menu) {
+		super(con, mainFrame, menu);
 	}
 
 	@Override
@@ -44,8 +44,9 @@ public class CheckInComponent extends AbstractQueryComponent<Void> {
 		return "Check In";
 	}
 
-	protected List<List<String>> parseData(Void t)  {
+	@Override
+	protected List<List<String>> parseData(Void t) {
 		return null;
 	}
-	
+
 }

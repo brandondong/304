@@ -23,20 +23,21 @@ import javax.swing.SpringLayout;
 import model.Room;
 import queries.IQuery;
 import queries.RoomAboveOrBelowPrice;
+import ui.AbstractMenu;
 import ui.QueryControl;
 
 public class RoomPriceComponent extends AbstractQueryComponent<List<Room>> {
 	JRadioButton aboveButton;
-    JRadioButton belowButton;
-    
-	public RoomPriceComponent(Connection con, JFrame mainFrame) {
-		super(con, mainFrame);
+	JRadioButton belowButton;
+
+	public RoomPriceComponent(Connection con, JFrame mainFrame, AbstractMenu menu) {
+		super(con, mainFrame, menu);
 	}
 
 	@Override
 	protected QueryControl[] getFields() {
 		return new QueryControl[] { QueryControl.integer("Enter Price Threshold:  "),
-				QueryControl.text("Enter Street: "), QueryControl.text("Enter House Number: "), 
+				QueryControl.text("Enter Street: "), QueryControl.text("Enter House Number: "),
 				QueryControl.text("Enter Postal Code: ") };
 	}
 
@@ -59,18 +60,18 @@ public class RoomPriceComponent extends AbstractQueryComponent<List<Room>> {
 	protected List<List<String>> parseData(List<Room> t) {
 		List<List<String>> data = new ArrayList<List<String>>();
 		data.add(Arrays.asList("RoomNumber", "RoomPrice"));
-		for (int i = 0; i < t.size(); i++){
+		for (int i = 0; i < t.size(); i++) {
 			Room b = t.get(i);
 			data.add(Arrays.asList(Integer.toString(b.getRoomNumber()), Integer.toString(b.getRoomPrice())));
 		}
 		return data;
 	}
-	
+
 	@Override
-	protected JFormattedTextField[] makeGrid(QueryControl[] fields){
+	protected JFormattedTextField[] makeGrid(QueryControl[] fields) {
 		int numFields = fields.length;
 		JFormattedTextField j[] = new JFormattedTextField[numFields];
-		
+
 		Insets insets = mainFrame.getInsets();
 		mainFrame.setSize(new Dimension(insets.left + insets.right + 500, insets.top + insets.bottom + 500));
 		Container contentPane = mainFrame.getContentPane();
@@ -78,7 +79,7 @@ public class RoomPriceComponent extends AbstractQueryComponent<List<Room>> {
 		contentPane.setLayout(layout);
 		JPanel p = new JPanel(new GridLayout(0, 2));
 		mainFrame.setContentPane(p);
-	    
+
 		for (int i = 0; i < numFields; i++) {
 			JLabel l = new JLabel(fields[i].getLabel(), JLabel.TRAILING);
 			p.add(l);
@@ -87,48 +88,48 @@ public class RoomPriceComponent extends AbstractQueryComponent<List<Room>> {
 			l.setLabelFor(textField);
 			p.add(textField);
 		}
-		
+
 		JLabel k = new JLabel("What would you like to retrieve?");
 		p.add(k);
-		
+
 		aboveButton = new JRadioButton("Rooms Above Threshold");
-	    belowButton = new JRadioButton("Rooms Below Threshold");
-	    
-	    aboveButton.setSelected(true);
-	    
-	    p.add(aboveButton);
+		belowButton = new JRadioButton("Rooms Below Threshold");
+
+		aboveButton.setSelected(true);
+
+		p.add(aboveButton);
 		k = new JLabel(" ");
 		p.add(k);
-	    p.add(belowButton);
-	    
-	    aboveButton.addActionListener(this);
-	    belowButton.addActionListener(this);
-        
-	    ButtonGroup bg1 = new ButtonGroup( );
-	    bg1.add(aboveButton);
-	    bg1.add(belowButton);
-	    
+		p.add(belowButton);
+
+		aboveButton.addActionListener(this);
+		belowButton.addActionListener(this);
+
+		ButtonGroup bg1 = new ButtonGroup();
+		bg1.add(aboveButton);
+		bg1.add(belowButton);
+
 		k = new JLabel(" ");
 		p.add(k);
 		JButton finish = new JButton("Finish");
 		p.add(finish);
 		finish.addActionListener(this);
 		finish.setActionCommand("Finish");
-		
+
 		k = new JLabel(" ");
 		p.add(k);
 		JButton returnB = new JButton("Return to Menu");
 		p.add(returnB);
 		returnB.addActionListener(this);
 		returnB.setActionCommand("Return");
-        
+
 		p.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-	    mainFrame.pack();
+		mainFrame.pack();
 		Dimension d = mainFrame.getToolkit().getScreenSize();
 		Rectangle r = mainFrame.getBounds();
 		mainFrame.setLocation((d.width - r.width) / 2, (d.height - r.height) / 2);
 		mainFrame.setVisible(true);
-        
+
 		return j;
 	}
 

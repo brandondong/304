@@ -23,20 +23,21 @@ import javax.swing.SpringLayout;
 import model.Room;
 import queries.IQuery;
 import queries.MinOrMaxPricedRoom;
+import ui.AbstractMenu;
 import ui.QueryControl;
 
 public class MinOrMaxRoomComponent extends AbstractQueryComponent<List<Room>> {
 	JRadioButton MaxButton;
-    JRadioButton MinButton;
-    
-	public MinOrMaxRoomComponent(Connection con, JFrame mainFrame) {
-		super(con, mainFrame);
+	JRadioButton MinButton;
+
+	public MinOrMaxRoomComponent(Connection con, JFrame mainFrame, AbstractMenu menu) {
+		super(con, mainFrame, menu);
 	}
 
 	@Override
 	protected QueryControl[] getFields() {
 		return new QueryControl[] { QueryControl.text("Enter House Number: "), QueryControl.text("Enter Street: "),
-				QueryControl.text("Enter Postal Code: ")};
+				QueryControl.text("Enter Postal Code: ") };
 	}
 
 	@Override
@@ -57,18 +58,18 @@ public class MinOrMaxRoomComponent extends AbstractQueryComponent<List<Room>> {
 	protected List<List<String>> parseData(List<Room> t) {
 		List<List<String>> data = new ArrayList<List<String>>();
 		data.add(Arrays.asList("Room Number", "Room Price"));
-		for (int i = 0; i < t.size(); i++){
+		for (int i = 0; i < t.size(); i++) {
 			Room b = t.get(i);
 			data.add(Arrays.asList(Integer.toString(b.getRoomNumber()), Integer.toString(b.getRoomPrice())));
 		}
 		return data;
 	}
-	
+
 	@Override
-	protected JFormattedTextField[] makeGrid(QueryControl[] fields){
+	protected JFormattedTextField[] makeGrid(QueryControl[] fields) {
 		int numFields = fields.length;
 		JFormattedTextField j[] = new JFormattedTextField[numFields];
-		
+
 		Insets insets = mainFrame.getInsets();
 		mainFrame.setSize(new Dimension(insets.left + insets.right + 500, insets.top + insets.bottom + 500));
 		Container contentPane = mainFrame.getContentPane();
@@ -76,7 +77,7 @@ public class MinOrMaxRoomComponent extends AbstractQueryComponent<List<Room>> {
 		contentPane.setLayout(layout);
 		JPanel p = new JPanel(new GridLayout(0, 2));
 		mainFrame.setContentPane(p);
-	    
+
 		for (int i = 0; i < numFields; i++) {
 			JLabel l = new JLabel(fields[i].getLabel(), JLabel.TRAILING);
 			p.add(l);
@@ -85,48 +86,48 @@ public class MinOrMaxRoomComponent extends AbstractQueryComponent<List<Room>> {
 			l.setLabelFor(textField);
 			p.add(textField);
 		}
-		
+
 		JLabel k = new JLabel("What would you like to retrieve?");
 		p.add(k);
-		
+
 		MaxButton = new JRadioButton("Max Price");
-	    MinButton = new JRadioButton("Min Price");
-	    
-	    MaxButton.setSelected(true);
-	    
-	    p.add(MaxButton);
+		MinButton = new JRadioButton("Min Price");
+
+		MaxButton.setSelected(true);
+
+		p.add(MaxButton);
 		k = new JLabel(" ");
 		p.add(k);
-	    p.add(MinButton);
-	    
-	    MaxButton.addActionListener(this);
-	    MinButton.addActionListener(this);
-        
-	    ButtonGroup bg1 = new ButtonGroup( );
-	    bg1.add(MaxButton);
-	    bg1.add(MinButton);
-	    
+		p.add(MinButton);
+
+		MaxButton.addActionListener(this);
+		MinButton.addActionListener(this);
+
+		ButtonGroup bg1 = new ButtonGroup();
+		bg1.add(MaxButton);
+		bg1.add(MinButton);
+
 		k = new JLabel(" ");
 		p.add(k);
 		JButton finish = new JButton("Finish");
 		p.add(finish);
 		finish.addActionListener(this);
 		finish.setActionCommand("Finish");
-		
+
 		k = new JLabel(" ");
 		p.add(k);
 		JButton returnB = new JButton("Return to Menu");
 		p.add(returnB);
 		returnB.addActionListener(this);
 		returnB.setActionCommand("Return");
-        
+
 		p.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-	    mainFrame.pack();
+		mainFrame.pack();
 		Dimension d = mainFrame.getToolkit().getScreenSize();
 		Rectangle r = mainFrame.getBounds();
 		mainFrame.setLocation((d.width - r.width) / 2, (d.height - r.height) / 2);
 		mainFrame.setVisible(true);
-        
+
 		return j;
 	}
 

@@ -11,20 +11,21 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-//import javax.swing.JComboBox;
-import javax.swing.JRadioButton;
-import javax.swing.ButtonGroup;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+//import javax.swing.JComboBox;
+import javax.swing.JRadioButton;
 import javax.swing.SpringLayout;
 
 import queries.CustomerInfo;
 import queries.CustomerInfoByName;
 import queries.IQuery;
+import ui.AbstractMenu;
 import ui.QueryControl;
 
 public class CustomerInfoComponent extends AbstractQueryComponent<Map<String, String>> {
@@ -32,56 +33,53 @@ public class CustomerInfoComponent extends AbstractQueryComponent<Map<String, St
 	JCheckBox nameButton;
 	JCheckBox phoneButton;
 	JCheckBox payButton;
-	
-	JRadioButton byidButton;JRadioButton bynameButton;
-	
-	public CustomerInfoComponent(Connection con, JFrame mainFrame) {
-		super(con, mainFrame);
+
+	JRadioButton byidButton;
+	JRadioButton bynameButton;
+
+	public CustomerInfoComponent(Connection con, JFrame mainFrame, AbstractMenu menu) {
+		super(con, mainFrame, menu);
 	}
 
 	@Override
 	protected QueryControl[] getFields() {
-		return new QueryControl[] { QueryControl.text("Enter Customer ID or name: ")};
+		return new QueryControl[] { QueryControl.text("Enter Customer ID or name: ") };
 	}
 
 	@Override
 	protected IQuery<Map<String, String>> createQuery(JFormattedTextField[] textFields) {
-		//System.out.println(textFields[0].getText());
+		// System.out.println(textFields[0].getText());
 		String nameORid = textFields[0].getText().toString();
-		int CustomerID=0;
-		
+		int CustomerID = 0;
+
 		List<String> selection = new ArrayList<>();
-		
-		if (idButton.isSelected()){
+
+		if (idButton.isSelected()) {
 			selection.add("CustomerID");
 		}
-		if (nameButton.isSelected()){
+		if (nameButton.isSelected()) {
 			selection.add("Name");
 		}
-		if (phoneButton.isSelected()){
+		if (phoneButton.isSelected()) {
 			selection.add("PhoneNumber");
 		}
-		if (payButton.isSelected()){
+		if (payButton.isSelected()) {
 			selection.add("PaymentMethod");
 		}
-		if(byidButton.isSelected()){
+		if (byidButton.isSelected()) {
 			CustomerID = Integer.parseInt(nameORid);
 			return new CustomerInfo(CustomerID, selection.toArray(new String[selection.size()]));
-			}
-			else{
-				return new CustomerInfoByName(nameORid, selection.toArray(new String[selection.size()]));
-			}
-	
+		} else {
+			return new CustomerInfoByName(nameORid, selection.toArray(new String[selection.size()]));
+		}
+
 	}
 
-
-	
-	
 	@Override
-	protected JFormattedTextField[] makeGrid(QueryControl[] fields){
+	protected JFormattedTextField[] makeGrid(QueryControl[] fields) {
 
 		JFormattedTextField j[] = new JFormattedTextField[1];
-		
+
 		Insets insets = mainFrame.getInsets();
 		mainFrame.setSize(new Dimension(insets.left + insets.right + 500, insets.top + insets.bottom + 500));
 		Container contentPane = mainFrame.getContentPane();
@@ -89,84 +87,83 @@ public class CustomerInfoComponent extends AbstractQueryComponent<Map<String, St
 		contentPane.setLayout(layout);
 		JPanel p = new JPanel(new GridLayout(0, 2));
 		mainFrame.setContentPane(p);
-	    
+
 		JLabel l = new JLabel(fields[0].getLabel(), JLabel.TRAILING);
 		p.add(l);
-		
+
 		JLabel m = new JLabel("Id or Name?");
 		p.add(m);
-		byidButton=new JRadioButton("By CustomerID");
-		bynameButton=new JRadioButton("By Customer name");
+		byidButton = new JRadioButton("By CustomerID");
+		bynameButton = new JRadioButton("By Customer name");
 		p.add(byidButton);
 		p.add(bynameButton);
 		ButtonGroup bgroup1 = new ButtonGroup();
 		bgroup1.add(byidButton);
 		bgroup1.add(bynameButton);
 		byidButton.addActionListener(this);
-	    bynameButton.addActionListener(this);
-	    byidButton.setSelected(true);
+		bynameButton.addActionListener(this);
+		byidButton.setSelected(true);
 		p.add(new JLabel(" "));
-		
-		
+
 		JFormattedTextField textField = fields[0].getField();
-		
+
 		j[0] = textField;
 		l.setLabelFor(textField);
-		
+
 		p.add(textField);
-		
+
 		JLabel k = new JLabel(" What would you like to retrieve?");
 		p.add(k);
-		
+
 		idButton = new JCheckBox("CustomerID");
 		nameButton = new JCheckBox("Name");
-	    phoneButton = new JCheckBox("Phone Number");
-	    payButton = new JCheckBox("Payment Method");
-	    
-	    idButton.setSelected(true);
-	    nameButton.setSelected(true);
-	    phoneButton.setSelected(true);
-	    payButton.setSelected(true);
-	    
-	    p.add(idButton);
+		phoneButton = new JCheckBox("Phone Number");
+		payButton = new JCheckBox("Payment Method");
+
+		idButton.setSelected(true);
+		nameButton.setSelected(true);
+		phoneButton.setSelected(true);
+		payButton.setSelected(true);
+
+		p.add(idButton);
 		k = new JLabel(" ");
 		p.add(k);
-	    p.add(nameButton);
+		p.add(nameButton);
 		k = new JLabel(" ");
 		p.add(k);
-	    p.add(phoneButton);
+		p.add(phoneButton);
 		k = new JLabel(" ");
 		p.add(k);
-	    p.add(payButton);
-	    
-	    idButton.addActionListener(this);
-	    nameButton.addActionListener(this);
-	    phoneButton.addActionListener(this);
-	    payButton.addActionListener(this);
-        
+		p.add(payButton);
+
+		idButton.addActionListener(this);
+		nameButton.addActionListener(this);
+		phoneButton.addActionListener(this);
+		payButton.addActionListener(this);
+
 		k = new JLabel(" ");
 		p.add(k);
 		JButton finish = new JButton("Finish");
 		p.add(finish);
 		finish.addActionListener(this);
 		finish.setActionCommand("Finish");
-		
+
 		k = new JLabel(" ");
 		p.add(k);
 		JButton returnB = new JButton("Return to Menu");
 		p.add(returnB);
 		returnB.addActionListener(this);
 		returnB.setActionCommand("Return");
-        
+
 		p.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-	    mainFrame.pack();
+		mainFrame.pack();
 		Dimension d = mainFrame.getToolkit().getScreenSize();
 		Rectangle r = mainFrame.getBounds();
 		mainFrame.setLocation((d.width - r.width) / 2, (d.height - r.height) / 2);
 		mainFrame.setVisible(true);
 		return j;
 	}
-	
+
 	@Override
 	protected List<List<String>> parseData(Map<String, String> t) {
 		List<List<String>> data = new ArrayList<List<String>>();
@@ -177,7 +174,6 @@ public class CustomerInfoComponent extends AbstractQueryComponent<Map<String, St
 		for (int i = 0; i < titles.size(); i++)
 			entries.add(t.get(titles.get(i)));
 		data.add(entries);
-		
 
 		return data;
 	}
@@ -187,4 +183,3 @@ public class CustomerInfoComponent extends AbstractQueryComponent<Map<String, St
 		return "Query Customer Information";
 	}
 }
-
