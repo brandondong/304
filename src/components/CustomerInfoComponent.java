@@ -65,9 +65,15 @@ public class CustomerInfoComponent extends AbstractQueryComponent<Map<String, St
 			selection.add("PaymentMethod");
 		}
 		if (byidButton.isSelected()) {
-			CustomerID = Integer.parseInt(nameORid);
+			try {
+				CustomerID = Integer.parseInt(nameORid);
+			} catch (NumberFormatException e) {
+				return new CustomerInfo(-1, selection.toArray(new String[selection.size()]));
+			}	
 			return new CustomerInfo(CustomerID, selection.toArray(new String[selection.size()]));
-		} else {
+		}
+		
+		else {
 			return new CustomerInfoByName(nameORid, selection.toArray(new String[selection.size()]));
 		}
 
