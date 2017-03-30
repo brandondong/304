@@ -141,6 +141,8 @@ Insert into Manager values ('Agarr St', '1231C', 'P9N 8A5',1005,'Maurus Burkhart
 Insert into Reservation values (2001,to_date('2015/10/10', 'yyyy/mm/dd'),to_date('2015/11/10', 'yyyy/mm/dd'),101,'Ackman Ave', '4150A', 'V6N 2Z5',5100);
 Insert into Reservation values (2002,to_date('2015/11/11', 'yyyy/mm/dd'),to_date('2015/11/15', 'yyyy/mm/dd'),102,'Ackman Ave', '4150A', 'V6N 2Z5',5100);
 Insert into Reservation values (2003,to_date('2015/11/16', 'yyyy/mm/dd'),to_date('2015/11/19', 'yyyy/mm/dd'),202,'Ackman Ave', '4150A', 'V6N 2Z5',5100);
+Insert into Reservation values (2015,to_date('2015/12/22', 'yyyy/mm/dd'),to_date('2015/12/23', 'yyyy/mm/dd'),201,'Ackman Ave', '4150A', 'V6N 2Z5',5100);
+
 Insert into Reservation values (2004,to_date('2015/11/20', 'yyyy/mm/dd'),to_date('2015/11/29', 'yyyy/mm/dd'),301,'Ackman Ave', '4150A', 'V6N 2Z5',5100);
 Insert into Reservation values (2005,to_date('2015/03/20', 'yyyy/mm/dd'),to_date('2015/04/29', 'yyyy/mm/dd'),111,'Rupert St', '8777', 'V7R 9B8',5101);
 Insert into Reservation values (2006,to_date('2015/07/22', 'yyyy/mm/dd'),to_date('2015/07/24', 'yyyy/mm/dd'),201,'Tower St', '192', 'G6H 7B5',5102);
@@ -163,6 +165,7 @@ Insert into RentCost values (2007,2970);
 Insert into RentCost values (2008,1300);
 Insert into RentCost values (2009,1600);
 Insert into RentCost values (2010,200);
+Insert into RentCost values (2015,180);
 
 
 --null
