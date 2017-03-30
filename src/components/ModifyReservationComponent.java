@@ -48,7 +48,7 @@ public class ModifyReservationComponent extends AbstractQueryComponent<Reservati
 		data.add(Arrays.asList("ConfirmationID", "StartDate", "EndDate", "RoomNumber", "Street", "HouseNumber",
 				"PostalCode", "CustomerID"));
 		data.add(Arrays.asList(Integer.toString(t.getConfirmationID()), t.getStartDate(), t.getEndDate(),
-				Integer.toString(t.getRoomNumber()), t.getStreet(), t.getPostalCode(),
+				Integer.toString(t.getRoomNumber()), t.getStreet(), t.getHouseNumber(), t.getPostalCode(),
 				Integer.toString(t.getCustomerID())));
 		return data;
 	}
