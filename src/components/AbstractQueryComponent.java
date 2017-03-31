@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
@@ -116,7 +117,9 @@ public abstract class AbstractQueryComponent<T> implements ActionListener {
 		int rows = data.size();
 
 		JPanel p = new JPanel(new SpringLayout());
-		mainFrame.setContentPane(p);
+		JScrollPane scrPane = new JScrollPane(p);
+		mainFrame.setContentPane(scrPane);
+		//mainFrame.setContentPane(p);
 
 		new ResultsTable(titles, data).addTable(p);
 

@@ -9,12 +9,13 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 
 import model.Reservation;
+import queries.GetAllReservations;
 import queries.IQuery;
 import queries.ModifyReservation;
 import ui.AbstractMenu;
 import ui.QueryControl;
 
-public class ModifyReservationComponent extends AbstractQueryComponent<Reservation> {
+public class ModifyReservationComponent extends AbstractQueryComponent<List<Reservation>> {
 
 	public ModifyReservationComponent(Connection con, JFrame mainFrame, AbstractMenu menu) {
 		super(con, mainFrame, menu);
@@ -28,13 +29,17 @@ public class ModifyReservationComponent extends AbstractQueryComponent<Reservati
 	}
 
 	@Override
-	protected IQuery<Reservation> createQuery(JFormattedTextField[] textFields) {
+	protected IQuery<List<Reservation>> createQuery(JFormattedTextField[] textFields) {
 		String CheckIn = textFields[0].getText().replace("-", "");
 		String Checkout = textFields[1].getText().replace("-", "");
 		int ConfirmationID = (int) textFields[2].getValue();
 		int custID = (int) textFields[3].getValue();
 
-		return new ModifyReservation(CheckIn, Checkout, ConfirmationID, custID);
+		return (con) -> {
+			new ModifyReservation(CheckIn, Checkout, ConfirmationID, custID).execute(con);
+			return new GetAllReservations().execute(con);
+		};
+	
 	}
 
 	@Override
@@ -43,13 +48,16 @@ public class ModifyReservationComponent extends AbstractQueryComponent<Reservati
 	}
 
 	@Override
-	protected List<List<String>> parseData(Reservation t) {
+	protected List<List<String>> parseData(List<Reservation> t) {
 		List<List<String>> data = new ArrayList<List<String>>();
 		data.add(Arrays.asList("ConfirmationID", "StartDate", "EndDate", "RoomNumber", "Street", "HouseNumber",
 				"PostalCode", "CustomerID"));
-		data.add(Arrays.asList(Integer.toString(t.getConfirmationID()), t.getStartDate(), t.getEndDate(),
-				Integer.toString(t.getRoomNumber()), t.getStreet(), t.getHouseNumber(), t.getPostalCode(),
-				Integer.toString(t.getCustomerID())));
+		for (int i = 0; i < t.size(); i++) {
+			Reservation r = t.get(i);
+			data.add(Arrays.asList(Integer.toString(r.getConfirmationID()), r.getStartDate(), r.getEndDate(),
+					Integer.toString(r.getRoomNumber()), r.getStreet(), r.getHouseNumber(), r.getPostalCode(),
+					Integer.toString(r.getCustomerID())));
+		}
 		return data;
 	}
 
