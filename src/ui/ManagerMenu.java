@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 
 import components.AbstractQueryComponent;
 import components.AggregateBranchPriceComponent;
+import components.AggregateManagerSalariesComponent;
 import components.CustomerAllRoomsComponent;
 import components.CustomerInfoComponent;
 import components.DeleteCustomerComponent;
@@ -27,8 +28,8 @@ public class ManagerMenu extends AbstractMenu {
 				new RoomAmenitiesComponent(con, mainFrame, this), new RoomPriceComponent(con, mainFrame, this),
 				new LateCheckOutComponent(con, mainFrame, this), new CustomerInfoComponent(con, mainFrame, this),
 				new CustomerAllRoomsComponent(con, mainFrame, this), new MinOrMaxRoomComponent(con, mainFrame, this),
-				new AggregateBranchPriceComponent(con, mainFrame, this),
-				new DeleteCustomerComponent(con, mainFrame, this) };
+				new AggregateBranchPriceComponent(con, mainFrame, this), new DeleteCustomerComponent(con, mainFrame, this),
+				new AggregateManagerSalariesComponent(con, mainFrame, this)};
 	}
 
 }
